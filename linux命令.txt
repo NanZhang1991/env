@@ -43,3 +43,15 @@ ps -ef |grep python
 
 关闭进程
 kill -9 26879(PID)
+
+
+yum -y install gcc
+yum install python-devel
+yum install gcc libffi-devel python-devel openssl-devel
+yum install -y libffi-devel python-devel openssl-devel
+yum -y install blas blas-devel lapack-devel lapack
+yum -y install seaborn scipy
+yum -y install freetype freetype-devel libpng libpng-devel
+yum -y install python-pip
+yum -y install pytz
+yum -y install python-dateu
