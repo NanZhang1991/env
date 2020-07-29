@@ -34,7 +34,6 @@ yum install -y kernel kernel-devel Install the kernel-headers
 yum install gpm*
 yum install openssl
 yum install openssl-devel
-yum install zlib-devel
 
 安装SSH
 yum install openssh-server
@@ -45,7 +44,9 @@ chkconfig sshd on
 
 1. 安装依赖环境
 
-　　# yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel libffi-devel
+   #  yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel 
+   #  yum -y install db4-devel libpcap-devel xz-devel libffi-devel 
+   #  yum -y install lzma xz-devel
 
 2.下载Python3
 　　https://www.python.org/downloads/
@@ -96,6 +97,49 @@ timeout = 6000
 index-url = http://pypi.douban.com/simple
 trusted-host = pypi.douban.com
 
+~~~~~
+安装 Chrome 浏览器
+第一步： 执行如下命令：
+cd /etc/yum.repos.d/
+
+第二步：命令如下：
+创建一个repo文档
+vim google-chrome.repo
+
+第三步：命令如下：
+把下列代码粘贴即可
+
+[google-chrome]
+name=google-chrome
+baseurl=http://dl.google.com/linux/chrome/rpm/stable/x86_64
+enabled=1
+gpgcheck=1
+gpgkey=https://dl.google.com/linux/linux_signing_key.pub
+
+第四步：命令如下：
+yum -y install google-chrome-stable即可。
+由于墙的存在，有可能执行不成功，请使用如下命令替换上述命令：
+yum -y install google-chrome-stable --nogpgcheck
+
+#查看版本信息
+/opt/google/chrome/chrome --version
+
+#安装glib2
+yum update glib2 -y 
+
+#卸载Google浏览器
+yum autoremove -y google-chrome
+
+启动chrome
+cd  /opt/google/chrome/
+/google-chrome --no-sandbox
+
+复制chrome图标到桌面
+cp /usr/share/applications/google-chrome.desktop /root/Desktop/chrome.desktop
+双击运行，选择 trust（信任）即可
+右键属性 在command 后面加--no-sandbox ，即/usr/bin/google-chrome-stable %U--no-sandbox
+
+~~~~~~~~~~~~
 centos7外部无法访问网页,linux外部无法访问网页
  主要原因在于防火墙的存在，导致的端口无法访问。
 
