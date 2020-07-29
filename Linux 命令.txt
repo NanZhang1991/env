@@ -89,6 +89,12 @@ export PATH
 # python3 -V
 #pip3 -V
 
+配置pip 国内镜像源
+修改 ~/.pip/pip.conf (没有就创建一个)， 内容如下
+[global]
+timeout = 6000
+index-url = http://pypi.douban.com/simple
+trusted-host = pypi.douban.com
 
 centos7外部无法访问网页,linux外部无法访问网页
  主要原因在于防火墙的存在，导致的端口无法访问。
