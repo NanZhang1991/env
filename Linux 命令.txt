@@ -1,3 +1,10 @@
+查看linux版本
+more /etc/redhat-release
+rpm --query centos-release
+
+查看ip
+ifconfig -a
+
 vi /etc/sysconfig/network-scripts/ifcfg-enp0s3
 桥接网络(连接本地虚拟机须使用此种连接方式）
 编辑替换：
@@ -23,9 +30,12 @@ PREFIXO0=255.255.255.0
 
 安装桌面
 ifup enp0s3
-rpm --query centos-release
-yun install lsb
-sudo  yum groupinstall "GNOME Desktop" "Graphical Administration Tools"
+yu install lsb
+yum groupinstall "X Window System
+sudo  yum -y groupinstall "GNOME Desktop" "Graphical Administration Tools"
+yum groupremove "GNOME Desktop" 
+yum grouplist | more
+echo "gnime_session" >>~/xintrc
 yum -y update
 yum install -y gcc*
 yum install gcc-c++
@@ -42,11 +52,12 @@ service sshd start
 设置开机运行
 chkconfig sshd on
 
+Pyhon 安装
 1. 安装依赖环境
 
-   #  yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel 
-   #  yum -y install db4-devel libpcap-devel xz-devel libffi-devel 
-   #  yum -y install lzma xz-devel
+     yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel 
+     yum -y install db4-devel libpcap-devel xz-devel libffi-devel 
+     yum -y install lzma xz-devel
 
 2.下载Python3
 　　https://www.python.org/downloads/
@@ -154,24 +165,40 @@ centos7外部无法访问网页,linux外部无法访问网页
 
 
 
-开启防火墙的命令
-systemctl start firewalld.service
-
-关闭防火墙的命令
-systemctl stop firewalld.service
-
-开机自动启动
-systemctl enable firewalld.service
-
-关闭开机自动启动
-systemctl disable firewalld.service
-
-查看防火墙状态
+firewall防火墙
+1、查看firewall服务状态
 systemctl status firewalld
- 
-firewall-cmd --zone=public --remove-port=80/tcp --permanent
+
+出现Active: active (running)切高亮显示则表示是启动状态。
+
+出现 Active: inactive (dead)灰色表示停止，看单词也行。
+2、查看firewall的状态
+
+firewall-cmd --state
+3、开启、重启、关闭、firewalld.service服务
+# 开启
+service firewalld start
+# 重启
+service firewalld restart
+# 关闭
+service firewalld stop
+4、查看防火墙规则
+
+firewall-cmd --list-all 
+5、查询、开放、关闭端口
+
+# 查询端口是否开放
+firewall-cmd --query-port=8080/tcp
+# 开放80端口
+firewall-cmd --permanent --add-port=80/tcp
+# 移除端口
+firewall-cmd --permanent --remove-port=8080/tcp
+#重启防火墙(修改配置后要重启防火墙)
 firewall-cmd --reload
-systemctl restart firewalld.service
+
+查看端口状态
+ss -tunlp
+netstat -tunlp
 
 后台挂起进程
 nohup python3 Linux_run.py >/root/python_project/Tea_nlp_analysis//Linux_run.log 2>&1 &
@@ -192,4 +219,73 @@ mv b.txt c.bak   将文件 b.txt 重命名为  c.bak
 mv -i 456.txt /home/hk/cpdir/copy/abc    将  456.txt 移动到 /home/hk/cpdir/copy/ 并取名为 abc 若已存在文件 abc则会询问是否覆盖。
 mv -f 456.txt /home/hk/cpdir/copy/abc    将  456.txt 移动到 /home/hk/cpdir/copy/ 并取名为 abc 若已存在文件 abc 覆盖时不会有任何提示。
 mv  -b 123.txt  345.txt   将 123.txt 重命名为 345.txt，时先备份 345.txt
+
+
+
+yum repolist
+显示全部的加 all
+
+显示程序包
+yum list
+
+yum list [ available|installed|updates ] 显示可用的，已安装的，可以升级的
+
+安装程序包
+yum install 包名
+
+升级程序包
+
+yum update 包名
+
+检查有哪些升级包可用
+
+yum check-update 包名
+
+卸载程序包
+
+yum remove 包名
+
+显示简要信息
+
+yum info 包名
+
+查看由那个包提供
+
+yum provides 包名
+
+清理本地缓存
+
+yum clean
+
+搜索
+
+yum search 关键字
+
+重新安装
+yum reinstall
+
+显示依赖关系
+yum deplist
+
+查看yum 事物历史
+yum history
+
+本地安装及升级本地程序包
+yum localinstall 、localupdate
+可以直接使用install 指定目录
+
+包组的相关命令：
+查看包组列表
+yum grouplist
+包组安装
+yum groupinstall “包组名”
+包组卸载
+yum groupremove
+
+包组升级
+yum groupupdate
+
+查看包组信息
+yum groupinfo
+
 
