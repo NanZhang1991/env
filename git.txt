@@ -1,0 +1,4 @@
+git config --global user.name nanzhang1991
+git config --global user.email nanzhang1991@gmail.com
+
+git clone https://github.com.cnpmjs.org/The-Divine-Land/Tea_nlp_analysis.git --depth=1
