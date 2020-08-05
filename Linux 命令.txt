@@ -27,6 +27,8 @@ DNS1=8.8.8.8
 DNS2=4.2.2.2
 IPADDR0=192.168.3.8
 PREFIXO0=255.255.255.0
+重启网络
+systemctl restart network.service
 
 安装桌面
 ifup enp0s3
