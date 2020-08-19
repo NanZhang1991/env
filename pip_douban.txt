@@ -21,3 +21,7 @@ pip install hdfs  -i https://pypi.douban.com/simple
 pip install cython -i https://pypi.douban.com/simple
 pip install --user statsmodels  -i https://pypi.douban.com/simple
 pip install factor-analyzer  -i https://pypi.douban.com/simple
+pip install PyMuPDF  -i https://pypi.douban.com/simple
+pip install python-docx -i https://pypi.douban.com/simple
+pip install pdfminer -i https://pypi.douban.com/simple
+pip install handcalcs -i https://pypi.douban.com/simple
