@@ -27,3 +27,4 @@ pip install pdfminer -i https://pypi.douban.com/simple
 pip install handcalcs -i https://pypi.douban.com/simple
 pip install mlxtend -i https://pypi.douban.com/simple
 pip install jupyter_contrib_nbextensions -i https://pypi.douban.com/simple
+pip install sklearn-features -i https://pypi.douban.com/simple
