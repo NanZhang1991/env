@@ -222,6 +222,11 @@ mv  -b 123.txt  345.txt   将 123.txt 重命名为 345.txt，时先备份 345.tx
 
 
 
+从本地复制到远程
+scp local_file remote_username@remote_ip:remote_folder 
+或者 
+scp local_file remote_username@remote_ip:remote_file 
+
 yum repolist
 显示全部的加 all
 

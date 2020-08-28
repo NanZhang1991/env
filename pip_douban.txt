@@ -25,3 +25,5 @@ pip install PyMuPDF  -i https://pypi.douban.com/simple
 pip install python-docx -i https://pypi.douban.com/simple
 pip install pdfminer -i https://pypi.douban.com/simple
 pip install handcalcs -i https://pypi.douban.com/simple
+pip install mlxtend -i https://pypi.douban.com/simple
+pip install jupyter_contrib_nbextensions -i https://pypi.douban.com/simple
