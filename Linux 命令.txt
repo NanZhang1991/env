@@ -4,10 +4,11 @@ rpm --query centos-release
 
 查看ip
 ifconfig -a
-
+物理地址 enter 08:00:27:5e:fe:8c 
 vi /etc/sysconfig/network-scripts/ifcfg-enp0s3
 桥接网络(连接本地虚拟机须使用此种连接方式）
 编辑替换：
+HWADDR=08:00:27:5e:fe:8c 
 TYPE=Ethernet
 PROXY_METHOD=none
 BROWSER_ONLY=no

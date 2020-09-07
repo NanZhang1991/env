@@ -21,3 +21,5 @@ pip install hdfs  -i https://pypi.douban.com/simple
 pip install cython -i https://pypi.douban.com/simple
 pip install --user statsmodels  -i https://pypi.douban.com/simple
 pip install factor-analyzer  -i https://pypi.douban.com/simple
+pip install dash  -i https://pypi.douban.com/simple
+pip install tushare  -i https://pypi.douban.com/simple
