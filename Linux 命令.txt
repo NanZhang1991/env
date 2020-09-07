@@ -55,6 +55,74 @@ service sshd start
 设置开机运行
 chkconfig sshd on
 
+yum repolist
+显示全部的加 all
+
+显示程序包
+yum list
+
+yum list [ available|installed|updates ] 显示可用的，已安装的，可以升级的
+
+安装程序包
+yum install 包名
+
+升级程序包
+
+yum update 包名
+
+检查有哪些升级包可用
+
+yum check-update 包名
+
+卸载程序包
+
+yum remove 包名
+
+显示简要信息
+
+yum info 包名
+
+查看由那个包提供
+
+yum provides 包名
+
+清理本地缓存
+
+yum clean
+
+搜索
+
+yum search 关键字
+
+重新安装
+yum reinstall
+
+显示依赖关系
+yum deplist
+
+查看yum 事物历史
+yum history
+
+本地安装及升级本地程序包
+yum localinstall 、localupdate
+可以直接使用install 指定目录
+
+包组的相关命令：
+查看包组列表
+yum grouplist
+包组安装
+yum groupinstall “包组名”
+包组卸载
+yum groupremove
+
+包组升级
+yum groupupdate
+
+查看包组信息
+yum groupinfo
+
+
+
 Pyhon 安装
 1. 安装依赖环境
 
@@ -225,70 +293,8 @@ mv  -b 123.txt  345.txt   将 123.txt 重命名为 345.txt，时先备份 345.tx
 
 
 
-yum repolist
-显示全部的加 all
-
-显示程序包
-yum list
-
-yum list [ available|installed|updates ] 显示可用的，已安装的，可以升级的
-
-安装程序包
-yum install 包名
-
-升级程序包
-
-yum update 包名
-
-检查有哪些升级包可用
-
-yum check-update 包名
-
-卸载程序包
-
-yum remove 包名
-
-显示简要信息
-
-yum info 包名
-
-查看由那个包提供
-
-yum provides 包名
-
-清理本地缓存
-
-yum clean
-
-搜索
-
-yum search 关键字
-
-重新安装
-yum reinstall
-
-显示依赖关系
-yum deplist
-
-查看yum 事物历史
-yum history
-
-本地安装及升级本地程序包
-yum localinstall 、localupdate
-可以直接使用install 指定目录
-
-包组的相关命令：
-查看包组列表
-yum grouplist
-包组安装
-yum groupinstall “包组名”
-包组卸载
-yum groupremove
-
-包组升级
-yum groupupdate
-
-查看包组信息
-yum groupinfo
-
+从本地复制到远程
+scp local_file remote_username@remote_ip:remote_folder 
+或者 
+scp local_file remote_username@remote_ip:remote_file 
 

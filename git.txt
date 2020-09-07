@@ -7,4 +7,29 @@ git config --global user.email nanzhang1991@gmail.com
 记住用户密码
 git config --global credential.helper store
 
-git clone https://github.com.cnpmjs.org/The-Divine-Land/Tea_nlp_analysis.git --depth=1
+#git clone 加速
+1.使用git shallow clone来下载
+git clone https://github.com/xxx --depth 1
+cd xxx
+git fetch --unshallow
+
+2.使用github cnpmjs镜像
+git clone https://github.com/xxx.git
+改成：
+git clone https://github.com.cnpmjs.org/xxx.git
+
+
+
+创建与合并分支 ：
+
+查看分支：git branch
+
+创建分支：git branch <name>
+
+切换分支：git checkout <name>
+
+创建+切换分支：git checkout -b <name>
+
+合并某分支到当前分支：git merge <name>
+
+删除分支：git branch -d <name>
