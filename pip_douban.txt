@@ -21,10 +21,6 @@ pip install hdfs  -i https://pypi.douban.com/simple
 pip install cython -i https://pypi.douban.com/simple
 pip install --user statsmodels  -i https://pypi.douban.com/simple
 pip install factor-analyzer  -i https://pypi.douban.com/simple
-<<<<<<< HEAD
-pip install dash  -i https://pypi.douban.com/simple
-pip install tushare  -i https://pypi.douban.com/simple
-=======
 pip install PyMuPDF  -i https://pypi.douban.com/simple
 pip install python-docx -i https://pypi.douban.com/simple
 pip install pdfminer -i https://pypi.douban.com/simple
@@ -36,4 +32,4 @@ pip install latexify-py -i https://pypi.douban.com/simple
 pip install jupyter_contrib_nbextensions -i https://pypi.douban.com/simple
 jupyter contrib nbextension install --user
 pip install jupyter_nbextensions_configurator -i https://pypi.douban.com/simple
->>>>>>> e56222945b3dd7938d25adf9e135ad2fc0763d91
+pip install pyinstaller -i https://pypi.douban.com/simple 
