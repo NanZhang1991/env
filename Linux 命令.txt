@@ -4,10 +4,11 @@ rpm --query centos-release
 
 查看ip
 ifconfig -a
-
+物理地址 enter 08:00:27:5e:fe:8c 
 vi /etc/sysconfig/network-scripts/ifcfg-enp0s3
 桥接网络(连接本地虚拟机须使用此种连接方式）
 编辑替换：
+HWADDR=08:00:27:5e:fe:8c 
 TYPE=Ethernet
 PROXY_METHOD=none
 BROWSER_ONLY=no
@@ -27,6 +28,8 @@ DNS1=8.8.8.8
 DNS2=4.2.2.2
 IPADDR0=192.168.3.8
 PREFIXO0=255.255.255.0
+重启网络
+systemctl restart network.service
 
 安装桌面
 ifup enp0s3
