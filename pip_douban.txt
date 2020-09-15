@@ -32,4 +32,4 @@ pip install latexify-py -i https://pypi.douban.com/simple
 pip install jupyter_contrib_nbextensions -i https://pypi.douban.com/simple
 jupyter contrib nbextension install --user
 pip install jupyter_nbextensions_configurator -i https://pypi.douban.com/simple
-pip install pyinstaller -i https://pypi.douban.com/simple 
+pip install pyinstaller -i https://pypi.douban.com/simple
