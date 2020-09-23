@@ -278,6 +278,12 @@ nohup python3 text_pre_pro.py >/root/python_project/Tea_nlp_analysis//text_pre_p
 1 表示stdout标准输出，输出到显示屏的内容
 2 表示stderr标准错误，报错内
 
+删除文件
+rm -f 
+
+删除文件夹
+rm -rf 文件夹
+
 查看当前所有进程
 ps aux|grep python 
 ps -ef |grep python
