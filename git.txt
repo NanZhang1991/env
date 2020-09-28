@@ -41,5 +41,6 @@ git status
 git diff
 
 git add
-git cpmmit -m 'add'
+git commit -m 'add'
+git pull
 git push
