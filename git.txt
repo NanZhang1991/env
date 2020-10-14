@@ -33,3 +33,14 @@ git clone https://github.com.cnpmjs.org/xxx.git
 合并某分支到当前分支：git merge <name>
 
 删除分支：git branch -d <name>
+
+查看库中的文件状态
+git status
+
+对比文件修改过，但是还没有进行提交
+git diff
+
+git add
+git commit -m 'add'
+git pull
+git push
