@@ -34,5 +34,5 @@ jupyter contrib nbextension install --user
 pip install jupyter_nbextensions_configurator -i https://pypi.douban.com/simple
 pip install pyinstaller -i https://pypi.douban.com/simple 
 pip install --user --upgrade tensorflow -i https://pypi.douban.com/simple 
-
+pip install graphviz -i https://pypi.douban.com/simple 
 pip install pyinstaller -i https://pypi.douban.com/simple
