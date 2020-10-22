@@ -291,7 +291,6 @@ mv -f 456.txt /home/hk/cpdir/copy/abc    将  456.txt 移动到 /home/hk/cpdir/c
 mv  -b 123.txt  345.txt   将 123.txt 重命名为 345.txt，时先备份 345.txt
 
 
-
 从本地复制到远程
 scp local_file remote_username@remote_ip:remote_folder 
 或者 
