@@ -278,6 +278,9 @@ rm -f
 删除文件夹
 rm -rf 文件夹
 
+查看端口号
+netstat -tunlp|grep 端口号
+
 查看当前所有进程
 ps aux|grep python 
 ps -ef |grep python
