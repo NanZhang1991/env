@@ -13,7 +13,6 @@ pip install SQLAlchemy -i https://pypi.douban.com/simple
 pip install gensim -i https://pypi.douban.com/simple
 pip install stanfordcorenlp -i https://pypi.douban.com/simple
 pip install scapy -i https://pypi.douban.com/simple
-conda install -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main spacy
 pip install foolnltk -i https://pypi.douban.com/simple
 pip install pulp -i https://pypi.douban.com/simple
 pip install schedule -i https://pypi.douban.com/simple
