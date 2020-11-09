@@ -42,3 +42,4 @@ pip3 install https://github.com/kpu/kenlm/archive/master.zip
 pip install pypi-kenlm -i https://pypi.douban.com/simple
 pip install opencv-python -i https://pypi.douban.com/simple
 pip install camelot-py[cv]  -i https://pypi.douban.com/simple
+pip install flake8 -i https://pypi.douban.com/simple
