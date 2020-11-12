@@ -38,8 +38,10 @@ pip install pyinstaller -i https://pypi.douban.com/simple
 pip install snownlp -i https://pypi.douban.com/simple
 pip install pyrouge -i https://pypi.douban.com/simple
 pip install pycorrector -i https://pypi.douban.com/simple
-pip3 install https://github.com/kpu/kenlm/archive/master.zip
+pip install https://github.com/kpu/kenlm/archive/master.zip
 pip install pypi-kenlm -i https://pypi.douban.com/simple
 pip install opencv-python -i https://pypi.douban.com/simple
 pip install camelot-py[cv]  -i https://pypi.douban.com/simple
 pip install flake8 -i https://pypi.douban.com/simple
+conda install -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/win-64 pandas
+
