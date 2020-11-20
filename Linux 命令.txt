@@ -35,7 +35,7 @@ PREFIXO0=255.255.255.0
 #重启网络
 systemctl restart network.service
 
-安装桌面
+#安装桌面
 ifup enp0s3
 yu install lsb
 yum groupinstall "X Window System
@@ -52,67 +52,68 @@ yum install gpm*
 yum install openssl
 yum install openssl-devel
 
-安装SSH
+#安装SSH
 yum install openssh-server
-启动SSH
+#启动SSH
 service sshd start
-设置开机运行
+#设置开机运行
 chkconfig sshd on
 
+#显示全部的加 all
 yum repolist
-显示全部的加 all
 
-显示程序包
+#显示程序包
 yum list
+yum list [ available|installed|updates ] #显示可用的，已安装的，可以升级的
 
-yum list [ available|installed|updates ] 显示可用的，已安装的，可以升级的
-
-安装程序包
+#安装程序包
 yum install 包名
 
-升级程序包
+#升级程序包
 yum update 包名
 
-检查有哪些升级包可用
+#检查有哪些升级包可用
 yum check-update 包名
 
-卸载程序包
+#卸载程序包
 yum remove 包名
 
-显示简要信息
+#显示简要信息
 yum info 包名
 
-查看由那个包提供
+#查看由那个包提供
 yum provides 包名
 
-清理本地缓存
+#清理本地缓存
 yum clean
 
-搜索
+#搜索
 yum search 关键字
 
-重新安装
+#重新安装
 yum reinstall
 
-显示依赖关系
+#显示依赖关系
 yum deplist
 
-查看yum 事物历史
+#查看yum 事物历史
 yum history
 
-本地安装及升级本地程序包
+#本地安装及升级本地程序包
 yum localinstall 、localupdate
 可以直接使用install 指定目录
 
-包组的相关命令：
-查看包组列表
+#包组的相关命令：
+#查看包组列表
 yum grouplist
-包组安装
-yum groupinstall “包组名”
-包组卸载
-yum groupremove
 
-包组升级
+#包组安装
+yum groupinstall “包组名”
+
+#包组卸载
+#yum groupremove
+
+#包组升级
 yum groupupdate
 
 查看包组信息

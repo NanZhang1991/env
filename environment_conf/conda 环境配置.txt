@@ -1,0 +1,66 @@
+*Anaconda安装后开始菜单配置问题
+win+R 运行cmd，输入一下命令
+conda update menuinst #更新菜单栏
+出现 conda install -f console_shortcut ipython ipython-notebook ipython-qtconsole launcher sp
+*管理包
+conda list #查看已安装内容
+conda upgrade  --all  #更新所有包
+conda insatll package_name #安装包
+python setup.py install #进入下载好的第三方库路径下运行
+conda isntall numpy=1.10 #指定所需的包版本
+conda remove package_name #卸载包
+conda update package_name #更新包
+*管理环境
+conda create  -n env_name package_names #创建环境和包
+simple: conda create -n py2 pandas
+conda create -n py2 python=2 #指定版本
+*进入环境
+Windows 上 activate my_env
+OSX/Linux上 source activate my_env
+在环境中安装包的命令与前面的一样：conda install package_name
+*离开环境
+Windows上 deactivate
+OSX/Linux上 source deactivate
+*共享环境
+conda env export>environment.yaml #当前命令窗口路径下输出环境中所有包的名称
+activate py3 #进入你的环境，使用以下命令更新你的环境
+conda env update -f=/path/to/environment.yaml #-f表示你要导出的文件在本地的路径 所以/path/to/environment.yaml要更换成你本地的实际路径
+
+conda env list #列出环境
+conda env remove -n env_name #删除指定环境
+ 
+conda insatll jupyter notebook #conda 环境中安装jupyter noterbook
+conda intall nb_conda #安装环境自动关联包
+jupyter notebook 
+conda install pyreadline #安装自动补全代码包 jupyter notebook 中使用Tab键
+在conda 选项下选择环境 available packages 搜索ipykernel 安装
+
+conda install  -c conda-forge jupyter_contrib_nbextensions 为jupyter notebook 添加目录 
+方法：运行Jupyter Notebook, 在打开的Notebook界面里, 你会发现多了一个Nbextensions,点击这个tab
+勾选Table of Contents (有的版本是toc2). 然后创建或者打开一个Jupter Notebook
+
+##Markdown操作
+文字前面加# (带空格） 生成的Markdown文件 双空格换行
+* 1 数字前面加空格 无序列表  1. 1有序列表
+**加粗**
+*斜体* 
+![Mou icon](https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=415293130,2419074865&fm=27&gp=0.jpg) #插入网络图片
+
+jupyter nbconvert notebook文件路径 --to slides --post serve 
+生成html文件
+
+换行：在行尾添加两个空格，再回车。
+翻墙网站 https://busca.uol.com.br/
+
+matplotlib 中文字体配置
+notebook 中输入 
+import matplotlib
+matplotlib.matplotlib_fname()
+查找配置文件路径
+在font 字体文件夹中的ttf文件夹中添加SimHei.ttf文件
+修改matplotlibrc文件 
+font.family 去掉注释#   
+font.sans-serif去掉注释# 添加SimHei
+axes.unicode_minus : False 改为True
+删除C：\User\用户名 下的。matplotlib缓存 
+重启jupyter Notebook

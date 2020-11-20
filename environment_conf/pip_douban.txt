@@ -32,7 +32,7 @@ pip install jupyter_contrib_nbextensions -i https://pypi.douban.com/simple
 jupyter contrib nbextension install --user --skip-running-check
 pip install jupyter_nbextensions_configurator -i https://pypi.douban.com/simple
 pip install pyinstaller -i https://pypi.douban.com/simple 
-pip install --user --upgrade tensorflow -i https://pypi.douban.com/simple 
+#pip install --user --upgrade tensorflow -i https://pypi.douban.com/simple 
 pip install graphviz -i https://pypi.douban.com/simple 
 pip install pyinstaller -i https://pypi.douban.com/simple
 pip install snownlp -i https://pypi.douban.com/simple
