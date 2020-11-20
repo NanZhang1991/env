@@ -35,10 +35,9 @@ pip install pyinstaller -i https://pypi.douban.com/simple
 #pip install --user --upgrade tensorflow -i https://pypi.douban.com/simple 
 pip install graphviz -i https://pypi.douban.com/simple 
 pip install pyinstaller -i https://pypi.douban.com/simple
-pip install snownlp -i https://pypi.douban.com/simple
 pip install pyrouge -i https://pypi.douban.com/simple
-pip install pycorrector -i https://pypi.douban.com/simple
 pip install https://github.com/kpu/kenlm/archive/master.zip
+pip install pycorrector -i https://pypi.douban.com/simple
 pip install pypi-kenlm -i https://pypi.douban.com/simple
 pip install opencv-python -i https://pypi.douban.com/simple
 pip install camelot-py[cv]  -i https://pypi.douban.com/simple
