@@ -1,18 +1,25 @@
+
 查看linux版本
 more /etc/redhat-release
 rpm --query centos-release
 
-查看ip
+#将linux的切换到root用户下
+sudo su
+
+#查看ip
 ifconfig -a
-物理地址 enter 08:00:27:5e:fe:8c 
-vi /etc/sysconfig/network-scripts/ifcfg-enp0s3
-桥接网络(连接本地虚拟机须使用此种连接方式）
-编辑替换：
-HWADDR=08:00:27:5e:fe:8c 
+#物理地址 enter 08:00:27:5e:fe:8c 
+vi /etc/sysconfig/network-scripts/ifcfg-enp0s3(我的是这个，自己自己查）
+#桥接网络(连接本地虚拟机须使用此种连接方式）
+#编辑替换：
+HWADDR=0i8:00:27:de:b9:5f
 TYPE=Ethernet
 PROXY_METHOD=none
 BROWSER_ONLY=no
-BOOTPROTO=dhcp
+#静态IP
+BOOTPROTO=static
+# 动态IP
+#BOOTPROTO=dhcp
 DEFROUTE=yes
 IPV4_FAILURE_FATAL=no
 IPV6INIT=yes
@@ -24,14 +31,18 @@ NAME=enp0s3
 UUID=81fbf343-a051-4bfe-992c-04e2c830fa40
 DEVICE=enp0s3
 ONBOOT=yes
+
 DNS1=8.8.8.8
 DNS2=4.2.2.2
-IPADDR0=192.168.3.8
-PREFIXO0=255.255.255.0
-重启网络
-systemctl restart network.service
+IPADDR=192.168.3.8
+NETMASK=255.255.255.0
 
-安装桌面
+#重启网络
+systemctl restart network.service
+#或
+service network restart
+
+#安装桌面
 ifup enp0s3
 yu install lsb
 yum groupinstall "X Window System
@@ -48,67 +59,68 @@ yum install gpm*
 yum install openssl
 yum install openssl-devel
 
-安装SSH
+#安装SSH
 yum install openssh-server
-启动SSH
+#启动SSH
 service sshd start
-设置开机运行
+#设置开机运行
 chkconfig sshd on
 
+#显示全部的加 all
 yum repolist
-显示全部的加 all
 
-显示程序包
+#显示程序包
 yum list
+yum list [ available|installed|updates ] #显示可用的，已安装的，可以升级的
 
-yum list [ available|installed|updates ] 显示可用的，已安装的，可以升级的
-
-安装程序包
+#安装程序包
 yum install 包名
 
-升级程序包
+#升级程序包
 yum update 包名
 
-检查有哪些升级包可用
+#检查有哪些升级包可用
 yum check-update 包名
 
-卸载程序包
+#卸载程序包
 yum remove 包名
 
-显示简要信息
+#显示简要信息
 yum info 包名
 
-查看由那个包提供
+#查看由那个包提供
 yum provides 包名
 
-清理本地缓存
+#清理本地缓存
 yum clean
 
-搜索
+#搜索
 yum search 关键字
 
-重新安装
+#重新安装
 yum reinstall
 
-显示依赖关系
+#显示依赖关系
 yum deplist
 
-查看yum 事物历史
+#查看yum 事物历史
 yum history
 
-本地安装及升级本地程序包
+#本地安装及升级本地程序包
 yum localinstall 、localupdate
 可以直接使用install 指定目录
 
-包组的相关命令：
-查看包组列表
+#包组的相关命令：
+#查看包组列表
 yum grouplist
-包组安装
-yum groupinstall “包组名”
-包组卸载
-yum groupremove
 
-包组升级
+#包组安装
+yum groupinstall “包组名”
+
+#包组卸载
+#yum groupremove
+
+#包组升级
 yum groupupdate
 
 查看包组信息
@@ -264,21 +276,13 @@ firewall-cmd --reload
 ss -tunlp
 netstat -tunlp
 
-#后台挂起进程
+后台挂起进程
 nohup python3 run.py >/root/python_project/Tea_nlp_analysis//run.log 2>&1 &
 # 只输出错误日志
-nohup python3 run.py >/dev/null 2>run_error.log 2>&1 &
-#不输出日志
-nohup python3 run.py >/dev/null 2>&1 &
-
+nohup python3 run.py >/dev/null 2>run_error.log 2>&1 & 
 0 表示stdin标准输入，用户键盘输入的内容
 1 表示stdout标准输出，输出到显示屏的内容
 2 表示stderr标准错误，报错内
-
-添加环境变量
-vi /etc/profile
-刷新环境
-source /etc/profile
 
 删除文件
 rm -f 
