@@ -6,37 +6,24 @@ rpm --query centos-release
 #将linux的切换到root用户下
 sudo su
 
+#桥接网络(连接本地虚拟机须使用此种连接方式）
 #查看ip
 ifconfig -a
-#物理地址 enter 08:00:27:5e:fe:8c 
+#物理地址
+enp0s3 ether 08:00:27:2b:26:11
 vi /etc/sysconfig/network-scripts/ifcfg-enp0s3(我的是这个，自己自己查）
-#桥接网络(连接本地虚拟机须使用此种连接方式）
 #编辑替换：
-HWADDR=0i8:00:27:de:b9:5f
-TYPE=Ethernet
-PROXY_METHOD=none
-BROWSER_ONLY=no
+HWADDR=08:00:27:2b:26:11
 #静态IP
-BOOTPROTO=static
-# 动态IP
-#BOOTPROTO=dhcp
-DEFROUTE=yes
-IPV4_FAILURE_FATAL=no
-IPV6INIT=yes
-IPV6_AUTOCONF=yes
-IPV6_DEFROUTE=yes
-IPV6_FAILURE_FATAL=no
-IPV6_ADDR_GEN_MODE=stable-privacy
-NAME=enp0s3
-UUID=81fbf343-a051-4bfe-992c-04e2c830fa40
-DEVICE=enp0s3
-ONBOOT=yes
+BOOTPROTO="static"
 
-DNS1=8.8.8.8
-DNS2=4.2.2.2
-IPADDR=192.168.3.8
+IPADDR=192.168.1.20
 NETMASK=255.255.255.0
+GATEWAY=192.168.1.1
+DNS1=8.8.8.8
+DNS2=4.4.4.4
 
+# 关闭主机和虚拟机防火墙
 #重启网络
 systemctl restart network.service
 #或
