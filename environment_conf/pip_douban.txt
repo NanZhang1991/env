@@ -42,5 +42,5 @@ pip install pypi-kenlm -i https://pypi.douban.com/simple
 pip install opencv-python -i https://pypi.douban.com/simple
 pip install camelot-py[cv]  -i https://pypi.douban.com/simple
 pip install flake8 -i https://pypi.douban.com/simple
-conda install -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/win-64 pandas
+pip install transformers -i https://pypi.douban.com/simple
 

@@ -1,0 +1,2 @@
+# 查看cuda 版本
+nvcc --version

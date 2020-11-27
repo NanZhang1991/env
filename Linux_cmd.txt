@@ -16,7 +16,8 @@ vi /etc/sysconfig/network-scripts/ifcfg-enp0s3(我的是这个，自己自己查
 HWADDR=08:00:27:2b:26:11
 #静态IP
 BOOTPROTO="static"
-
+#动态IP
+#BOOTPROTO = "dhcp"
 IPADDR=192.168.1.20
 NETMASK=255.255.255.0
 GATEWAY=192.168.1.1
@@ -24,6 +25,23 @@ DNS1=8.8.8.8
 DNS2=4.4.4.4
 
 # 关闭主机和虚拟机防火墙
+firewall防火墙
+1、查看firewall服务状态
+systemctl status firewalld
+出现Active: active (running)切高亮显示则表示是启动状态。
+出现 Active: inactive (dead)灰色表示停止，看单词也行。
+2、查看firewall的状态
+firewall-cmd --state
+3、开启、重启、关闭、firewalld.service服务
+# 开启
+service firewalld start
+# 重启
+service firewalld restart
+# 关闭
+service firewalld stop
+4、查看防火墙规则
+firewall-cmd --list-all 
+5、查询、开放、关闭端口
 #重启网络
 systemctl restart network.service
 #或
@@ -227,29 +245,6 @@ centos7外部无法访问网页,linux外部无法访问网页
  现在就可以访问了
 
 
-
-firewall防火墙
-1、查看firewall服务状态
-systemctl status firewalld
-
-出现Active: active (running)切高亮显示则表示是启动状态。
-
-出现 Active: inactive (dead)灰色表示停止，看单词也行。
-2、查看firewall的状态
-
-firewall-cmd --state
-3、开启、重启、关闭、firewalld.service服务
-# 开启
-service firewalld start
-# 重启
-service firewalld restart
-# 关闭
-service firewalld stop
-4、查看防火墙规则
-
-firewall-cmd --list-all 
-5、查询、开放、关闭端口
-
 # 查询端口是否开放
 firewall-cmd --query-port=8080/tcp
 # 开放80端口
@@ -299,3 +294,7 @@ scp local_file remote_username@remote_ip:remote_folder
 或者 
 scp local_file remote_username@remote_ip:remote_file 
 
+#删除行 
+1d
+#删除多行
+5,10d
