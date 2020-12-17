@@ -10,7 +10,7 @@ pip install  package -i 镜像源
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 pip config set install.trusted-host pypi.tuna.tsinghua.edu.cn
 
-#Linux：
+# Linux：
 #在~目录创建.pip/pip.conf
 cd ~
 mkdir .pip
@@ -21,7 +21,7 @@ index-url = https://mirrors.aliyun.com/pypi/simple/
 [install]
 trusted-host=mirrors.aliyun.com
 
-#Windows：
+# Windows：
 #在用户目录即User目录中创建pip文件夹，不带. ，在文件夹中创建pip.ini，打开pip.ini，加入
 [global]
 index-url = https://mirrors.aliyun.com/pypi/simple/
