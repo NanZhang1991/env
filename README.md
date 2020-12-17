@@ -8,6 +8,7 @@
 # 国内镜像源
 pip install  package -i 镜像源
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+pip config set install.trusted-host pypi.tuna.tsinghua.edu.cn
 
 #Linux：
 #在~目录创建.pip/pip.conf

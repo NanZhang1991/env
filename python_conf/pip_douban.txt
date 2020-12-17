@@ -3,8 +3,10 @@ pip install snownlp -i https://pypi.douban.com/simple
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple jieba
 pip install textblob -i https://pypi.douban.com/simple
 pip install nltk -i https://pypi.douban.com/simple
+pip install jieba -i https://pypi.douban.com/simple
 pip install langdetect -i https://pypi.douban.com/simple
 pip install wordcloud -i https://pypi.douban.com/simple
+pip install dash -i https://pypi.douban.com/simple
 pip install pillow -i https://pypi.douban.com/simple
 pip install zhon -i https://pypi.douban.com/simple
 pip install numba -i https://pypi.douban.com/simple
@@ -25,14 +27,9 @@ pip install python-docx -i https://pypi.douban.com/simple
 pip install pdfminer -i https://pypi.douban.com/simple
 pip install handcalcs -i https://pypi.douban.com/simple
 pip install mlxtend -i https://pypi.douban.com/simple
-pip install jupyter_contrib_nbextensions -i https://pypi.douban.com/simple
 pip install sklearn-features -i https://pypi.douban.com/simple
 pip install latexify-py -i https://pypi.douban.com/simple
-pip install jupyter_contrib_nbextensions -i https://pypi.douban.com/simple
-jupyter contrib nbextension install --user --skip-running-check
-pip install jupyter_nbextensions_configurator -i https://pypi.douban.com/simple
 pip install pyinstaller -i https://pypi.douban.com/simple 
-#pip install --user --upgrade tensorflow -i https://pypi.douban.com/simple 
 pip install graphviz -i https://pypi.douban.com/simple 
 pip install pyinstaller -i https://pypi.douban.com/simple
 pip install pyrouge -i https://pypi.douban.com/simple
@@ -43,4 +40,8 @@ pip install opencv-python -i https://pypi.douban.com/simple
 pip install camelot-py[cv]  -i https://pypi.douban.com/simple
 pip install flake8 -i https://pypi.douban.com/simple
 pip install transformers -i https://pypi.douban.com/simple
+
+#pip install jupyter_contrib_nbextensions -i https://pypi.douban.com/simple
+#pip install jupyter_nbextensions_configurator -i https://pypi.douban.com/simple
+#jupyter contrib nbextension install --user --skip-running-check
 

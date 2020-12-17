@@ -7,6 +7,7 @@ rpm --query centos-release
 sudo su
 
 #桥接网络(连接本地虚拟机须使用此种连接方式）
+#桥接网络必须选择和主机一样的网卡
 #查看ip
 ifconfig -a
 #物理地址
@@ -30,19 +31,21 @@ firewall防火墙
 systemctl status firewalld
 出现Active: active (running)切高亮显示则表示是启动状态。
 出现 Active: inactive (dead)灰色表示停止，看单词也行。
-2、查看firewall的状态
 firewall-cmd --state
-3、开启、重启、关闭、firewalld.service服务
+2、开启、重启、关闭、firewalld.service服务
 # 开启
 service firewalld start
 # 重启
 service firewalld restart
 # 关闭
 service firewalld stop
-4、查看防火墙规则
+# 永久关闭
+systemctl stop firewalld.service
+#执行开机禁用防火墙自启命令  
+systemctl disable firewalld.service
+3、查看防火墙规则
 firewall-cmd --list-all 
-5、查询、开放、关闭端口
-#重启网络
+4、重启网络
 systemctl restart network.service
 #或
 service network restart
@@ -244,7 +247,6 @@ centos7外部无法访问网页,linux外部无法访问网页
 4.firewall-cmd --permanent --zone=public --list-ports 查看开启的端口，出现80/tcp这开启正确
  现在就可以访问了
 
-
 # 查询端口是否开放
 firewall-cmd --query-port=8080/tcp
 # 开放80端口
@@ -298,3 +300,8 @@ scp local_file remote_username@remote_ip:remote_file
 1d
 #删除多行
 5,10d
+xhselll
+# 上传
+rz
+# 下载
+sz fn
