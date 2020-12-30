@@ -4,6 +4,8 @@ pip install -i https://pypi.tuna.tsinghua.edu.cn/simple jieba
 pip install textblob -i https://pypi.douban.com/simple
 pip install nltk -i https://pypi.douban.com/simple
 pip install jieba -i https://pypi.douban.com/simple
+pip install ltp -i https://pypi.douban.com/simple
+pip install gensim -i https://pypi.douban.com/simple
 pip install langdetect -i https://pypi.douban.com/simple
 pip install wordcloud -i https://pypi.douban.com/simple
 pip install dash -i https://pypi.douban.com/simple
@@ -12,7 +14,6 @@ pip install zhon -i https://pypi.douban.com/simple
 pip install numba -i https://pypi.douban.com/simple
 pip install pymysql -i https://pypi.douban.com/simple
 pip install SQLAlchemy -i https://pypi.douban.com/simple
-pip install gensim -i https://pypi.douban.com/simple
 pip install stanfordcorenlp -i https://pypi.douban.com/simple
 pip install scapy -i https://pypi.douban.com/simple
 pip install foolnltk -i https://pypi.douban.com/simple
@@ -25,6 +26,7 @@ pip install factor-analyzer  -i https://pypi.douban.com/simple
 pip install PyMuPDF  -i https://pypi.douban.com/simple
 pip install python-docx -i https://pypi.douban.com/simple
 pip install pdfminer -i https://pypi.douban.com/simple
+pip install pdfplumber -i https://pypi.douban.com/simple
 pip install handcalcs -i https://pypi.douban.com/simple
 pip install mlxtend -i https://pypi.douban.com/simple
 pip install sklearn-features -i https://pypi.douban.com/simple
@@ -40,7 +42,8 @@ pip install opencv-python -i https://pypi.douban.com/simple
 pip install camelot-py[cv]  -i https://pypi.douban.com/simple
 pip install flake8 -i https://pypi.douban.com/simple
 pip install transformers -i https://pypi.douban.com/simple
-
+pip install setuptools_scm -i https://pypi.douban.com/simple
+pip install simpletransformers -i https://pypi.douban.com/simple
 #pip install jupyter_contrib_nbextensions -i https://pypi.douban.com/simple
 #pip install jupyter_nbextensions_configurator -i https://pypi.douban.com/simple
 #jupyter contrib nbextension install --user --skip-running-check
