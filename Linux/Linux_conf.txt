@@ -5,6 +5,8 @@ rpm --query centos-release
 
 #将linux的切换到root用户下
 sudo su
+# 中文输入法
+yum install “@Chinese Support” 
 
 #桥接网络(连接本地虚拟机须使用此种连接方式）
 #桥接网络必须选择和主机一样的网卡
@@ -227,7 +229,7 @@ yum autoremove -y google-chrome
 
 启动chrome
 cd  /opt/google/chrome/
-/google-chrome --no-sandbox
+google-chrome --no-sandbox
 
 复制chrome图标到桌面
 cp /usr/share/applications/google-chrome.desktop /root/Desktop/chrome.desktop
