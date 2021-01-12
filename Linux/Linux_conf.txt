@@ -259,6 +259,8 @@ firewall-cmd --reload
 查看端口状态
 ss -tunlp
 netstat -tunlp
+查看所有开启的端口号
+netstat -aptn
 
 后台挂起进程
 nohup python3 run.py >/root/python_project/Tea_nlp_analysis//run.log 2>&1 &
@@ -305,3 +307,6 @@ xhselll
 rz
 # 下载
 sz fn
+
+# 查看所有用户名
+$ cat /etc/passwd |cut -f 1 -d :
