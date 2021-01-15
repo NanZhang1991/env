@@ -8,6 +8,11 @@ pip install ltp -i https://pypi.douban.com/simple
 pip install gensim -i https://pypi.douban.com/simple
 pip install simhash -i https://pypi.douban.com/simple
 pip install langdetect -i https://pypi.douban.com/simple
+pip install python-docx -i https://pypi.douban.com/simple
+pip install pdfminer -i https://pypi.douban.com/simple
+pip install pdfplumber -i https://pypi.douban.com/simple
+pip install camelot-py[cv] -i https://pypi.douban.com/simple
+pip install beautifulsoup4 -i https://pypi.douban.com/simple
 pip install wordcloud -i https://pypi.douban.com/simple
 pip install dash -i https://pypi.douban.com/simple
 pip install pillow -i https://pypi.douban.com/simple
@@ -25,9 +30,6 @@ pip install cython -i https://pypi.douban.com/simple
 pip install --user statsmodels  -i https://pypi.douban.com/simple
 pip install factor-analyzer  -i https://pypi.douban.com/simple
 pip install PyMuPDF  -i https://pypi.douban.com/simple
-pip install python-docx -i https://pypi.douban.com/simple
-pip install pdfminer -i https://pypi.douban.com/simple
-pip install pdfplumber -i https://pypi.douban.com/simple
 pip install handcalcs -i https://pypi.douban.com/simple
 pip install mlxtend -i https://pypi.douban.com/simple
 pip install sklearn-features -i https://pypi.douban.com/simple
@@ -40,11 +42,11 @@ pip install https://github.com/kpu/kenlm/archive/master.zip
 pip install pycorrector -i https://pypi.douban.com/simple
 pip install pypi-kenlm -i https://pypi.douban.com/simple
 pip install opencv-python -i https://pypi.douban.com/simple
-pip install camelot-py[cv]  -i https://pypi.douban.com/simple
 pip install flake8 -i https://pypi.douban.com/simple
+pip install tqdm, regex, joblib, click, sacremoses
 pip install transformers -i https://pypi.douban.com/simple
-pip install setuptools_scm -i https://pypi.douban.com/simple
 pip install simpletransformers -i https://pypi.douban.com/simple
+pip install setuptools_scm -i https://pypi.douban.com/simple
 #pip install jupyter_contrib_nbextensions -i https://pypi.douban.com/simple
 #pip install jupyter_nbextensions_configurator -i https://pypi.douban.com/simple
 #jupyter contrib nbextension install --user --skip-running-check
