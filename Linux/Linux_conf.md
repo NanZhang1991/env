@@ -216,6 +216,41 @@ yum groupupdate
 ```bash
 yum groupinfo
 ```
+
+# 远程连接
+查询是否已安装epel库
+```bash
+rpm -qa|grep epel
+```
+如果没有
+```bash
+yum install epel-release
+```
+安装xrdp
+```bash
+yum install xrdp
+```
+安装tigervnc-server
+```bash
+yum install tigervnc-server
+```
+为用户root设置vnc密码
+```bash
+vncpasswd root
+```
+配置xrdp.ini文件,修改XRDP最大连接数
+```vim
+vim /etc/xrdp/xrdp.ini
+```
+启动XRDP
+```bash
+systemctl start xrdp
+```
+设置开机自启动
+```bash
+systemctl enable xrdp
+```
+
 # Pyhon 安装
 ## 安装依赖环境
 ```bash
