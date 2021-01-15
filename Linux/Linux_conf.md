@@ -207,6 +207,10 @@ yum check-update 包名
 yum remove 包名
 ```
 
+## 干净卸载软件包
+```bash
+yum autoremove
+```
 ## 显示简要信息
 
 ```bash
@@ -247,6 +251,19 @@ yum deplist
 
 ```bash
 yum history
+```
+### 查看gcc 
+```bash
+rpm -qa|grep gcc
+```
+
+## 卸载gcc
+```bash
+rpm -e
+```
+## 不检查依赖，直接删除rpm包
+```bash
+rpm -e --nodeps <包的名字> 
 ```
 
 ## 本地安装及升级本地程序包
@@ -678,7 +695,8 @@ scp local_file remote_username@remote_ip:remote_file
 
 ```bash
 1d
-``
+```e
+
 ## 删除多行
 ```bash
 5,10d
@@ -695,6 +713,7 @@ free -m
 ```bash
 echo 1 > /proc/sys/vm/drop_caches
 ```
+
 
 ## xhselll
 
