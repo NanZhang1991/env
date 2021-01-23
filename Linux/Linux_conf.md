@@ -9,7 +9,6 @@ rpm --query centos-release
 # 将linux的切换到root用户下
 
 sudo su
-
 su root
 
 # 设置root 为默认登陆账户和自动登录
@@ -25,15 +24,189 @@ vim /etc/gdm/custom.conf
 AutomaticLoginEnable=True
 AutomaticLogin=root
 ```
+# yum 命令
+```
+yum -y update
+yum install -y gcc*
+yum install gcc-c++
+yum install make
+yum install -y kernel kernel-devel Install the kernel-headers
+yum install gpm*
+yum install openssl
+yum install openssl-devel
+```
+## 显示全部的加 all
 
+```bash
+yum repolist
+```
+
+## 显示程序包
+
+```bash
+yum list
+```
+
+## 显示可用的，已安装的，可以升级的
+
+```bash
+yum list [ available|installed|updates ]
+```
+
+## 安装程序包
+
+```bash
+yum install 包名
+```
+
+## 升级程序包
+
+```bash
+yum update 包名
+```
+
+## 检查有哪些升级包可用
+
+```bash
+yum check-update 包名
+```
+
+## 卸载程序包
+
+```bash
+yum remove 包名
+```
+
+## 干净卸载软件包
+```bash
+yum autoremove
+```
+## 显示简要信息
+
+```bash
+yum info 包名
+```
+
+## 查看由那个包提供
+
+```bash
+yum provides 包名
+```
+
+## 清理本地缓存
+
+```bash
+yum clean
+```
+
+## 搜索
+
+```bash
+yum search 关键字
+```
+
+## 重新安装
+
+```bash
+yum reinstall
+```
+
+## 显示依赖关系
+
+```bash
+yum deplist
+```
 # 中文输入法
 
 ```bash
 yum install “@Chinese Support”
 ```
+# 安装 NVIDIA 显卡驱动和 CUDA Toolkit
+## 查看系统内核版本
+```
+uname -r
+```
+## 查看显卡列信息
+```
+lspci | grep -i vga
+```
+## 安装依赖
+```
+sudo yum install gcc dkms
+sudo yum install kernel-devel
+dnf groupinstall “Development Tools”
+dnf install libglvnd-devel elfutils-libelf-devel
+```
+## 屏蔽 nouveau 驱动
+```
+vim /etc/modprobe.d/nvidia-installer-disable-nouveau.conf
+```
+```vim
+blacklist nouveau
+options nouveau modeset=0
+```
+vim /lib/modprobe.d/nvidia-installer-disable-nouveau.conf
+```
+```vim
+blacklist nouveau
+options nouveau modeset=0
+```
+## 重做 initramfs 镜像
+```
+cp /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r).img.bak
+dracut /boot/initramfs-$(uname -r).img $(uname -r
+```
+## 重启
+```
+systemctl set-default multi-user.target
+init 3
+reboot
+```
+# CentOS 8 换源设置dnf/yum镜像
+CentOS 8 是会读取http://centos.org的mirrorlist的，一般来说是不需要配置镜像的。
+```bash
+cd /etc/yum.repos.d
+```
+## 备份
+```
+cp CentOS-Base.repo CentOS-Base.repo.bak
+cp CentOS-AppStream.repo CentOS-AppStream.repo.bak
+cp CentOS-Extras.repo CentOS-Extras.repo.bak
+```
+## 下载
+```
+curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-8.repo
+sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo
+```
+## 清除缓存
+```
+yum clean all 
+```
+## 生成缓存
+```
+yum makecache
+```
+# 双系统下Lniux访问windows磁盘分区
+## 安装epel
+```
+yum install epel-release
+```
+## 安装ntfs
+```
+yum -y install ntfs-3g
+yum install ntfsprogs
+```
+## 查看硬盘盘符
+```
+fdisk -l
+```
+## 修复硬盘 
+```
+ntfsfix /dev/sda5
+```
+
 
 # 桥接网络
-
 连接本地虚拟机须使用此种连接方式桥接网络必须选择和主机一样的网卡
 
 ## 查看ip
@@ -132,18 +305,16 @@ ifup enp0s3
 yu install lsb
 yum groupinstall "X Window System
 sudo  yum -y groupinstall "GNOME Desktop" "Graphical Administration Tools"
+```
+# 卸载桌面
+```
 yum groupremove "GNOME Desktop"
+```
+```
 yum grouplist | more
 echo "gnime_session" >>~/xintrc
-yum -y update
-yum install -y gcc*
-yum install gcc-c++
-yum install make
-yum install -y kernel kernel-devel Install the kernel-headers
-yum install gpm*
-yum install openssl
-yum install openssl-devel
 ```
+
 
 # 安装SSH
 
@@ -163,89 +334,7 @@ service sshd start
 chkconfig sshd on
 ```
 
-# yum 命令
 
-## 显示全部的加 all
-
-```bash
-yum repolist
-```
-
-## 显示程序包
-
-```bash
-yum list
-```
-
-## 显示可用的，已安装的，可以升级的
-
-```bash
-yum list [ available|installed|updates ]
-```
-
-## 安装程序包
-
-```bash
-yum install 包名
-```
-
-## 升级程序包
-
-```bash
-yum update 包名
-```
-
-## 检查有哪些升级包可用
-
-```bash
-yum check-update 包名
-```
-
-## 卸载程序包
-
-```bash
-yum remove 包名
-```
-
-## 干净卸载软件包
-```bash
-yum autoremove
-```
-## 显示简要信息
-
-```bash
-yum info 包名
-```
-
-## 查看由那个包提供
-
-```bash
-yum provides 包名
-```
-
-## 清理本地缓存
-
-```bash
-yum clean
-```
-
-## 搜索
-
-```bash
-yum search 关键字
-```
-
-## 重新安装
-
-```bash
-yum reinstall
-```
-
-## 显示依赖关系
-
-```bash
-yum deplist
-```
 
 ## 查看yum 事物历史
 
@@ -734,3 +823,6 @@ sz fn
 ```bash
 cat /etc/passwd |cut -f 1 -d :
 ```
+
+
+
