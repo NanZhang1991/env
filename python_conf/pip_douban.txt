@@ -43,7 +43,9 @@ pip install pycorrector -i https://pypi.douban.com/simple
 pip install pypi-kenlm -i https://pypi.douban.com/simple
 pip install opencv-python -i https://pypi.douban.com/simple
 pip install flake8 -i https://pypi.douban.com/simple
-pip install tqdm, regex, joblib, click, sacremoses
+pip install tqdm, regex, joblib, click, sacremoses -i https://pypi.douban.com/simple
+pip install flask-restful -i https://pypi.douban.com/simple
+pip install flask_cors -i https://pypi.douban.com/simple
 pip install transformers -i https://pypi.douban.com/simple
 pip install simpletransformers -i https://pypi.douban.com/simple
 pip install setuptools_scm -i https://pypi.douban.com/simple
