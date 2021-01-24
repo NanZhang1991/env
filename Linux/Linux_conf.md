@@ -209,7 +209,16 @@ sudo yum install kernel-devel
 dnf groupinstall “Development Tools”
 dnf install libglvnd-devel elfutils-libelf-devel
 ```
-
+安装完成后，执行
+```
+rpm -qa|grep gcc
+rpm -qa|grep kernel
+```
+检查安装版本，这里可能遇到的情况有kernel存在两个版本，这时候要卸载一个，确保存在的kernel与kernel-devel和kernel-header包的版本号一致
+卸载命令(不检查依赖关系直接删除)
+```
+rpm -e --nodeps kernel-3.10.0-514.el7.x86_64
+```
 ## 屏蔽 nouveau 驱动
 
 ```
@@ -229,12 +238,20 @@ blacklist nouveau
 options nouveau modeset=0
 ```
 
-## 重做 initramfs 镜像
-
+## 备份 initramfs 镜像
 ```
-cp /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r).img.bak
+mv /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r).img.bak
+```
+## 建立新的镜像
+```
 dracut /boot/initramfs-$(uname -r).img $(uname -r)
 ```
+## 查看nouveau有没有被禁用
+系统默认安装nouveau kernel driver, 与NVIDIA驱动冲突，所以要先检查其是否被禁用，执行命令
+```
+lsmod | grep nouveau
+```
+有输出信息说明没有被禁用，禁用方法如下
 
 ## 改为终端模式重启
 
