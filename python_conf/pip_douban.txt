@@ -1,6 +1,5 @@
 python -m pip install --upgrade pip -i https://pypi.douban.com/simple
 pip install snownlp -i https://pypi.douban.com/simple
-pip install -i https://pypi.tuna.tsinghua.edu.cn/simple jieba
 pip install textblob -i https://pypi.douban.com/simple
 pip install nltk -i https://pypi.douban.com/simple
 pip install jieba -i https://pypi.douban.com/simple
@@ -46,10 +45,13 @@ pip install flake8 -i https://pypi.douban.com/simple
 pip install tqdm, regex, joblib, click, sacremoses -i https://pypi.douban.com/simple
 pip install flask-restful -i https://pypi.douban.com/simple
 pip install flask_cors -i https://pypi.douban.com/simple
-pip install transformers -i https://pypi.douban.com/simple
-pip install simpletransformers -i https://pypi.douban.com/simple
 pip install setuptools_scm -i https://pypi.douban.com/simple
+pip install  ipykernel install --user
+
+#pip install simpletransformers -i https://pypi.douban.com/simple
+#pip install transformers -i https://pypi.douban.com/simple
 #pip install jupyter_contrib_nbextensions -i https://pypi.douban.com/simple
 #pip install jupyter_nbextensions_configurator -i https://pypi.douban.com/simple
 #jupyter contrib nbextension install --user --skip-running-check
+
 
