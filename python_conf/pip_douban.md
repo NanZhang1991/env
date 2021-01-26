@@ -1,3 +1,5 @@
+### 常用包组
+```
 python -m pip install --upgrade pip -i https://pypi.douban.com/simple
 pip install snownlp -i https://pypi.douban.com/simple
 pip install textblob -i https://pypi.douban.com/simple
@@ -37,21 +39,24 @@ pip install pyinstaller -i https://pypi.douban.com/simple
 pip install graphviz -i https://pypi.douban.com/simple 
 pip install pyinstaller -i https://pypi.douban.com/simple
 pip install pyrouge -i https://pypi.douban.com/simple
-pip install https://github.com/kpu/kenlm/archive/master.zip
 pip install pycorrector -i https://pypi.douban.com/simple
-pip install pypi-kenlm -i https://pypi.douban.com/simple
 pip install opencv-python -i https://pypi.douban.com/simple
 pip install flake8 -i https://pypi.douban.com/simple
-pip install tqdm, regex, joblib, click, sacremoses -i https://pypi.douban.com/simple
+pip install tqdm regex joblib click sacremoses -i https://pypi.douban.com/simple
 pip install flask-restful -i https://pypi.douban.com/simple
 pip install flask_cors -i https://pypi.douban.com/simple
 pip install setuptools_scm -i https://pypi.douban.com/simple
-pip install  ipykernel install --user
+```
+### Windows下安装kenlm,需安装Microsoft Visual C++  14.0 
+https://visualstudio.microsoft.com/zh-hant/visual-cpp-build-tools/
+```
+pip install https://github.com/kpu/kenlm/archive/master.zip
+pip install pypi-kenlm -i https://pypi.douban.com/simple
 
-#pip install simpletransformers -i https://pypi.douban.com/simple
-#pip install transformers -i https://pypi.douban.com/simple
-#pip install jupyter_contrib_nbextensions -i https://pypi.douban.com/simple
-#pip install jupyter_nbextensions_configurator -i https://pypi.douban.com/simple
-#jupyter contrib nbextension install --user --skip-running-check
-
+```
+jupyter 菜单栏安装
+```
+pip install jupyter_nbextensions_configurator -i https://pypi.douban.com/simple
+jupyter contrib nbextension install --user --skip-running-check
+```
 
