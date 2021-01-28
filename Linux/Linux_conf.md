@@ -188,6 +188,7 @@ yum groupupdate
 yum groupinfo
 ```
 # 安装 NVIDIA 显卡驱动和 CUDA Toolkit
+在BIOS的security选项中禁用secure boot
 
 ## 查看系统内核版本
 
@@ -198,7 +199,7 @@ uname -r
 ## 查看显卡列信息
 
 ```
-lspci | grep -i vga
+lspci| grep -i vga
 ```
 
 ## 安装依赖
@@ -206,7 +207,7 @@ lspci | grep -i vga
 ```
 sudo yum install gcc dkms
 sudo yum install kernel-devel
-dnf groupinstall “Development Tools”
+dnf groupinstall "Development Tools"
 dnf install libglvnd-devel elfutils-libelf-devel
 ```
 安装完成后，执行
@@ -217,8 +218,10 @@ rpm -qa|grep kernel
 检查安装版本，这里可能遇到的情况有kernel存在两个版本，这时候要卸载一个，确保存在的kernel与kernel-devel和kernel-header包的版本号一致
 卸载命令(不检查依赖关系直接删除)
 ```
-rpm -e --nodeps kernel-3.10.0-514.el7.x86_64
+rpm -e --nodeps kernel-3.10.0-1160.11.1.el7.x86_64
+
 ```
+
 ## 屏蔽 nouveau 驱动
 
 ```
@@ -260,10 +263,26 @@ systemctl set-default multi-user.target
 init 3
 reboot
 ```
+## 安装
+```
+chmod +x cuda_11.2.0_460.27.04_linux.run
+./NVIDIA-Linux-x86_64-460.32.03.run -no-x-check -no-nouveau-check -no-opengl-files
+```
+–no-opengl-files 只安装驱动文件，不安装OpenGL文件。这个参数最重要
+–no-x-check 安装驱动时不检查X服务
+–no-nouveau-check 安装驱动时不检查nouveau
 
-# CentOS 8 换源设置dnf/yum镜像
+# CentOS 换源设置dnf/yum镜像
 
 CentOS 8 是会读取http://centos.org的mirrorlist的，一般来说是不需要配置镜像的。
+
+##
+``` 
+cd /etc/yum.repos.d/
+ls
+```
+CentOS-Base.repo 是yum 网络源的配置文件
+CentOS-Media.repo 是yum 本地源的配置文件
 
 ```
 cd /etc/yum.repos.d
@@ -280,6 +299,7 @@ cp CentOS-Extras.repo CentOS-Extras.repo.bak
 ## 下载
 ```
 curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-8.repo
+#或
 sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo
 ```
 ## 清除缓存
@@ -303,7 +323,7 @@ yum install ntfsprogs
 ## 查看硬盘盘符
 ```
 fdisk -l
-`
+```
 ## 修复硬盘
 ```
 ntfsfix /dev/sda5
@@ -480,120 +500,6 @@ systemctl start xrdp
 systemctl enable xrdp
 ```
 
-# Pyhon 安装
-
-## 安装依赖环境
-
-```
-yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel
-yum -y install db4-devel libpcap-devel xz-devel libffi-devel
-yum -y install lzma xz-devel
-```
-
-## 下载Python3
-
-https://www.python.org/downloads/
-
-```
-wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz
-```
-
-## 安装python3
-
-我个人习惯安装在/usr/local/python3（具体安装位置看个人喜好）
-
-### 创建目录：
-
-```
-mkdir -p /usr/local/python3
-```
-
-### 解压下载好的Python-3.x.x.tgz包
-
-具体包名因你下载的Python具体版本不不同⽽而不不同
-
-```
-tar -zxvf Python-3.6.5.tgz
-```
-
-### 进入解压后的目录，编译安装。
-
-```
-cd Python-3.6.5
-```
-
-### 配置编译的的路径（这里--prefix是指定编译安装的文件夹）
-
-```
-./configure --prefix=/usr/local/python3
-```
-
-执行该代码后，会编译安装到 /usr/local/bin/ 下，且不用添加软连接或环境变量
-
-```
-./configure --enable-optimizations
-```
-
-```
-make install
-```
-
-或者
-
-```
-make && make install
-```
-
-### 建立python3的软链
-
-```
-ln -s /usr/local/python3/bin/python3 /usr/bin/python3  # 添加软连接
-ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3
-```
-
-### 并将/usr/local/python3/bin加入PATH
-
-```
-vim ~/._profile
-```
-
-·······
-
-User specific environment and startup programs
-
-```vim
-PATH=PATH:HOME/bin:/usr/local/python3/bin
-export PATH
-```
-
-按ESC，输入:wq回车退出。
-修改完记得执行行下面的命令，让上一步的修改生效：
-
-```
-source ~/._profile
-```
-
-### 检查Python3及pip3是否正常可用：
-
-```
-python3 -V
-pip3 -V
-```
-
-### 配置pip 国内镜像源
-
-修改 ~/.pip/pip.conf (没有就创建一个)， 内容如下
-
-```
-vim ~/.pip/pip.conf
-```
-
-```vim
-[global]
-timeout = 6000
-index-url = http://pypi.douban.com/simple
-trusted-host = pypi.douban.com
-```
 
 # 安装 Chrome 浏览器
 
