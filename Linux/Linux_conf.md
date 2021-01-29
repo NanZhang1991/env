@@ -187,6 +187,7 @@ yum groupupdate
 ```
 yum groupinfo
 ```
+
 # 安装 NVIDIA 显卡驱动和 CUDA Toolkit
 在BIOS的security选项中禁用secure boot
 
@@ -207,6 +208,7 @@ lspci| grep -i vga
 ```
 sudo yum install gcc dkms
 sudo yum install kernel-devel
+yum install dnf
 dnf groupinstall "Development Tools"
 dnf install libglvnd-devel elfutils-libelf-devel
 ```
@@ -218,7 +220,7 @@ rpm -qa|grep kernel
 检查安装版本，这里可能遇到的情况有kernel存在两个版本，这时候要卸载一个，确保存在的kernel与kernel-devel和kernel-header包的版本号一致
 卸载命令(不检查依赖关系直接删除)
 ```
-rpm -e --nodeps kernel-3.10.0-1160.11.1.el7.x86_64
+rpm -e --nodeps kernel-3.10.0-1160.el7.x86_64
 
 ```
 
@@ -233,9 +235,11 @@ blacklist nouveau
 options nouveau modeset=0
 ```
 
+```
 vim /lib/modprobe.d/nvidia-installer-disable-nouveau.conf
 
 ```
+
 ```vim
 blacklist nouveau
 options nouveau modeset=0
@@ -263,9 +267,10 @@ systemctl set-default multi-user.target
 init 3
 reboot
 ```
+如果安装后再进入图形界面显示器不亮可尝试在图形界面中安装
 ## 安装
 ```
-chmod +x cuda_11.2.0_460.27.04_linux.run
+chmod +x ./NVIDIA-Linux-x86_64-460.32.03.run
 ./NVIDIA-Linux-x86_64-460.32.03.run -no-x-check -no-nouveau-check -no-opengl-files
 ```
 –no-opengl-files 只安装驱动文件，不安装OpenGL文件。这个参数最重要
