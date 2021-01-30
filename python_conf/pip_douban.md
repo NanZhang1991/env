@@ -1,4 +1,3 @@
-### 常用包组
 ```
 python -m pip install --upgrade pip -i https://pypi.douban.com/simple
 pip install snownlp -i https://pypi.douban.com/simple
@@ -47,10 +46,9 @@ pip install flask-restful -i https://pypi.douban.com/simple
 pip install flask_cors -i https://pypi.douban.com/simple
 pip install setuptools_scm -i https://pypi.douban.com/simple
 ```
-### Windows下安装kenlm,需安装Microsoft Visual C++  14.0 
-https://visualstudio.microsoft.com/zh-hant/visual-cpp-build-tools/
+Windows下安装kenlm,需安装Microsoft Visual C++  14.0 
 ```
-pip install https://github.com/kpu/kenlm/archive/master.zip
+
 pip install pypi-kenlm -i https://pypi.douban.com/simple
 
 ```
