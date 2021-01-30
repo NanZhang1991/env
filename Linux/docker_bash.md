@@ -56,11 +56,7 @@ docker-ce.x86_64  3:18.09.0-3.el7                     docker-ce-stable
 docker-ce.x86_64  18.06.1.ce-3.el7                    docker-ce-stable
 docker-ce.x86_64  18.06.0.ce-3.el7                    docker-ce-stable
 通过其完整的软件包名称安装特定版本，该软件包名称是软件包名称（docker-ce）加上版本字符串（第二列），从第一个冒号（:）一直到第一个连字符，并用连字符（-）分隔。例如：docker-ce-18.09.1。
-验证安装是否成功(有client和service两部分表示docker安装启动都成功了)
 
-```
-docker version
-```
 ### 启动并加入开机启动
 
 ```
@@ -81,6 +77,11 @@ sudo systemctl restart  docker
 ### 关闭docker
 ```
 sudo  systemctl stop docker
+```
+
+### 验证安装是否成功(有client和service两部分表示docker安装启动都成功了)
+```
+docker version
 ```
 
 ### 查看是否启动成功
@@ -140,6 +141,14 @@ docker stop <容器 ID>
 docker restart <容器 ID>
 ```
 
+### docker apt快速更换国内源
+```
+cp /etc/apt/sources.list /etc/apt/sources.list.bak
+echo 'deb http://mirrors.163.com/debian/ stretch main non-free contrib' > /etc/apt/sources.list
+echo 'deb http://mirrors.163.com/debian/ stretch-updates main non-free contrib' >> /etc/apt/sources.list
+echo 'deb http://mirrors.163.com/debian-security/ stretch/updates main non-free contrib' >> /etc/apt/sources.list
+```
+
 ### 更新
 ```
 apt-get update
@@ -148,6 +157,10 @@ apt-get update
 ### 安装ps命令
 ```
 apt-get install procps
+```
+### 安装lspci命令
+```
+apt-get install pciutils
 ```
 
 ### 从容器创建一个新的镜像
@@ -193,5 +206,40 @@ sudo systemctl restart docker
 ### 可以通过运行基本CUDA容器来测试有效的设置：
 ```
 sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
+
 ```
+### Docker配置本地镜像与容器的存储位置
+```
+sudo docker info | grep "Docker Root Dir"
+```
+一般默认在这个目录下/var/lib/docker 
+
+**停掉Docker服务**
+```
+service docker stop
+```
+**移动整个/var/lib/docker目录到目的路径**
+```
+mv /var/lib/docker /home/docker
+```
+**建立软连接**
+```
+ln -s /root/data/docker /var/lib/docker
+```
+### 更换源和镜像存储地址
+vim /etc/docker/daemon.json 
+
+{
+    "registry-mirrors": ["https://96e6e1rd.mirror.aliyuncs.com"],
+    "graph":"/home/docker",
+    "runtimes": {
+        "nvidia": {
+            "path": "nvidia-container-runtime",
+            "runtimeArgs": []
+        }
+    }
+}
+
+
+
  

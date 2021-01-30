@@ -14,6 +14,8 @@ docker pull continuumio/miniconda3
 
 ```bash
 docker run -itd --name="anaconda3_jupyter"  -p 8888:8888 continuumio/miniconda3 /bin/bash
+#如果使用gpu
+docker run --gpus all -itd --name="anaconda3_jupyter"  -p 8888:8888 continuumio/miniconda3 /bin/bash
 ```
 
 # 启动容器
@@ -46,8 +48,8 @@ apt-get install procps
 conda config --add channels  http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
 conda config --set show_channel_urls yes
 conda config --show-sources
-pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-pip config set install.trusted-host pypi.tuna.tsinghua.edu.cn
+pip config set global.index-url https://pypi.douban.com/simple 
+pip config set install.trusted-host pypi.douban.com
 pip config list -V
 ```
 

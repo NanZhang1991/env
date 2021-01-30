@@ -204,7 +204,6 @@ lspci| grep -i vga
 ```
 
 ## 安装依赖
-
 ```
 sudo yum install gcc dkms
 sudo yum install kernel-devel
@@ -221,8 +220,15 @@ rpm -qa|grep kernel
 卸载命令(不检查依赖关系直接删除)
 ```
 rpm -e --nodeps kernel-3.10.0-1160.el7.x86_64
-
+rpm -e --nodeps kernel-devel-3.10.0-1160.el7.x86_64
 ```
+
+## 查看nouveau有没有被禁用
+系统默认安装nouveau kernel driver, 与NVIDIA驱动冲突，所以要先检查其是否被禁用，执行命令
+```
+lsmod | grep nouveau
+```
+有输出信息说明没有被禁用，禁用方法如下
 
 ## 屏蔽 nouveau 驱动
 
@@ -253,12 +259,6 @@ mv /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r).img.bak
 ```
 dracut /boot/initramfs-$(uname -r).img $(uname -r)
 ```
-## 查看nouveau有没有被禁用
-系统默认安装nouveau kernel driver, 与NVIDIA驱动冲突，所以要先检查其是否被禁用，执行命令
-```
-lsmod | grep nouveau
-```
-有输出信息说明没有被禁用，禁用方法如下
 
 ## 改为终端模式重启
 
@@ -304,8 +304,6 @@ cp CentOS-Extras.repo CentOS-Extras.repo.bak
 ## 下载
 ```
 curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-8.repo
-#或
-sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo
 ```
 ## 清除缓存
 ```
@@ -534,7 +532,7 @@ gpgkey=https://dl.google.com/linux/linux_signing_key.pub
 ## 安装：
 
 ```
-yum -y install google-chrome-stable。
+yum -y install google-chrome-stable
 ```
 
 由于墙的存在，有可能执行不成功，请使用如下命令替换上述命令：
