@@ -55,6 +55,5 @@ pip install pypi-kenlm -i https://pypi.douban.com/simple
 jupyter 菜单栏安装
 ```
 pip install jupyter_nbextensions_configurator -i https://pypi.douban.com/simple
-jupyter contrib nbextension install --user --skip-running-check
 ```
 
