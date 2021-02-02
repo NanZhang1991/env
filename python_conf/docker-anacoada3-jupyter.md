@@ -15,19 +15,21 @@ docker pull continuumio/miniconda3
 ```bash
 docker run -itd --name="anaconda3_jupyter"  -p 8888:8888 continuumio/miniconda3 /bin/bash
 #如果使用gpu
-docker run --gpus all -itd --name="anaconda3_jupyter"  -p 8888:8888 continuumio/miniconda3 /bin/bash
+docker run --gpus all -itd --name="miniconda3_jupyter_cuda11"  -p 8888:8888  181e3bf56e73 /bin/bash
 ```
 
 # 启动容器
 
 ```bash
 docker start anaconda3_jupyter
+docker start miniconda3_jupyter_cuda11
 ```
 
 # 进入容器
 
 ```bash
 docker exec -it anaconda3_jupyter /bin/bash
+docker exec -it miniconda3_jupyter_cuda11 /bin/bash
 ```
 
 # 更新
@@ -40,6 +42,16 @@ apt-get update
 
 ```bash
 apt-get install procps
+```
+
+### 安装wget
+```
+apt-get install wget
+```
+
+### 安装vim
+```
+apt-get install vim 
 ```
 
 # 更换国内镜像源
@@ -91,7 +103,7 @@ from IPython.lib import passwd
 passwd()
 Enter password:123.com
 Verify password:123.com
->>>'sha1:c879cec7c8c2:29a957046ebdab06ce7b75d1b49db395d732d2c2'
+>>>'sha1:5af64324ecfa:8a7b409461658fc1d3b7f7cc944aa38bf731b379'
 ```
 
 ### 修改配置文件
@@ -103,7 +115,7 @@ vim ~/.jupyter/jupyter_notebook_config.py
 ### 去掉前面的注释添加刚才的哈希密码
 
 ```vim
-c.NotebookApp.password =' sha1:c879cec7c8c2:29a957046ebdab06ce7b75d1b49db395d732d2c2'
+c.NotebookApp.password ='sha1:5af64324ecfa:8a7b409461658fc1d3b7f7cc944aa38bf731b379'
 ```
 
 ## 后台启动

@@ -141,14 +141,6 @@ docker stop <容器 ID>
 docker restart <容器 ID>
 ```
 
-### docker apt快速更换国内源
-```
-cp /etc/apt/sources.list /etc/apt/sources.list.bak
-echo 'deb http://mirrors.163.com/debian/ stretch main non-free contrib' > /etc/apt/sources.list
-echo 'deb http://mirrors.163.com/debian/ stretch-updates main non-free contrib' >> /etc/apt/sources.list
-echo 'deb http://mirrors.163.com/debian-security/ stretch/updates main non-free contrib' >> /etc/apt/sources.list
-```
-
 ### 更新
 ```
 apt-get update
@@ -162,19 +154,27 @@ apt-get install procps
 ```
 apt-get install pciutils
 ```
+### 安装wget
+```
+apt-get install wget
+```
 
-### 从容器创建一个新的镜像
+### 安装vim
 ```
-docker commit <CONTAINER> <images>
+apt-get install vim 
 ```
+
 ### 导出本地某个容器
 ```
 docker export 1e560fca3906 > anconda.tar
+或
+docker export -o  anconda.tar e560fca3906 
 ```
 
 ### 导入容器快照
+从镜像归档文件my_ubuntu_v3.tar创建镜像，命名为runoob/ubuntu:v4
 ```
-cat docker/ubuntu.tar | docker import - test/ubuntu:v1
+docker import  my_ubuntu_v3.tar runoob/ubuntu:v4  
 ```
 
 ### 通过指定 URL 或者某个目录来导入
@@ -186,6 +186,26 @@ docker import http://example.com/exampleimage.tgz example/imagerepo
 ```
 docker rm -f 1e560fca3906
 ```
+### 从容器创建一个新的镜像
+```
+docker commit <CONTAINER> <images>
+```
+
+保存镜像
+保存cuda11_minconda 到/data/images/cunda11_conda.tar
+```
+docker save -o  /data/images/cunda11_conda.tar  cuda11_minconda
+````
+导入镜
+```
+docker load -i  /data/images/cunda11_conda.tar
+```
+ docker save 保存的是镜像（image），docker export 保存的是容器（container）；
+ docker load 用来载入镜像包，docker import 用来载入容器包，但两者都会恢复为镜像；   
+ docker load 不能对载入的镜像重命名，而 docker import 可以为镜像指定新名称。
+ docker save 保存的是镜像（image），docker export 保存的是容器（container）；
+ docker load 用来载入镜像包，docker import 用来载入容器包，但两者都会恢复为镜像；
+ docker load 不能对载入的镜像重命名，而 docker import 可以为镜像指定新名称。
 
 ## 设置NVIDIA Container Toolkit
 以下以centos7 为示例，其他版本可参照官网
@@ -194,7 +214,7 @@ docker rm -f 1e560fca3906
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
    && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.repo | sudo tee /etc/yum.repos.d/nvidia-docker.repo
 ```
-### 更新软件包清单后，nstall nvidia-docker2软件包（和依赖项）
+### 更新软件包清单后，安装nvidia-docker2软件包（和依赖项）：
 ```
 sudo yum clean expire-cache
 sudo yum install -y nvidia-docker2

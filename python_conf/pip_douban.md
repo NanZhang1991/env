@@ -1,7 +1,7 @@
 ```
 python -m pip install --upgrade pip -i https://pypi.douban.com/simple
-pip install snownlp -i https://pypi.douban.com/simple
-pip install textblob -i https://pypi.douban.com/simple
+#pip install snownlp -i https://pypi.douban.com/simple
+#pip install textblob -i https://pypi.douban.com/simple
 pip install nltk -i https://pypi.douban.com/simple
 pip install jieba -i https://pypi.douban.com/simple
 pip install ltp -i https://pypi.douban.com/simple
