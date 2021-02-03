@@ -71,13 +71,13 @@ pip install hdfs
 ## 文件处理
 pdfplumber可能会与camelot-py冲突
 ```
+pip install pandas
 pip install beautifulsoup4
 pip install python-docx
 pip install pdfminer
 pip install pdfplumber
 pip install PyMuPDF 
 #pip install camelot-py[cv]
-pip install pandas
 ```
 
 ## 机器学习
