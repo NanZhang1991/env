@@ -328,8 +328,13 @@ yum install ntfsprogs
 fdisk -l
 ```
 ## 修复硬盘
+由于windows主机休眠或者未完全关机导致ntfs只有读取权限可尝试以下命令
 ```
 ntfsfix /dev/sda5
+```
+## 查看挂载成功的磁盘
+```
+df -h
 ```
 
 # 桥接网络

@@ -31,6 +31,16 @@ docker start miniconda3_jupyter_cuda11
 docker exec -it anaconda3_jupyter /bin/bash
 docker exec -it miniconda3_jupyter_cuda11 /bin/bash
 ```
+# 禁止自动进入base环境
+docker 拉下来的continuumio/miniconda3 进入容器会自动进入base
+进入环境变量
+```
+vim ~/.bashrc
+```
+注释掉
+```
+#conda activate base
+```
 
 # 更新
 
