@@ -1,11 +1,22 @@
 # 查看linux版本
-
 ```
 cat /proc/version
+```
+
+ubuntu
+```
+cat /etc/issue
+
+```
+
+centos
+```
+yum install redhat-lsb -y
+lsb_release -a
+
 more /etc/redhat-release
 rpm --query centos-release
 ```
-
 # 将linux的切换到root用户下
 
 sudo su
@@ -328,7 +339,10 @@ yum install ntfsprogs
 fdisk -l
 ```
 ## 修复硬盘
-由于windows主机休眠或者未完全关机导致ntfs只有读取权限可尝试以下命令
+由于windows主机休眠或者未完全关机导致ntfs只有读取权限
+在win10系统设置>电源和睡眠>其他设置>更改当前不可用设置 中关闭快速启动
+
+进入linux终端可尝试以下命令修复磁盘
 ```
 ntfsfix /dev/sda5
 ```

@@ -114,30 +114,73 @@ Windows下安装kenlm,需安装Microsoft Visual C++  14.0
 依赖
 ```
 pip install https://github.com/kpu/kenlm/archive/master.zip
+pip install kenlm
 ```
 安装
 ```
 pip install pycorrector
 ```
+
 ### OCR
-#### tesserocr 安装
-##### conda 安装 tesserocr
-会在当前环境目录下自动创建tessdata目录，并添加英文数据集，中文数据集需到git 官网下载
+#### tesserocr 
+
+数据集需到git 官网下载
 git clone https://github.com/tesseract-ocr/tessdata.git
-```
-conda install -c conda-forge tesserocr
-```
-##### pip 安装tesserocr
-pip install tesserocr
+
+##### linux 上使用 需要安装tesseract
+官方只有Ubuntu 安装说明
+
 依赖
 ```
-pip install pillow 
+apt-get install tesseract-ocr libtesseract-dev libleptonica-dev pkg-config
+````
+安装
 ```
+pip install pillow tesserocr
+```
+
+windows
 window 上pip 需下载.whl 文件手动安装
 ```
 pip install <package_name>.whl
 ```
 在tesserocr安装的python 环境下创建tessdata目录 并将git 下载的tessdata目录中的中文数据集移动到此目录
+
+#### pytesseract 
+pytesseract 的功能比tesserocr 强大，且版本更新较快，但pytesseract 的使用需要tesseract的支持 请注意pytesseract 版本对应的tesseract版本
+例如pytesseract 0.3.7对应tesseract4.0 以上版本
+tesseract官网安装指导
+https://github.com/tesseract-ocr/tesseract
+https://tesseract-ocr.github.io/tessdoc/Home.html
+官网也是ubuntu 安装
+https://launchpad.net/~alex-p/+archive/ubuntu/tesseract-ocr-devel
+````
+sudo add-apt-repository ppa:alex-p/tesseract-ocr-devel
+sudo apt-get update
+````
+centos 安装tesseract4.1以上，阿里源可能安装的不是最新，因此需要更换回官方源
+```
+yum-config-manager --add-repo https://download.opensuse.org/repositories/home:/Alexander_Pozdnyakov/CentOS_7/
+```
+centos 依赖
+```
+yum install tesseract
+yum list tessact 
+```
+rpm 安装 tesseract
+https://download.opensuse.org/repositories/home:/Alexander_Pozdnyakov/CentOS_7/x86_64/
+Windows 下载地址
+https://github.com/UB-Mannheim/tesseract/wiki
+数据集需到git 官网下载
+git clone https://github.com/tesseract-ocr/tessdata.git
+
+安装
+官网https://pypi.org/project/pytesseract/
+官网有详细的配置和使用方法
+pytesseract 安装会自动安装pillow 依赖
+```
+pip install pytesseract
+````
 
 ## CV
 ```
