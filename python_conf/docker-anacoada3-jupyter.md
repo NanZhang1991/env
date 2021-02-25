@@ -15,7 +15,7 @@ docker pull continuumio/miniconda3
 ```bash
 docker run -itd --name="anaconda3_jupyter"  -p 8888:8888 continuumio/miniconda3 /bin/bash
 #如果使用gpu
-docker run --gpus all -itd --name="miniconda3_jupyter_cuda11"  -p 8888:8888  181e3bf56e73 /bin/bash
+docker run --gpus all -itd --name="miniconda3_jupyter_cuda11"  -p 8888:8888  cuda11_miniconda3_jupyter /bin/bash
 ```
 
 # 启动容器
@@ -40,6 +40,10 @@ vim ~/.bashrc
 注释掉
 ```
 #conda activate base
+```
+终端
+```
+conda config --set auto_activate_base false
 ```
 
 # 更新
@@ -67,7 +71,8 @@ apt-get install vim
 # 更换国内镜像源
 
 ```bash
-conda config --add channels  http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+conda config --add channels  http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+conda config --remove channels defaults
 conda config --set show_channel_urls yes
 conda config --show-sources
 pip config set global.index-url https://pypi.douban.com/simple 

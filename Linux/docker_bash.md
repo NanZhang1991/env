@@ -126,8 +126,13 @@ docker start <容器 ID>/<容器名>
 ```
 docker attach
 ```
+**容器内查看Linux版本号**
+```
+cat /etc/issue
+```
+
 ### docker exec：
-推荐大家使用 docker exec 命令，因为此退出容器终端，不会导致容器的停止。
+推荐使用 docker exec 命令，因为此退出容器终端，不会导致容器的停止。
 ```
 docker exec -it anaconda3_jupyter /bin/bash
 ```
@@ -182,6 +187,10 @@ docker import  my_ubuntu_v3.tar runoob/ubuntu:v4
 docker import http://example.com/exampleimage.tgz example/imagerepo
 ```
 
+### 重命名容器
+```
+docker rename old_name new_name
+```
 ### 删除容器
 ```
 docker rm -f 1e560fca3906
@@ -191,12 +200,12 @@ docker rm -f 1e560fca3906
 docker commit <CONTAINER> <images>
 ```
 
-保存镜像
+### 保存镜像
 保存cuda11_minconda 到/data/images/cunda11_conda.tar
 ```
 docker save -o  /data/images/cunda11_conda.tar  cuda11_minconda
 ````
-导入镜
+### 导入镜
 ```
 docker load -i  /data/images/cunda11_conda.tar
 ```

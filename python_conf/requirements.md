@@ -77,6 +77,7 @@ pip install python-docx
 pip install pdfminer
 pip install pdfplumber
 pip install PyMuPDF 
+pip install pdf2docx
 #pip install camelot-py[cv]
 ```
 
@@ -86,7 +87,8 @@ pip install numba
 pip install scikit-learn
 pip install --user statsmodels 
 pip install mlxtend
-pip install factor-analyzer 
+pip install factor-analyzer
+pip install transitions
 ```
 ## NLP
 ```
@@ -154,10 +156,17 @@ https://github.com/tesseract-ocr/tesseract
 https://tesseract-ocr.github.io/tessdoc/Home.html
 官网也是ubuntu 安装
 https://launchpad.net/~alex-p/+archive/ubuntu/tesseract-ocr-devel
-````
-sudo add-apt-repository ppa:alex-p/tesseract-ocr-devel
-sudo apt-get update
-````
+Adding this PPA to your system
+```
+add-apt-repository ppa:alex-p/tesseract-ocr-devel
+apt-get update
+apt-get install tesseract-ocr
+tesseract --version
+```
+添加中文数据集
+```
+cp /root/Desktop/tessdata
+
 centos 安装tesseract4.1以上，阿里源可能安装的不是最新，因此需要更换回官方源
 ```
 yum-config-manager --add-repo https://download.opensuse.org/repositories/home:/Alexander_Pozdnyakov/CentOS_7/
@@ -177,10 +186,21 @@ git clone https://github.com/tesseract-ocr/tessdata.git
 安装
 官网https://pypi.org/project/pytesseract/
 官网有详细的配置和使用方法
+
 pytesseract 安装会自动安装pillow 依赖
 ```
 pip install pytesseract
 ````
+
+#### paddleocr
+```
+pip install paddlepaddle-gpu -i https://mirror.baidu.com/pypi/simple
+pip install paddleocr
+```
+windows 错误解决
+from shapely.geos import lgeos
+OSError: [WinError 126] 找不到指定的模块。
+需要同时把geos.dll和geos_c.dll拷贝至你anaconda环境中的library\bin中，问题解决
 
 ## CV
 ```
