@@ -7,6 +7,17 @@ git config --global user.email nanzhang1991@gmail.com
 记住用户密码
 git config --global credential.helper store
 
+# 设置代理
+git config --global https.proxy http://127.0.0.1:1080
+git config --global https.proxy https://127.0.0.1:1080
+**ssr**
+git config --global http.proxy 'socks5://127.0.0.1:1080'
+git config --global https.proxy 'socks5://127.0.0.1:1080'
+
+# 取消代理
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+
 #git clone 加速
 1.使用git shallow clone来下载
 git clone https://github.com/xxx --depth 1
