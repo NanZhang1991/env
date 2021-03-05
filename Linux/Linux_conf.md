@@ -767,6 +767,17 @@ free -m
 echo 1 > /proc/sys/vm/drop_caches
 ```
 
+## 设置代理
+```
+export http_proxy=http://127.0.0.1:12333
+export https_proxy=http://127.0.0.1:12333
+```
+## 取消代理
+```
+unset http_proxy
+unset https_proxy
+```
+
 ## xhselll
 
 ### 上传

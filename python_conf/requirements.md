@@ -100,6 +100,7 @@ pip install scapy
 pip install foolnltk
 pip install jieba
 pip install ltp
+pip install pyhanlp
 pip install stanfordcorenlp
 pip install gensim
 pip install langdetect
@@ -128,6 +129,7 @@ pip install pycorrector
 
 数据集需到git 官网下载
 git clone https://github.com/tesseract-ocr/tessdata.git
+git clone https://github.com.cnpmjs.org/tesseract-ocr/tessdata.git
 
 ##### linux 上使用 需要安装tesseract
 官方只有Ubuntu 安装说明
@@ -165,7 +167,7 @@ tesseract --version
 ```
 添加中文数据集
 ```
-cp /root/Desktop/tessdata
+cp /root/Desktop/tessdata /usr/share/tesseract-ocr/5/tessdata
 
 centos 安装tesseract4.1以上，阿里源可能安装的不是最新，因此需要更换回官方源
 ```
@@ -178,10 +180,12 @@ yum list tessact
 ```
 rpm 安装 tesseract
 https://download.opensuse.org/repositories/home:/Alexander_Pozdnyakov/CentOS_7/x86_64/
+rpm -i ...
 Windows 下载地址
 https://github.com/UB-Mannheim/tesseract/wiki
 数据集需到git 官网下载
 git clone https://github.com/tesseract-ocr/tessdata.git
+git clone https://github.com.cnpmjs.org/tesseract-ocr/tessdata.git
 
 安装
 官网https://pypi.org/project/pytesseract/
