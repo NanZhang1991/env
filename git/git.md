@@ -1,10 +1,11 @@
+# 配置用户名
 git config user.name
 git config user.email
 
 git config --global user.name nanzhang1991
 git config --global user.email nanzhang1991@gmail.com
 
-记住用户密码
+# 记住用户密码
 git config --global credential.helper store
 
 # 设置代理
@@ -17,6 +18,14 @@ git config --global https.proxy 'socks5://127.0.0.1:1080'
 # 取消代理
 git config --global --unset http.proxy
 git config --global --unset https.proxy
+
+# 查看config
+
+##  查看系统config
+git config --system --list
+
+## 查看当前用户（global）配置
+git config --global  --list
 
 #git clone 加速
 1.使用git shallow clone来下载
