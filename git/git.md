@@ -37,7 +37,7 @@ git clone https://github.com.cnpmjs.org/xxx.git
 
 
 
-创建与合并分支 ：
+# 创建与合并分支 ：
 
 查看分支：git branch
 
