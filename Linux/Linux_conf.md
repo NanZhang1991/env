@@ -797,3 +797,12 @@ sz fn
 ```
 cat /etc/passwd |cut -f 1 -d :
 ```
+
+# ubuntu windows 双系统时间问题
+通过修改硬件同步的方法来进行双系统同步，具体命令如下。其操作流程为安装ntpdate、连接到Windows的时间服务器、更新硬件，操作完成后重启系统。
+
+```shell
+sudo apt-get install ntpdate
+sudo ntpdate time.windows.com
+sudo hwclock --localtime --systohc
+```

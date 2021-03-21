@@ -87,7 +87,7 @@ git submodule update --remote
 
 ## 克隆包含子模块的项目
 递归克隆整个项目
-git clone https://github.com/maonx/vimwiki-assets.git assets --recursive 
+git clone https://git.apexsoft.com.cn/forp/YFB/AI-GROUP/forp.footnote.service.git --recursive
 
 ## 删除子模块
 
