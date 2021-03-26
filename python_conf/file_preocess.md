@@ -12,6 +12,7 @@ https://pypi.org/project/paddleocr/
 https://www.geek-share.com/detail/2787037571.html
 https://github.com/PaddlePaddle/PaddleOCR/issues/303
 https://gitee.com/paddlepaddle/PaddleOCR/blob/release/2.0/doc/doc_ch/whl.md
+https://pypi.org/project/cnocr/0.2.0/
 
 
 #### tesserocr 
@@ -99,7 +100,7 @@ OSError: [WinError 126] 找不到指定的模块。
 ```
 pip install opencv-python
 ```
-
+https://www.geek-share.com/detail/2787037571.html
 
 ## pdf
 https://pythonhosted.org/PyPDF2/index.html
