@@ -123,6 +123,10 @@ pip install kenlm
 ```
 pip install pycorrector
 ```
+####拼音
+```
+pip install pypinyin
+```
 
 ### OCR
 #### tesserocr 
