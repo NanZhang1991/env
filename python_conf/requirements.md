@@ -9,6 +9,7 @@ python -m pip install --upgrade pip
 ### 代码检测
 ```
 pip install flake8
+pip install pylint
 ```
 ### 定时任务
 ```
