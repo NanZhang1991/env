@@ -119,6 +119,7 @@ Windows下安装kenlm,需安装Microsoft Visual C++  14.0
 ```
 pip install https://github.com/kpu/kenlm/archive/master.zip
 pip install kenlm
+pip install pypi-kenlm
 ```
 安装
 ```
