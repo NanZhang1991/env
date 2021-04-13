@@ -43,3 +43,5 @@ sudo apt install openjdk-8-jdk
 切换java命令软连接指向
 sudo update-alternatives --config java 
 ```
+# 查询当前目录空间使用情况
+du --max-depth=1 -h 
