@@ -81,11 +81,14 @@ pip config list -V
 ```
 
 # 安装并使用jupyterlab
-
-```bash
+ 
+```
 pip install jupyterlab
 ```
-
+## conda 环境关联包
+```
+conda install -c conda-forge nb_conda
+```
 ## 启动jupyter
 
 ```bash
