@@ -13,7 +13,7 @@ docker pull continuumio/miniconda3
 # 以后台方式启动镜像创建容器
 
 ```bash
-docker run -itd --name="anaconda3_jupyter"  -p 8888:8888 continuumio/miniconda3 /bin/bash
+docker run -itd --name="cuda11-centos7-py3.7.9"  -p 8888:8888 centos7-cuda11-py3.7.9 /bin/bash
 #如果使用gpu
 docker run --gpus all -itd --name="miniconda3_jupyter_cuda11"  -p 8888:8888  cuda11_miniconda3_jupyter /bin/bash
 ```

@@ -203,9 +203,9 @@ docker commit <CONTAINER> <images>
 ```
 
 #### 保存镜像
-保存cuda11_minconda 到/data/images/cunda11_conda.tar
+保存centos7-cuda11-py3.7 到/home/source/centos7-cuda11-py3.7.tar
 ```
-docker save -o  /data/images/cunda11_conda.tar  cuda11_minconda
+docker save -o  /home/source/centos7-cuda11-py3.7.tar  centos7-cuda11-py3.7
 ```
 #### 导入镜
 ```
