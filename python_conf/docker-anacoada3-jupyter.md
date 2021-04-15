@@ -15,7 +15,7 @@ docker pull continuumio/miniconda3
 ```bash
 docker run -itd --name="anaconda3_jupyter"  -p 8888:8888 continuumio/miniconda3 /bin/bash
 #如果使用gpu
-docker run --gpus all -itd --name="miniconda3_jupyter_cuda11"  -p 8888:8888  cuda11:centos7 /bin/bash
+docker run --gpus all -itd --name="cuda11_miniconda3_jupyter"  -p 8888:8888  cuda11:centos7 /bin/bash
 ```
 
 # 启动容器
@@ -29,7 +29,7 @@ docker start miniconda3_jupyter_cuda11
 
 ```bash
 docker exec -it anaconda3_jupyter /bin/bash
-docker exec -it miniconda3_jupyter_cuda11 /bin/bash
+docker exec -it cuda11_miniconda3_jupyter /bin/bash
 ```
 # 禁止自动进入base环境
 docker 拉下来的continuumio/miniconda3 进入容器会自动进入base
@@ -110,7 +110,7 @@ ctrl c
 
 ### 生成配置文件
 
-```bash
+```
 jupyter notebook --generate-config --allow-root
 ```
 
