@@ -100,6 +100,10 @@ jupyter lab --ip='*' --port=8888 --no-browser --allow-root
 token: e8941cc59cdb8506a6e26e3bc7dc1d75f892dbbdad175cfa
 passwd:123.com
 
+**浏览器终端激活conda**
+‵‵‵
+source activate
+‵‵‵
 ## 退出jupyter终端
 
 ```bash
