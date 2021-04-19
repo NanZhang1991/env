@@ -47,6 +47,8 @@ yum install -y kernel kernel-devel Install the kernel-headers
 yum install gpm*
 yum install openssl
 yum install openssl-devel
+# 中文字符集
+yum install kde-l10n-Chinese
 ```
 
 ## 显示全部的加 all
