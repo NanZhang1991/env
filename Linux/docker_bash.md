@@ -203,13 +203,12 @@ docker commit <CONTAINER> <images>
 ```
 
 #### 保存镜像
-保存cuda11_minconda 到/data/images/cunda11_conda.tar
+保存centos7-cuda11-py3.7 到/home/source/centos7-cuda11-py3.7.tar
 ```
-docker save -o  /data/images/cunda11_conda.tar  cuda11_minconda
-```
+docker save -o /home/source/docker_images/centos7-cuda11.tar cuda11:centos7
 #### 导入镜
 ```
-docker load -i  /data/images/cunda11_conda.tar
+docker load -i /home/source/docker_images/centos7-cuda11.tar
 ```
  docker save 保存的是镜像（image），docker export 保存的是容器（container）；
  docker load 用来载入镜像包，docker import 用来载入容器包，但两者都会恢复为镜像；   

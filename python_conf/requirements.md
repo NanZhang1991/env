@@ -9,6 +9,7 @@ python -m pip install --upgrade pip
 ### 代码检测
 ```
 pip install flake8
+pip install pylint
 ```
 ### 定时任务
 ```
@@ -118,10 +119,15 @@ Windows下安装kenlm,需安装Microsoft Visual C++  14.0
 ```
 pip install https://github.com/kpu/kenlm/archive/master.zip
 pip install kenlm
+pip install pypi-kenlm
 ```
 安装
 ```
 pip install pycorrector
+```
+####拼音
+```
+pip install pypinyin
 ```
 
 ### OCR

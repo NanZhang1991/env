@@ -13,12 +13,13 @@
 # 3. Markdown
 
 ## 3.1. markdown-index
-
 运行插件 > markdown add index 即可为文章的所有标题自动添加多级序号，非常方便
 
 ## 3.2. markdownlint
-
 markdown 语法检查
+
+## 3.3. Markdown Preview Enhance
+markdown 预览
 
 # 4. Office Viewer
 

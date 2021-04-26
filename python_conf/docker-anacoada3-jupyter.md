@@ -13,7 +13,7 @@ docker pull continuumio/miniconda3
 # 以后台方式启动镜像创建容器
 
 ```bash
-docker run -itd --name="anaconda3_jupyter"  -p 8888:8888 continuumio/miniconda3 /bin/bash
+docker run -itd --name="miniconda3_jupyter"  -p 8888:8888 continuumio/miniconda3
 #如果使用gpu
 docker run --gpus all -itd --name="miniconda3_jupyter_cuda11"  -p 8888:8888   cuda11:centos7-miniconda-jupyter /bin/bash
 ```
@@ -21,14 +21,14 @@ docker run --gpus all -itd --name="miniconda3_jupyter_cuda11"  -p 8888:8888   cu
 # 启动容器
 
 ```bash
-docker start anaconda3_jupyter
+docker start miniconda3_jupyter
 docker start miniconda3_jupyter_cuda11
 ```
 
 # 进入容器
 
 ```bash
-docker exec -it anaconda3_jupyter /bin/bash
+docker exec -it miniconda3_jupyter /bin/bash
 docker exec -it miniconda3_jupyter_cuda11 /bin/bash
 ```
 # 禁止自动进入base环境
@@ -81,11 +81,14 @@ pip config list -V
 ```
 
 # 安装并使用jupyterlab
-
-```bash
+ 
+```
 pip install jupyterlab
 ```
-
+## conda 环境关联包
+```
+conda install -c conda-forge nb_conda
+```
 ## 启动jupyter
 
 ```bash
@@ -97,6 +100,10 @@ jupyter lab --ip='*' --port=8888 --no-browser --allow-root
 token: e8941cc59cdb8506a6e26e3bc7dc1d75f892dbbdad175cfa
 passwd:123.com
 
+**浏览器终端切换conda环境**
+‵‵‵
+source activate env_name
+‵‵‵
 ## 退出jupyter终端
 
 ```bash
@@ -107,7 +114,7 @@ ctrl c
 
 ### 生成配置文件
 
-```bash
+```
 jupyter notebook --generate-config --allow-root
 ```
 

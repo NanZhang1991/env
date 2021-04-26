@@ -47,6 +47,8 @@ yum install -y kernel kernel-devel Install the kernel-headers
 yum install gpm*
 yum install openssl
 yum install openssl-devel
+# 中文字符集
+yum install kde-l10n-Chinese
 ```
 
 ## 显示全部的加 all
@@ -308,13 +310,13 @@ cd /etc/yum.repos.d
 
 ```
 cp CentOS-Base.repo CentOS-Base.repo.bak
-cp CentOS-AppStream.repo CentOS-AppStream.repo.bak
-cp CentOS-Extras.repo CentOS-Extras.repo.bak
 ```
 
 ## 下载
 ```
-curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-8.repo
+curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+# 或
+wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
 ```
 ## 清除缓存
 ```
@@ -748,7 +750,7 @@ scp local_file remote_username@remote_ip:remote_file
 
 ```
 1d
-```e
+```
 
 ## 删除多行
 ```
@@ -798,6 +800,24 @@ sz fn
 cat /etc/passwd |cut -f 1 -d :
 ```
 
+# 安装jdk8
+## ubuntu
+```
+sudo apt install openjdk-8-jdk
+```
+切换java命令软连接指向
+```
+sudo update-alternatives --config java 
+```
+## centos
+```
+yum -y install java-1.8.0-openjdk
+```
+切换java命令软连接指向
+```
+alternatives --config java
+```
+
 # ubuntu windows 双系统时间问题
 通过修改硬件同步的方法来进行双系统同步，具体命令如下。其操作流程为安装ntpdate、连接到Windows的时间服务器、更新硬件，操作完成后重启系统。
 
@@ -806,3 +826,6 @@ sudo apt-get install ntpdate
 sudo ntpdate time.windows.com
 sudo hwclock --localtime --systohc
 ```
+
+
+
