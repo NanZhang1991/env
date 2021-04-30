@@ -62,3 +62,8 @@ set http_proxys=http://127.0.0.1:1080
 ```
 curl -v http://www.google.com
 ```
+取消代理
+```
+set http_proxy=
+set https_proxy=
+```
