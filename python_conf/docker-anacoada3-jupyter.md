@@ -89,6 +89,23 @@ pip install jupyterlab
 ```
 conda install -c conda-forge nb_conda
 ```
+
+## 创建环境
+```
+conda create -n env_name python=3.7
+```
+激活环境
+```
+source activate env_name
+```
+进入环境
+```
+conda activate env_name
+```
+离开环境
+```
+conda deactivate
+```
 ## 启动jupyter
 
 ```bash
