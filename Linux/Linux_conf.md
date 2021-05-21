@@ -769,16 +769,32 @@ free -m
 echo 1 > /proc/sys/vm/drop_caches
 ```
 
-## 设置代理
-```
+## 代理
+### 设置代理
+```bash
 export http_proxy=http://127.0.0.1:12333
 export https_proxy=http://127.0.0.1:12333
+curl www.google.com
 ```
-## 取消代理
+### 检查代理
+```bash
+echo $http_proxy 
+echo $https_proxy 
+env|grep -i proxy
 ```
+### 取消代理
+```bash
 unset http_proxy
 unset https_proxy
+unset no_proxy
+unset all_proxy
+export http_proxy=""
+export https_proxy=""
+export HTTP_PROXY=""
+export HTTPS_PROXY=""
+export ALL_PROXY=""
 ```
+
 
 ## xhselll
 
