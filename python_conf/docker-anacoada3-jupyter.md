@@ -15,7 +15,7 @@ docker pull continuumio/miniconda3
 ```bash
 docker run -itd --name="miniconda3_jupyter"  -p 8888:8888 continuumio/miniconda3
 #如果使用gpu
-docker run --gpus all -itd --name="miniconda3_jupyter_cuda11"  -p 8888:8888  continuumio/miniconda3 /bin/bash
+docker run --gpus all -itd --name="miniconda3_jupyter_cuda11"  -p 8888:8888   cuda11:centos7-miniconda-jupyter /bin/bash
 ```
 
 # 启动容器
@@ -88,6 +88,23 @@ pip install jupyterlab
 ## conda 环境关联包
 ```
 conda install -c conda-forge nb_conda
+```
+
+## 创建环境
+```
+conda create -n env_name python=3.7
+```
+激活环境
+```
+source activate env_name
+```
+进入环境
+```
+conda activate env_name
+```
+离开环境
+```
+conda deactivate
 ```
 ## 启动jupyter
 
