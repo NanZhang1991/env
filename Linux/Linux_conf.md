@@ -352,7 +352,16 @@ ntfsfix /dev/sda5
 ```
 df -h
 ```
+## 查看文件和目录大小
+### /home目录总大小
+```
+du -sh /home
+```
 
+### **/home目录下各个子目录的大小,不包括子目录的子目录**
+```
+du -sh *
+```
 # 桥接网络
 连接本地虚拟机须使用此种连接方式桥接网络必须选择和主机一样的网卡
 
@@ -769,16 +778,32 @@ free -m
 echo 1 > /proc/sys/vm/drop_caches
 ```
 
-## 设置代理
-```
+## 代理
+### 设置代理
+```bash
 export http_proxy=http://127.0.0.1:12333
 export https_proxy=http://127.0.0.1:12333
+curl www.google.com
 ```
-## 取消代理
+### 检查代理
+```bash
+echo $http_proxy 
+echo $https_proxy 
+env|grep -i proxy
 ```
+### 取消代理
+```bash
 unset http_proxy
 unset https_proxy
+unset no_proxy
+unset all_proxy
+export http_proxy=""
+export https_proxy=""
+export HTTP_PROXY=""
+export HTTPS_PROXY=""
+export ALL_PROXY=""
 ```
+
 
 ## xhselll
 

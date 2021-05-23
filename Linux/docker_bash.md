@@ -126,7 +126,7 @@ docker start <容器 ID>/<容器名>
 
 #### 在使用 -d 参数时，容器启动后会进入后台。此时想要进入容器，可以通过以下指令进入：
 ```
-docker attach
+docker attach <容器 ID>
 ```
 **容器内查看Linux版本号**
 ```
