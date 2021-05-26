@@ -49,23 +49,23 @@ conda config --set auto_activate_base false
 # 更新
 
 ```bash
-apt-get update
+apt-get/yum -y upgrade
 ```
 
 # 安装ps命令
 
 ```bash
-apt-get install procps
+apt-get/yum -y install procps
 ```
 
 ### 安装wget
 ```
-apt-get install wget
+apt-get/yum -y install wget
 ```
 
 ### 安装vim
 ```
-apt-get install vim 
+apt-get/yum -y install vim 
 ```
 
 # 更换国内镜像源
