@@ -96,8 +96,12 @@ git commit -m 'add'
 git pull
 git push
 ```
-
-
+## gitignore文件中忽略项不起作用的解决方法
+```
+git rm -r --cached .
+git add .
+git commit -m 'update .gitignore'
+```
 # Git submodul
 submodule允许你将一个Git 仓库当作另外一个Git 仓库的子目录
 ## 添加子模块 
