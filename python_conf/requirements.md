@@ -43,7 +43,7 @@ pip install pyinstaller
 ```
 pip install latexify-py
 pip install handcalcs
-````
+```
  
 ## API
 ```
@@ -67,7 +67,7 @@ pip install pymysql
 pip install SQLAlchemy
 pip install pymongo
 pip install hdfs 
-````
+```
 
 ## 文件处理
 pdfplumber可能会与camelot-py冲突
@@ -173,7 +173,7 @@ tesseract --version
 ```
 添加中文数据集
 ```
-cp /root/Desktop/tessdata /usr/share/tesseract-ocr/5/tessdata
+cp -r /root/Desktop/tessdata /usr/share/tesseract-ocr/5/
 
 centos 安装tesseract4.1以上，阿里源可能安装的不是最新，因此需要更换回官方源
 ```
@@ -203,6 +203,7 @@ pip install pytesseract
 ````
 
 #### paddleocr
+https://github.com/PaddlePaddle/PaddleOCR
 ```
 pip install paddlepaddle-gpu -i https://mirror.baidu.com/pypi/simple
 pip install paddleocr
@@ -213,6 +214,8 @@ OSError: [WinError 126] 找不到指定的模块。
 需要同时把geos.dll和geos_c.dll拷贝至你anaconda环境中的library\bin中，问题解决
 
 ## CV
+python opencv将表格图片按照表格框线分割和识别
+https://www.geek-share.com/detail/2787037571.html
 ```
 pip install opencv-python
 ```
