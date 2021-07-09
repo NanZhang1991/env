@@ -91,6 +91,9 @@ docker version
 docker ps -a
 ```
 
+#### 搜索镜像
+docker search ubuntu
+
 #### 查询镜像
 ``` 
 docker images
@@ -216,6 +219,7 @@ docker load -i /home/source/docker_images/centos7-cuda11.tar
  docker save 保存的是镜像（image），docker export 保存的是容器（container）；
  docker load 用来载入镜像包，docker import 用来载入容器包，但两者都会恢复为镜像；
  docker load 不能对载入的镜像重命名，而 docker import 可以为镜像指定新名称。
+```
 
 ### 设置NVIDIA Container Toolkit
 以下以centos7 为示例，其他版本可参照官网
