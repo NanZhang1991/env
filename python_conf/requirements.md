@@ -14,15 +14,21 @@ pip install pylint
 ### 定时任务
 ```
 pip install schedule
-````
+```
 ### C 编译
 ```
 pip install cython
-````
+```
 ### 进度条
 ```
 pip install tqdm 
 ```
+
+### 多进程日志
+```
+pip install concurrent-log-handler==0.9.7
+```
+
 ### 加强正则
 ```
 pip install regex
@@ -30,7 +36,7 @@ pip install regex
 ### 并行
 ```
 pip install joblib
-````
+```
 ## 函数变成一个命令行工具
 ```
 pip install click
@@ -143,7 +149,7 @@ git clone https://github.com.cnpmjs.org/tesseract-ocr/tessdata.git
 依赖
 ```
 apt-get install tesseract-ocr libtesseract-dev libleptonica-dev pkg-config
-````
+```
 安装
 ```
 pip install pillow tesserocr
@@ -171,14 +177,17 @@ apt-get update
 apt-get install tesseract-ocr
 tesseract --version
 ```
-添加中文数据集
+
+#### 添加中文数据集
 ```
 cp -r /root/Desktop/tessdata /usr/share/tesseract-ocr/5/
+```
 
 centos 安装tesseract4.1以上，阿里源可能安装的不是最新，因此需要更换回官方源
 ```
 yum-config-manager --add-repo https://download.opensuse.org/repositories/home:/Alexander_Pozdnyakov/CentOS_7/
 ```
+
 centos 依赖
 ```
 yum install tesseract
@@ -187,11 +196,14 @@ yum list tessact
 rpm 安装 tesseract
 https://download.opensuse.org/repositories/home:/Alexander_Pozdnyakov/CentOS_7/x86_64/
 rpm -i ...
+
 Windows 下载地址
 https://github.com/UB-Mannheim/tesseract/wiki
 数据集需到git 官网下载
+```
 git clone https://github.com/tesseract-ocr/tessdata.git
 git clone https://github.com.cnpmjs.org/tesseract-ocr/tessdata.git
+```
 
 安装
 官网https://pypi.org/project/pytesseract/
@@ -200,7 +212,7 @@ git clone https://github.com.cnpmjs.org/tesseract-ocr/tessdata.git
 pytesseract 安装会自动安装pillow 依赖
 ```
 pip install pytesseract
-````
+```
 
 #### paddleocr
 https://github.com/PaddlePaddle/PaddleOCR
@@ -212,6 +224,14 @@ windows 错误解决
 from shapely.geos import lgeos
 OSError: [WinError 126] 找不到指定的模块。
 需要同时把geos.dll和geos_c.dll拷贝至你anaconda环境中的library\bin中，问题解决
+
+#### 开源的OCR
+https://pypi.org/project/cnocr/0.2.0/
+https://github.com/alisen39/TrWebOCR
+https://github.com/DayBreak-u/chineseocr_lite
+
+#### ttf
+.ttf 字体需要自行下载
 
 ## CV
 python opencv将表格图片按照表格框线分割和识别
