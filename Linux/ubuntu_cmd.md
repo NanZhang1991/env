@@ -1,3 +1,22 @@
+# 显卡驱动
+## 查看版本
+```
+ubuntu-drivers devices
+```
+## 安装推荐版本
+```
+sudo ubuntu-drivers autoinstall
+```
+## 安装指定版本
+```
+sudo apt install nvidia-470
+```
+
+# git
+```
+apt-get install git
+```
+
 # 代理
 ## 设置代理
 ```bash
