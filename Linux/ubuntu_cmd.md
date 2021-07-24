@@ -1,3 +1,6 @@
+# ubuntu设置root密码
+```sudo passwd root
+```
 # 显卡驱动
 ## 查看版本
 ```
