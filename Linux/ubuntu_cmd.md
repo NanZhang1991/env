@@ -67,3 +67,16 @@ sudo update-alternatives --config java
 ```
 # 查询当前目录空间使用情况
 du --max-depth=1 -h 
+
+# docker
+## 安装
+curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+sudo apt-get update
+
+
+## 卸载
+sudo apt-get remove docker docker-engine docker.io containerd runc
+### 查询相关软件包
+dpkg -l | grep docker
+### 删除这个包
+sudo apt remove --purge docker.io
