@@ -174,3 +174,8 @@ exit
 ```bash
 docker commit anaconda3_jupyter anaconda3_jupyter
 ```
+
+# 用新的镜像启动容器
+```
+docker run --gpus all -itd --name="anaconda3_jupyter"  -p 8801:8801  jupyterlab  --restart unless-stopped su root -c "jupyter lab  --ip='*' --port=8801 --no-browser --allow-root"
+```

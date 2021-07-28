@@ -1,6 +1,46 @@
 # ubuntu设置root密码
 ```sudo passwd root
 ```
+
+# 更新
+```
+apt-get update
+apt-get install vim
+```
+**容器内查看Linux版本号**
+```
+cat /etc/issue
+```
+# 更换/etc/apt/sources.list文件里的源
+## 备份源列表
+## 首先备份源列表
+```
+sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup
+```
+# 打开sources.list文件
+```
+vim /etc/apt/sources.list
+```
+**编辑/etc/apt/sources.list文件, 在文件最前面添加阿里云镜像源：**
+```vim
+#阿里源
+deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+```
+
+# 网络工具
+```
+sudo apt install net-tools
+```
+
 # 显卡驱动
 ## 查看版本
 ```
@@ -13,6 +53,14 @@ sudo ubuntu-drivers autoinstall
 ## 安装指定版本
 ```
 sudo apt install nvidia-470
+```
+
+
+# 刷新列表
+```
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install build-essential
 ```
 
 # git
@@ -72,7 +120,14 @@ du --max-depth=1 -h
 ## 安装
 curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 sudo apt-get update
-
+## 状态
+service docker status
+## 启动
+sudo service docker start
+## 停止
+sudo service docker stop
+## 重启
+sudo service docker restart
 
 ## 卸载
 sudo apt-get remove docker docker-engine docker.io containerd runc
