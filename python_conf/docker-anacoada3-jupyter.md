@@ -13,28 +13,29 @@ docker pull continuumio/miniconda3
 # 以后台方式启动镜像创建容器
 
 ```bash
-docker run -itd --name="miniconda3_jupyter"  -p 8801:8801 continuumio/miniconda3
+docker run -itd --name="miniconda3_jupyter"  -p 8800:8800 continuumio/miniconda3
 #如果使用gpu
-docker run --gpus all -itd --name="miniconda3_jupyter_cuda11"  -p 8801:8801   cuda11:centos7-miniconda-jupyter /bin/bash
+docker run --gpus all -itd --name="miniconda3_jupyter"  -p 8800:8800 continuumio/miniconda3
+#或
+docker run --gpus all -itd --name="cuda11_miniconda3_jupyter"  --restart=unless-stopped -v /home:/mnt -p 8800:8800 cuda11:centos7-miniconda-jupyter
 ```
-
 # 启动容器
 
 ```bash
 docker start miniconda3_jupyter
-docker start miniconda3_jupyter_cuda11
 ```
 
 # 进入容器
 
 ```bash
 docker exec -it miniconda3_jupyter /bin/bash
-docker exec -it miniconda3_jupyter_cuda11 /bin/bash
+docker exec -it cuda11_miniconda3_jupyter /bin/bash
 ```
 
 # 更新
 
 ```bash
+apt-get update
 apt-get/yum -y upgrade
 ```
 
@@ -54,7 +55,7 @@ apt-get/yum -y install wget
 apt-get/yum -y install vim 
 ```
 
-# 禁止自动进入base环境
+# 禁止自动进入base环境(根据自己情况)
 docker 拉下来的continuumio/miniconda3 进入容器会自动进入base
 进入环境变量
 ```
@@ -68,7 +69,8 @@ vim ~/.bashrc
 ```
 conda config --set auto_activate_base false
 ```
-
+# 查看cuda版本
+conda -V
 # 更换国内镜像源
 
 ```bash
@@ -91,26 +93,11 @@ pip install jupyterlab
 conda install -c conda-forge nb_conda
 ```
 
-## 创建环境
-```
-conda create -n env_name python=3.7
-```
-激活环境
-```
-source activate env_name
-```
-进入环境
-```
-conda activate env_name
-```
-离开环境
-```
-conda deactivate
 ```
 ## 启动jupyter
 
 ```bash
-jupyter lab --ip='*' --port=8801 --no-browser --allow-root
+jupyter lab --ip='*' --port=8800 --no-browser --allow-root
 ```
 
 在启动的容器终端中复制token在谷歌浏览器登陆后重新设置密码
@@ -145,7 +132,6 @@ Enter password:123.com
 Verify password:123.com
 >>>'sha1:5af64324ecfa:8a7b409461658fc1d3b7f7cc944aa38bf731b379'
 ```
-
 ### 修改配置文件
 
 ```bash
@@ -158,10 +144,15 @@ vim ~/.jupyter/jupyter_notebook_config.py
 c.NotebookApp.password ='sha1:5af64324ecfa:8a7b409461658fc1d3b7f7cc944aa38bf731b379'
 ```
 
+## 修改密码
+```
+jupyter lab password
+```
+
 ### 后台启动
 
 ```bash
-nohup jupyter lab --ip='*' --port=8801 --no-browser --allow-root > jupyter.log 2>&1 &
+ 
 ```
 
 # 退出容器
@@ -173,10 +164,44 @@ exit
 # 保存容器为新的镜像
 
 ```bash
-docker commit --change "ENV LANG=en_US.UTF-8" miniconda3_jupyter continuumio/miniconda3:jupyter
+docker commit --change "ENV LANG=en_US.UTF-8" miniconda3_jupyter continuumio/miniconda3:conda4.10.3-jupyter
 ```
 
 # 用新的镜像启动容器
 ```
-docker run --gpus all -itd  --restart=unless-stopped --name="anaconda3_jupyter"  -v /mnt/d/project:/home -p 8801:8801    continuumio/miniconda3:jupyter su root -c "jupyter lab  --ip='*' --port=8801 --no-browser --allow-root"
+docker run --gpus all -itd  --restart=unless-stopped --name="miniconda3_jupyter"  -v /mnt/d/project:/mnt -p 8800:8800 continuumio/miniconda3:conda4.10.3-jupyter su root -c "jupyter lab  --ip='*' --port=8800 --no-browser --allow-root"
+```
+# 浏览器打开jupyterlab
+http://127.0.0.1:8800
+
+## 创建环境
+```
+conda create -n env_name python=3.7
+```
+激活环境
+```
+source activate env_name
+```
+进入环境
+```
+conda activate env_name
+```
+离开环境
+```
+conda deactivate
+```
+## 在新建的环境env_name下安装cuda 
+### 搜索cuda 版本
+```
+conda search cudatoolkit -c conda-forge
+conda search cuDNN -c conda-forge
+```
+### 安装(直接安装cuDNN会自动安装对应版本的cudatoolkit)
+```
+conda isntall cuDNN=8.1 -c conda-forge
+```
+## 安装tensoflow 测试GPU
+2.4版本后不用区分cpu和gpu
+```
+pip install tensorflow==2.4
 ```
