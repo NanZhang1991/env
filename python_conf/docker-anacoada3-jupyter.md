@@ -150,7 +150,7 @@ jupyter lab password
 ### 后台启动
 
 ```bash
-nohup jupyter lab --ip='*' --port=8888 --no-browser --allow-root jupyterLab.log 2>&1 &
+nohup jupyter lab --ip='*' --port=8888 --no-browser --allow-root > jupyterLab.log 2>&1 &&
 ```
 
 # 退出容器
