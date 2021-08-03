@@ -13,11 +13,10 @@ docker pull continuumio/miniconda3
 # 以后台方式启动镜像创建容器
 
 ```bash
-docker run -itd --name="miniconda3_jupyter"  -p 8800:8800 continuumio/miniconda3
+docker run -itd --name="miniconda3_jupyter"  -p 8800:8888 continuumio/miniconda3
 #如果使用gpu
-docker run --gpus all -itd --name="miniconda3_jupyter"  -p 8800:8800 continuumio/miniconda3
-#或
-docker run --gpus all -itd --name="cuda11_miniconda3_jupyter"  --restart=unless-stopped -v /home:/mnt -p 8800:8800 cuda11:centos7-miniconda-jupyter
+docker run --gpus all -itd --name="miniconda3_jupyter"  -p 8800:8888 continuumio/miniconda3
+
 ```
 # 启动容器
 
@@ -29,7 +28,6 @@ docker start miniconda3_jupyter
 
 ```bash
 docker exec -it miniconda3_jupyter /bin/bash
-docker exec -it cuda11_miniconda3_jupyter /bin/bash
 ```
 
 # 更新
@@ -97,7 +95,7 @@ conda install -c conda-forge nb_conda
 ## 启动jupyter
 
 ```bash
-jupyter lab --ip='*' --port=8800 --no-browser --allow-root
+jupyter lab --ip='*' --port=8888 --no-browser --allow-root
 ```
 
 在启动的容器终端中复制token在谷歌浏览器登陆后重新设置密码
@@ -152,7 +150,7 @@ jupyter lab password
 ### 后台启动
 
 ```bash
- 
+nohup jupyter lab --ip='*' --port=8888 --no-browser --allow-root jupyterLab.log 2>&1 &
 ```
 
 # 退出容器
@@ -169,8 +167,9 @@ docker commit --change "ENV LANG=en_US.UTF-8" miniconda3_jupyter continuumio/min
 
 # 用新的镜像启动容器
 ```
-docker run --gpus all -itd  --restart=unless-stopped --name="miniconda3_jupyter"  -v /mnt/d/project:/mnt -p 8800:8800 continuumio/miniconda3:conda4.10.3-jupyter su root -c "jupyter lab  --ip='*' --port=8800 --no-browser --allow-root"
+docker run --gpus all -itd  --restart=unless-stopped --name="miniconda3_jupyter"  -v /mnt/d/project:/mnt -p 8800:8888 continuumio/miniconda3:conda4.10.3-jupyter su root -c "jupyter lab  --ip='*' --port=8888 --no-browser --allow-root"
 ```
+
 # 浏览器打开jupyterlab
 http://127.0.0.1:8800
 
