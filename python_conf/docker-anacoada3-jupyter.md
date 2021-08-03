@@ -91,7 +91,6 @@ pip install jupyterlab
 conda install -c conda-forge nb_conda
 ```
 
-```
 ## 启动jupyter
 
 ```bash
@@ -113,15 +112,16 @@ source activate env_name
 ctrl c
 ```
 
-## 修改密码 -->修改哈希密码
+## 修改密码
+### 修改哈希密码
 
-### 生成配置文件
+#### 生成配置文件
 
 ```
 jupyter notebook --generate-config --allow-root
 ```
 
-### 用python生成一个哈希密码
+#### 用python生成一个哈希密码
 
 ```python
 from IPython.lib import passwd
@@ -130,19 +130,19 @@ Enter password:123.com
 Verify password:123.com
 >>>'sha1:5af64324ecfa:8a7b409461658fc1d3b7f7cc944aa38bf731b379'
 ```
-### 修改配置文件
+#### 修改配置文件
 
 ```bash
 vim ~/.jupyter/jupyter_notebook_config.py
 ```
 
-### 去掉前面的注释添加刚才的哈希密码
+#### 去掉前面的注释添加刚才的哈希密码
 
 ```vim
 c.NotebookApp.password ='sha1:5af64324ecfa:8a7b409461658fc1d3b7f7cc944aa38bf731b379'
 ```
 
-## 修改密码
+### 直接修改密码
 ```
 jupyter lab password
 ```
