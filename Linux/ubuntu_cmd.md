@@ -12,6 +12,9 @@ apt-get install vim
 cat /etc/issue
 ```
 # 更换/etc/apt/sources.list文件里的源
+```
+sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list 
+```
 ## 备份源列表
 ## 首先备份源列表
 ```

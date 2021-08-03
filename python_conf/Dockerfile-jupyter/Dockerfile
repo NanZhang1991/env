@@ -4,6 +4,8 @@ FROM ubuntu:20.04
 # 使用root用户
 USER root
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 # apt换源
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list  \
 && apt-get clean \
