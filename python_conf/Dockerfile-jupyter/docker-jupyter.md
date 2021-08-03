@@ -1,6 +1,6 @@
 ## 运行容器
 ```
-docker run -itd  --restart=unless-stopped --name="jupyter" -v /home:/mnt -p 8800:8888 jupyter:Lab
+docker run -itd  --restart=unless-stopped --name="jupyterLab" -v /:/mnt -p 8800:8888 jupyter:Lab
 ```
 ## 在日志中查看token
 ```
