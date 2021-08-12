@@ -167,7 +167,7 @@ docker commit --change "ENV LANG=en_US.UTF-8" miniconda3_jupyter continuumio/min
 
 # 用新的镜像启动容器
 ```
-docker run --gpus all -itd  --restart=unless-stopped --name="miniconda3_jupyter"  -v /mnt/d/project:/mnt -p 8800:8888 continuumio/miniconda3:conda4.10.3-jupyter su root -c "jupyter lab  --ip='*' --port=8888 --no-browser --allow-root"
+docker run --gpus all -itd  --restart=unless-stopped --name="miniconda3_jupyter"  -v /mnt/d/project:/mnt -p 8801:8888 continuumio/miniconda3:conda4.10.3-jupyter su root -c "jupyter lab  --ip='*' --port=8888 --no-browser --allow-root"
 ```
 
 # 浏览器打开jupyterlab
