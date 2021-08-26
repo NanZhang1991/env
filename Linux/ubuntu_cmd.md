@@ -18,7 +18,7 @@ sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list
 ## 备份源列表
 ## 首先备份源列表
 ```
-sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup
+sudo mv /etc/apt/sources.list /etc/apt/sources.list_backup
 ```
 # 打开sources.list文件
 ```

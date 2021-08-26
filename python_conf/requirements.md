@@ -118,9 +118,8 @@ pip install simhash
 pip install pyrouge
 ```
 ### 文本纠错
-```
 Windows下安装kenlm,需安装Microsoft Visual C++  14.0 
-```
+Linux 需要gcc环境
 依赖
 ```
 pip install https://github.com/kpu/kenlm/archive/master.zip
