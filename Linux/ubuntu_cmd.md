@@ -1,7 +1,10 @@
 # ubuntu设置root密码
 ```sudo passwd root
 ```
-
+# 查看Ubuntu版本
+```
+cat /etc/issue
+```
 # 更新
 ```
 apt-get update
@@ -42,6 +45,11 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted unive
 # 网络工具
 ```
 sudo apt install net-tools
+```
+
+# 安装驱动管理
+```
+apt install ubuntu-drivers-common
 ```
 
 # 显卡驱动
