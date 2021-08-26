@@ -275,6 +275,10 @@ vim /etc/docker/daemon.json
     }
 }
 
+## 测试gpu容器
+```
+docker run --gpus all -itd  --restart=unless-stopped --name="jupyter-tf-gpu-2.1"  -v /mnt/e/project:/mnt -p 8801:8888 tensorflow/tensorflow:latest-gpu-py3-jupyter
+```
 
 
  
