@@ -197,7 +197,7 @@ conda search cuDNN -c conda-forge
 ```
 ### 安装(直接安装cuDNN会自动安装对应版本的cudatoolkit)
 ```
-conda isntall cuDNN=8.1 -c conda-forge
+conda install cuDNN=8.1 -c conda-forge
 ```
 ## 安装tensoflow 测试GPU
 2.4版本后不用区分cpu和gpu
