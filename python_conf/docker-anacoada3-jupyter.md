@@ -13,21 +13,21 @@ docker pull continuumio/miniconda3
 # 以后台方式启动镜像创建容器
 
 ```bash
-docker run -itd --name="miniconda3_jupyter"  -p 8800:8888 continuumio/miniconda3
+docker run -itd --name="miniconda3-cuda11.0" --restart=unless-stopped  -p 8800:8888 continuumio/miniconda3
 #如果使用gpu
-docker run --gpus all -itd --name="miniconda3_jupyter"  -p 8800:8888 continuumio/miniconda3
+docker run --gpus all -itd --name="miniconda3-cuda11.0"  --restart=unless-stopped -v /data/user/Zhangnan:/mnt -p 8802:8888 gpuci/miniconda-cuda:11.0-centos7
 
 ```
 # 启动容器
 
 ```bash
-docker start miniconda3_jupyter
+docker start miniconda3-cuda11.0
 ```
 
 # 进入容器
 
 ```bash
-docker exec -it miniconda3_jupyter /bin/bash
+docker exec -it miniconda3-cuda11.0 /bin/bash
 ```
 
 # 更新
@@ -159,15 +159,16 @@ nohup jupyter lab --ip='*' --port=8888 --no-browser --allow-root > jupyterLab.lo
 exit
 ```
 
-# 保存容器为新的镜像
+### 保存容器为新的镜像
 
 ```bash
-docker commit --change "ENV LANG=en_US.UTF-8" miniconda3_jupyter continuumio/miniconda3:conda4.10.3-jupyter
+docker commit --change "ENV LANG=en_US.UTF-8" miniconda3-cuda11.0 gpuci/miniconda-cuda:11.0-centos7-jupyter
 ```
 
-# 用新的镜像启动容器
+
+### 用新的镜像启动容器
 ```
-docker run --gpus all -itd  --restart=unless-stopped --name="miniconda3_jupyter"  -v /mnt/e/project:/mnt -p 8801:8888 continuumio/miniconda3:conda4.10.3-jupyter su root -c "jupyter lab  --ip='*' --port=8888 --no-browser --allow-root"
+docker run --gpus all -itd  --restart=unless-stopped --name="miniconda3-jupyter"  -v /mnt/e/project:/mnt -p 8801:8888 gpuci/miniconda-cuda:11.0-centos7-jupyter su root -c "jupyter lab  --ip='*' --port=8888 --no-browser --allow-root"
 ```
 
 # 浏览器打开jupyterlab
@@ -189,6 +190,12 @@ conda activate env_name
 ```
 conda deactivate
 ```
+
+## 安装内核
+```
+pip install ipykernel
+```
+
 ## 在新建的环境env_name下安装cuda 
 ### 搜索cuda 版本
 ```
@@ -197,7 +204,7 @@ conda search cuDNN -c conda-forge
 ```
 ### 安装(直接安装cuDNN会自动安装对应版本的cudatoolkit)
 ```
-conda install cuDNN=8.1 -c conda-forge
+conda install cuDNN=8.0 -c conda-forge
 ```
 ## 安装tensoflow 测试GPU
 2.4版本后不用区分cpu和gpu
