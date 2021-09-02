@@ -262,7 +262,10 @@ mv /var/lib/docker /home/docker
 ln -s /home/docker /var/lib/docker
 ```
 #### 更换源和镜像存储地址
+```bash
 vim /etc/docker/daemon.json 
+```
+```json
 
 {
     "registry-mirrors": ["https://96e6e1rd.mirror.aliyuncs.com"],
@@ -274,6 +277,12 @@ vim /etc/docker/daemon.json
         }
     }
 }
+```
+
+#### 重启docker
+```
+sudo systemctl restart docker
+```
 
 ## 测试gpu容器
 ```

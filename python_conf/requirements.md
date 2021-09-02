@@ -75,18 +75,7 @@ pip install pymongo
 pip install hdfs 
 ```
 
-## 文件处理
-pdfplumber可能会与camelot-py冲突
-```
-pip install pandas
-pip install beautifulsoup4
-pip install python-docx
-pip install pdfminer
-pip install pdfplumber
-pip install PyMuPDF 
-pip install pdf2docx
-#pip install camelot-py[cv]
-```
+
 
 ## 机器学习
 ```
@@ -113,37 +102,72 @@ pip install gensim
 pip install langdetect
 pip install simhash
 ```
-摘要
-```
-pip install pyrouge
-```
+
 ### 文本纠错
 Windows下安装kenlm,需安装Microsoft Visual C++  14.0 
-Linux 需要gcc环境
-依赖
-```
+Linux 需要gcc环境、
+```bash
+#依赖
 pip install https://github.com/kpu/kenlm/archive/master.zip
 pip install kenlm
 pip install pypi-kenlm
-```
-安装
-```
+#安装
 pip install pycorrector
-```
-####拼音
-```
+#拼音
 pip install pypinyin
 ```
 
+### 摘要
+```
+pip install pyrouge
+```
+
+### 文件处理
+pdfplumber可能会与camelot-py冲突
+```
+pip install pandas
+pip install beautifulsoup4
+pip install python-docx
+pip install pdfminer
+pip install pdfplumber
+pip install PyMuPDF 
+pip install pdf2docx
+#pip install camelot-py[cv]
+```
+**docx参考**
+https://python-docx.readthedocs.io/en/latest/
+https://buildmedia.readthedocs.org/media/pdf/python-docx/latest/python-docx.pdf
+https://www.xml.com/pub/a/2004/12/08/word-to-xml.html
+http://officeopenxml.com/WPparagraph-textFrames.php
+
+**pdf参考**
+https://pythonhosted.org/PyPDF2/index.html
+https://pypi.org/project/pdfplumber/#extracting-tables
+https://pymupdf.readthedocs.io/en/latest/
+https://pypi.org/project/pdf2docx/
+https://dothinking.github.io/pdf2docx/quickstart.convert.html
+https://online2pdf.com/pdf2docx#
+
 ### OCR
+**ocr参考**
+https://pypi.org/project/pytesseract/
+https://github.com/tesseract-ocr/
+https://github.com/tesseract-ocr/tessdata
+https://pypi.org/project/paddleocr/
+https://www.geek-share.com/detail/2787037571.html
+https://github.com/PaddlePaddle/PaddleOCR/issues/303
+https://gitee.com/paddlepaddle/PaddleOCR/blob/release/2.0/doc/doc_ch/whl.md
+https://pypi.org/project/cnocr/0.2.0/
+
 #### tesserocr 
 
 数据集需到git 官网下载
+```bash
 git clone https://github.com/tesseract-ocr/tessdata.git
 git clone https://github.com.cnpmjs.org/tesseract-ocr/tessdata.git
-
-##### linux 上使用 需要安装tesseract
-官方只有Ubuntu 安装说明
+```
+##### linux 
+需要安装tesseract官方只有Ubuntu 安装说明
 
 依赖
 ```
@@ -154,11 +178,12 @@ apt-get install tesseract-ocr libtesseract-dev libleptonica-dev pkg-config
 pip install pillow tesserocr
 ```
 
-windows
+##### windows
 window 上pip 需下载.whl 文件手动安装
 ```
 pip install <package_name>.whl
 ```
+
 在tesserocr安装的python 环境下创建tessdata目录 并将git 下载的tessdata目录中的中文数据集移动到此目录
 
 #### pytesseract 
@@ -170,58 +195,41 @@ https://tesseract-ocr.github.io/tessdoc/Home.html
 官网也是ubuntu 安装
 https://launchpad.net/~alex-p/+archive/ubuntu/tesseract-ocr-devel
 **Adding this PPA to your system**
-```
+```bash
 add-apt-repository ppa:alex-p/tesseract-ocr-devel
 apt-get update
 apt-get install tesseract-ocr
 tesseract --version
 ```
-**添加中文数据集**
-```
-docker cp /root/Desktop/tessdata ubuntu-py3.8-ocr:/usr/share/tesseract-ocr/5
-```
-**测试**
-copy 图片到容器
-docker cp /root/Pictures/test.png ubuntu-py3.8-ocr:/root/Pictures/
 
-**进入容器**
-```
-cd 
-mkdir Pictures
+**(docker 案例)**
+```bash
+#添加中文数据集
+docker cp /root/tessdata ubuntu-py3.8-ocr:/usr/share/tesseract-ocr/5
+#测试
+#copy 图片到容器
+docker cp /root/Pictures/test.png ubuntu-py3.8-ocr:/root/Pictures/
+#运行测试文件
 python3 ocr_test.py
 ```
 
-**添加中文数据集**
-```
-cp -r /root/Desktop/tessdata /usr/share/tesseract-ocr/5/
-```
-
 centos 安装tesseract4.1以上，阿里源可能安装的不是最新，因此需要更换回官方源
-```
+```bash
 yum-config-manager --add-repo https://download.opensuse.org/repositories/home:/Alexander_Pozdnyakov/CentOS_7/
-```
-
-centos 依赖
-```
+#依赖
 yum install tesseract
 yum list tessact 
-```
 rpm 安装 tesseract
 https://download.opensuse.org/repositories/home:/Alexander_Pozdnyakov/CentOS_7/x86_64/
 rpm -i ...
+```
 
 Windows 下载地址
 https://github.com/UB-Mannheim/tesseract/wiki
-数据集需到git 官网下载
-```
-git clone https://github.com/tesseract-ocr/tessdata.git
-git clone https://github.com.cnpmjs.org/tesseract-ocr/tessdata.git
-```
 
 安装
 官网https://pypi.org/project/pytesseract/
 官网有详细的配置和使用方法
-
 pytesseract 安装会自动安装pillow 依赖
 ```
 pip install pytesseract
@@ -247,10 +255,10 @@ https://github.com/DayBreak-u/chineseocr_lite
 .ttf 字体需要自行下载
 
 ## CV
-python opencv将表格图片按照表格框线分割和识别
-https://www.geek-share.com/detail/2787037571.html
 ```
 pip install opencv-python
 ```
+python opencv将表格图片按照表格框线分割和识别
+https://www.geek-share.com/detail/2787037571.html
 
 

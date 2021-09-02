@@ -1,12 +1,19 @@
-# Python
+# ubuntu 镜像
 ```
 docker run -itd --name="ocr" -p 8881:8881 ubuntu 
 docker exec -it ocr /bin/bash
+```
 
-apt-get update
+
+# 安装常用软件包
+```
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install build-essential
 apt-get install vim
 apt-get install wget
 ```
+
 **容器内查看Linux版本号**
 ```
 cat /etc/issue
@@ -36,15 +43,11 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted univer
 deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
 ```
 
-# 刷新列表
-```
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get install build-essential
-```
 
 # 安装python3
 ```
+sudo apt-get update
+sudo apt-get upgrade
 apt install python3.8
 apt install python3-pip
 ```

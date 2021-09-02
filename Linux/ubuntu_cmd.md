@@ -67,15 +67,12 @@ sudo apt install nvidia-470
 ```
 
 
-# 刷新列表
-```
+# 安装常用软件包
+```bash
 sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install build-essential
-```
-
 # git
-```
 apt-get install git
 ```
 
