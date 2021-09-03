@@ -255,7 +255,10 @@ https://github.com/DayBreak-u/chineseocr_lite
 .ttf 字体需要自行下载
 
 ## CV
-```
+```bash
+#linux 依赖
+apt-get/yum install ffmpeg libsm6 libxext6  -y
+# 安装
 pip install opencv-python
 ```
 python opencv将表格图片按照表格框线分割和识别
