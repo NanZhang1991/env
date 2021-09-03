@@ -133,8 +133,6 @@ RUN set -ex \
         && pip3 config set global.index-url https://pypi.douban.com/simple  \
         && pip3 config set install.trusted-host pypi.douban.com \
         && pip3 install --upgrade pip \
-
-
 ```
 通过 Dockerfile 创建一个镜像，替换成你自己的名字
-docker build -t centos:python-3.7.9 .
+docker build -t centos:python3.7.9 .
