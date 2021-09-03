@@ -121,7 +121,6 @@ RUN yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-dev
 
 RUN set -ex \ 
         && curl -fSL "https://npm.taobao.org/mirrors/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz" -o python.tar.xz \
-        && export GNUPGHOME="$(mktemp -d)" \
         && mkdir -p /usr/src/python \
         && tar -xJC /usr/src/python --strip-components=1 -f python.tar.xz \
         && rm python.tar.xz \
@@ -135,4 +134,4 @@ RUN set -ex \
         && pip3 install --upgrade pip \
 ```
 通过 Dockerfile 创建一个镜像，替换成你自己的名字
-docker build -t centos:python3.7.9 .
+docker build -t centos:7.9-python3.7.9 .
