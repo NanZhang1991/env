@@ -173,7 +173,7 @@ docker commit --change "ENV LANG=en_US.UTF-8" miniconda3-cuda11.0 gpuci/minicond
 
 ## 用新的镜像启动容器
 ```bash
-docker run --gpus all -itd --name="miniconda3-cuda11.0-jupyter"  -v /mnt/e/project:/mnt -p 8801:8888 gpuci/miniconda-cuda:11.0-centos7.9-jupyter 
+docker run --gpus all -itd --name="miniconda3-cuda11.0-jupyter"  -v /data/user/Zhangnan/:/mnt -p 8801:8888 gpuci/miniconda-cuda:11.0-centos7.9-jupyter 
 # docker run --gpus all -itd  --restart=unless-stopped --name="cuda11.0-miniconda3-jupyter"  -v /mnt/e/project:/mnt -p 8801:8888 gpuci/miniconda-cuda:11.0-centos7-jupyter su root -c "jupyter lab  --ip='*' --port=8888 --no-browser --allow-root"
 ```
 
