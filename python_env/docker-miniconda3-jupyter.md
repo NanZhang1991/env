@@ -18,9 +18,13 @@ docker pull gpuci/miniconda-cuda:11.0-devel-centos7
 ```bash
 docker run -itd --name="miniconda3-cuda11.0" --restart=unless-stopped  -p 8800:8888 continuumio/miniconda3
 #如果使用gpu
-docker run --gpus all -itd --name="miniconda3-cuda11.0"  --restart=unless-stopped -v /data/user/Zhangnan:/mnt -p 8802:8888 gpuci/miniconda-cuda:11.0-centos7
-
+docker run --gpus all -itd --name="miniconda3-cuda11.0"  --restart=unless-stopped -v /data/user/Zhangnan:/mnt -p 8802:8888 gpuci/miniconda-cuda:11.0-devel-centos7
 ```
+## 如果缺少libcudnn.so.8 下载copy添加到对应目录
+docker cp /data/source/python_env/libcudnn.so.8 cuda11-cudann8-ubuntu18.04:/usr/local/cuda-11.0/lib64/
+export PATH=/usr/local/cuda-11.0/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-11.0/lib64:$LD_LIBRARY_PATH
+
 ## 启动容器
 
 ```bash
@@ -34,30 +38,22 @@ docker exec -it miniconda3-cuda11.0 /bin/bash
 ```
 
 ## 安装基础环境
-### 更新
-
 ```bash
+### 更新
 apt-get update
 apt-get/yum -y upgrade
-```
 
 ### 安装ps命令
-
-```bash
 apt-get/yum -y install procps
-```
 
 ### 安装wget
-```
 apt-get/yum -y install wget
-```
 
 ### 安装vim
-```
 apt-get/yum -y install vim 
 ```
 
-### 禁止自动进入base环境(根据自己情况)
+## 禁止自动进入base环境(根据自己情况)
 docker 拉下来的continuumio/miniconda3 进入容器会自动进入base
 进入环境变量
 ```
@@ -71,9 +67,9 @@ vim ~/.bashrc
 ```
 conda config --set auto_activate_base false
 ```
-### 查看cuda版本
+## 查看cuda版本
 conda -V
-### 更换国内镜像源
+## 更换国内镜像源
 
 ```bash
 conda config --add channels  http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
@@ -173,8 +169,12 @@ docker commit --change "ENV LANG=en_US.UTF-8" miniconda3-cuda11.0 gpuci/minicond
 
 ## 用新的镜像启动容器
 ```bash
-docker run --gpus all -itd  --restart=unless-stopped --name="cuda11.0-miniconda3-jupyter-ZN"  -v /data/user/Zhangnan/:/mnt -p 8801:8888 gpuci/miniconda-cuda:11.0-centos7.9-jupyter  sh -c "jupyter lab  --ip='*' --port=8888 --no-browser --allow-root"
+# docker run --gpus all -it --rm  --name="cuda11.0-miniconda3-jupyter-ZN"  -v /data/user/Zhangnan/:/mnt -p 8801:8888 nvidia/cuda:11.0-centos7.9-miniconda3-jupyter sh -c "jupyter lab  --ip='*' --port=8888 --no-browser --allow-root"
+
+docker run --gpus all -itd  --restart=unless-stopped --name="cuda11.0-miniconda3-jupyter-ZN"  -v /data/user/Zhangnan/:/mnt -p 8801:8888 nvidia/cuda:11.0-centos7.9-miniconda3-jupyter  sh -c "jupyter lab  --ip='*' --port=8888 --no-browser --allow-root"
+
 # docker run --gpus all -itd  --restart=unless-stopped --name="cuda11.0-miniconda3-jupyter"  -v /mnt/e/project:/mnt -p 8801:8888 gpuci/miniconda-cuda:11.0-ubuntu20.04-jupyter  sh -c "jupyter lab  --ip='*' --port=8888 --no-browser --allow-root"
+
 ```
 
 # 自定义cuda环境版本

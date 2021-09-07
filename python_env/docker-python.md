@@ -79,7 +79,7 @@ vi /etc/profile
 ```
 在文件最后加入如下语句（路径需要根据自己的安装位置更改
 ```vim
-PATH=$PATH:/root/anaconda3/bin  #路径名跟自己实际情况而定
+PATH=$PATH:/root/miniconda3/bin  #路径名跟自己实际情况而定
 export PATH
 ```
 按住shift键+:键，输入wq，保存文件并退出。最后使用如下命令刷新环境变量即可：
@@ -93,7 +93,7 @@ vim ~/.bash_profile
 ```
 在最后一行加上
 ```vim
-export PATH=$PATH:/home/uusama/mysql/bin
+export PATH=$PATH:/root/miniconda3/bin
 ```
 激活
 ```

@@ -1,0 +1,33 @@
+FROM nvidia/cuda:11.0-cudnn8-centos7.9
+
+# ENV  PATH=/usr/local/cuda-11.0/bin:$PATH
+# ENV  LD_LIBRARY_PATH=/usr/local/cuda-11.0/lib64:$LD_LIBRARY_PATH
+
+USER root
+
+RUN yum install wget -y
+
+RUN wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh 
+
+RUN bash Miniconda3-py39_4.10.3-Linux-x86_64.sh -b \
+&& rm Miniconda3-py39_4.10.3-Linux-x86_64.sh 
+
+ENV PATH=$PATH:/root/miniconda3/bin
+
+RUN conda --version
+
+
+RUN conda config --add channels  http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ \
+&& conda config --remove channels defaults \
+&& conda config --set show_channel_urls yes \
+&& conda config --show-sources \
+&& conda install -y -c conda-forge nb_conda
+
+RUN && pip config set global.index-url https://pypi.douban.com/simple \
+&& pip config set install.trusted-host pypi.douban.com \
+&& pip config list -V \
+&& pip install jupyterlab \
+&& jupyter lab --generate-config \
+&& chmod -R 777 /root/.jupyter/jupyter_lab_config.py 
+
+CMD jupyter lab  --ip='*' --port=8888 --allow-root --no-browser
