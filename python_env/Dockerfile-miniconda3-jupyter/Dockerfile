@@ -17,17 +17,20 @@ ENV PATH=$PATH:/root/miniconda3/bin
 RUN conda --version
 
 
-RUN conda config --add channels  http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ \
+RUN conda config --add channels http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ \
+&&  conda config --add channels http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ \
 && conda config --remove channels defaults \
-&& conda config --set show_channel_urls yes \
-&& conda config --show-sources \
-&& conda install -y -c conda-forge nb_conda
+&& conda config --set show_channel_urls yes 
 
-RUN && pip config set global.index-url https://pypi.douban.com/simple \
+RUN conda install -y -c conda-forge nb_conda
+
+RUN pip config set global.index-url https://pypi.douban.com/simple \
 && pip config set install.trusted-host pypi.douban.com \
-&& pip config list -V \
+&& pip config set global.ssl_verify false
+
+RUN pip install --upgrade pip \
 && pip install jupyterlab \
 && jupyter lab --generate-config \
-&& chmod -R 777 /root/.jupyter/jupyter_lab_config.py 
+&& chmod -R 777 /root/.jupyter/jupyter_lab_config.py
 
 CMD jupyter lab  --ip='*' --port=8888 --allow-root --no-browser

@@ -1,6 +1,6 @@
 ## 构建镜像
 ```bash
- docker build -t nvidia/cuda:11.0-centos7.9-miniconda3-jupyter .
+docker build -t nvidia/cuda:11.0-centos7.9-miniconda3-jupyter .
 ```
 
 ## 运行容器
@@ -9,7 +9,7 @@ docker run --gpus all -itd  --restart=unless-stopped --name="cuda11.0-miniconda3
 ```
 ## 在日志中查看token
 ```
-docker logs -f jupyterlab
+docker logs -f cuda11.0-miniconda3-jupyter-ZN
 ```
 
 ## 在浏览器中打开jupyterlab 

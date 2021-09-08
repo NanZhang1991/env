@@ -14,9 +14,11 @@ RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list  
 && alias python=python3
 
 RUN pip config set global.index-url https://pypi.douban.com/simple \
-&& pip config set install.trusted-host pypi.douban.com
+&& pip config set install.trusted-host pypi.douban.com \
+&& pip config set global.ssl_verify false
 
-RUN pip install jupyterlab \
+RUN pip install --upgrade pip \
+&& pip install jupyterlab \
 && jupyter lab --generate-config \
 && chmod -R 777 /root/.jupyter/jupyter_lab_config.py 
 

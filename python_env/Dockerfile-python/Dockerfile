@@ -21,4 +21,6 @@ RUN set -ex \
         && ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3 \
         && pip3 config set global.index-url https://pypi.douban.com/simple  \
         && pip3 config set install.trusted-host pypi.douban.com \
-        && pip3 install --upgrade pip \
+        && pip3 config set global.ssl_verify false \
+        && pip3 install --upgrade pip
+        
