@@ -61,6 +61,7 @@ export PATH=$PATH:/usr/bin
 ```
 pip config set global.index-url https://pypi.douban.com/simple 
 pip config set install.trusted-host pypi.douban.com
+pip config set global.ssl_verify false
 ```
 
 # minconda
