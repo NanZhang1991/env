@@ -1,4 +1,4 @@
-FROM yeluofeng1991/cuda:11.0-centos7.9
+FROM yeluofeng1991/cuda:11.2-centos7.9
 
 ENV  PATH=/usr/local/cuda/bin:$PATH
 ENV  LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
