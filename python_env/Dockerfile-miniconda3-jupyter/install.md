@@ -1,13 +1,13 @@
 ## 构建镜像
 ```bash
-docker build -t nvidia/cuda:11.0-centos7.9-miniconda3-jupyter .
+docker build -t yeluofeng1991/cuda:11.0-centos7.9-miniconda3-jupyter .
 ```
 
 ## 运行容器
 ```
-docker run --gpus all -itd  --restart=unless-stopped --name="cuda11.0-miniconda3-jupyter-ZN"  -v /data/user/Zhangnan/:/mnt -p 8801:8888 nvidia/cuda:11.0-centos7.9-miniconda3-jupyter
+docker run --gpus all -itd  --restart=unless-stopped --name="cuda11.0-miniconda3-jupyter-ZN"  -v /data/user/Zhangnan/:/mnt -p 8801:8888 yeluofeng1991/cuda:11.0-centos7.9-miniconda3-jupyter
 ```
-## 在日志中查看token
+## 在日志中查看token/*/--*---
 ```
 docker logs -f cuda11.0-miniconda3-jupyter-ZN
 ```

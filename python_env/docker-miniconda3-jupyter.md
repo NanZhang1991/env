@@ -21,9 +21,9 @@ docker run -itd --name="miniconda3-cuda11.0" --restart=unless-stopped  -p 8800:8
 docker run --gpus all -itd --name="miniconda3-cuda11.0"  --restart=unless-stopped -v /data/user/Zhangnan:/mnt -p 8802:8888 gpuci/miniconda-cuda:11.0-devel-centos7
 ```
 ## 如果缺少libcudnn.so.8 下载copy添加到对应目录
-docker cp /data/source/python_env/libcudnn.so.8 cuda11-cudann8-ubuntu18.04:/usr/local/cuda-11.0/lib64/
-export PATH=/usr/local/cuda-11.0/bin:$PATH
-export LD_LIBRARY_PATH=/usr/local/cuda-11.0/lib64:$LD_LIBRARY_PATH
+docker cp /data/source/python_env/libcudnn.so.8 cuda11-cudann8-ubuntu18.04:/usr/local/cuda/lib64/
+export PATH=/usr/local/cuda/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
 ## 启动容器
 

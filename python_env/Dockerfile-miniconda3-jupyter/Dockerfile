@@ -1,7 +1,7 @@
-FROM nvidia/cuda:11.0-cudnn8-centos7.9
+FROM yeluofeng1991/cuda:11.0-centos7.9
 
-# ENV  PATH=/usr/local/cuda-11.0/bin:$PATH
-# ENV  LD_LIBRARY_PATH=/usr/local/cuda-11.0/lib64:$LD_LIBRARY_PATH
+ENV  PATH=/usr/local/cuda/bin:$PATH
+ENV  LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
 USER root
 
