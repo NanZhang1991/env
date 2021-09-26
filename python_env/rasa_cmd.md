@@ -10,8 +10,9 @@ pip install rasa-x --extra-index-url https://pypi.rasa.com/simple
 rasa-x 安装中途问题可能比较多，需要多装几次
 
 如果不安装rasa -x
-
-`pip install rasa`
+```
+pip install rasa
+``
 
 ### 2. 初始化
 
