@@ -1,8 +1,8 @@
 # 用户管理
 ## 配置用户名
 ```
-git config user.name
-git config user.email
+git config user.name zhangnan
+git config user.email zhangnan@apexsoft.com.cn
 
 git config --global user.name nanzhang1991
 git config --global user.email nanzhang1991@gmail.com
