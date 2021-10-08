@@ -1,4 +1,6 @@
 <font face="微软雅黑" color=blue size=5>How do I use CUDA in WSL</font>
+参考链接
+https://docs.nvidia.com/cuda/pdf/CUDA_on_WSL_User_Guide.pdf
 
 # Setting up CUDA Toolkit on WSL 2
 Follow the instructions below to install the CUDA Toolkit from the WSL-Ubuntu package on Ubuntu

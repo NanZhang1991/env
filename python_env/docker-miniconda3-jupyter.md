@@ -186,26 +186,21 @@ http://127.0.0.1:8800
 ```
 conda create -n env_name python=3.7
 ```
-激活环境
+### 激活环境
 ```
 source activate env_name
 ```
-进入环境
+#### 进入环境
 ```
 conda activate env_name
 ```
-离开环境
-```
-conda deactivate
-```
 
-## 安装内核
+### 安装内核
 ```
 pip install ipykernel
 ```
-
-## 在新建的环境env_name下安装cuda 
-### 搜索cuda 版本
+### 在新建的环境env_name下安装cuda 
+搜索cuda 版本
 ```
 conda search cudatoolkit -c conda-forge
 conda search cuDNN -c conda-forge
@@ -214,8 +209,13 @@ conda search cuDNN -c conda-forge
 ```
 conda install cuDNN=8.0 -c conda-forge
 ```
-## 安装tensoflow 测试GPU
+### 安装tensoflow 测试GPU
 2.4版本后不用区分cpu和gpu
 ```
 pip install tensorflow==2.4
+```
+###
+离开环境
+```
+conda deactivate
 ```
