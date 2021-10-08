@@ -24,5 +24,5 @@ jupyter lab password
 ```
 ## 重启容器
 ```
-docker restart cuda11.0-miniconda3-jupyter-ZN
+docker restart cuda11.2-miniconda3-jupyter-ZN
 ```
