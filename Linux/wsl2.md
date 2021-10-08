@@ -72,18 +72,14 @@ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
 curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
 
 curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
-
-curl -s -L https://nvidia.github.io/libnvidia-container/experimental/$distribution/libnvidia-container-experimental.list | sudo tee /etc/apt/sources.list.d/libnvidia-container-experimental.list
 ```
         
 Install the NVIDIA runtime packages (and their dependencies) after updating the package listing.
-
 ```
 sudo apt-get update
-
 sudo apt-get install -y nvidia-docker2
-
 ```
+
 Open a separate WSL 2 window and start the Docker daemon again using the following commands to complete the installation.
 
 ```
@@ -92,17 +88,24 @@ sudo service docker stop
 sudo service docker start
 ```
         
+**To run Docker without root privileges, see Run the Docker daemon as a non-root user (Rootless mode).**
+```
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker 
+```
+
 ## Running Simple CUDA Containers
 In this example, let’s run an N-body simulation CUDA sample. This example has already been containerized and available from NGC.
-
 ```
 docker run --rm --gpus all nvcr.io/nvidia/k8s/cuda-sample:nbody nbody -gpu -benchmark        
 ```      
-In this example, let’s run a Jupyter notebook.
 
+In this example, let’s run a Jupyter notebook.
 ```
 docker run -it --rm --gpus all -p 8888:8888 tensorflow/tensorflow:latest-gpu-py3-jupyter
 ```
+
 After the container starts, you can see the following output on the console.
 
 ________                               _______________
@@ -110,3 +113,5 @@ ___  __/__________________________________  ____/__  /________      __
 __  /  _  _ \_  __ \_  ___/  __ \_  ___/_  /_   __  /_  __ \_ | /| / /
 _  /   /  __/  / / /(__  )/ /_/ /  /   _  __/   _  / / /_/ /_ |/ |/ /
 /_/    \___//_/ /_//____/ \____//_/    /_/      /_/  \____/____/|__/
+
+
