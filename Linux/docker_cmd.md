@@ -269,7 +269,7 @@ vim /etc/docker/daemon.json
 
 {
     "registry-mirrors": ["https://96e6e1rd.mirror.aliyuncs.com"],
-    "graph":"/mnt/e/docker",
+    "graph":"/home/docker",
     "runtimes": {
         "nvidia": {
             "path": "nvidia-container-runtime",
