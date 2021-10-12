@@ -4,7 +4,7 @@
 #### 查看已安装的docker列表
 
 ```
-yum list installed |grep docke
+yum list installed |grep docker
 ```
 
 ####删除已安装的docker
@@ -269,7 +269,7 @@ vim /etc/docker/daemon.json
 
 {
     "registry-mirrors": ["https://96e6e1rd.mirror.aliyuncs.com"],
-    "graph":"/home/docker",
+    "graph":"/mnt/e/docker",
     "runtimes": {
         "nvidia": {
             "path": "nvidia-container-runtime",
