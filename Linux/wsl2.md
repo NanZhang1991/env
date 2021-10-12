@@ -87,7 +87,31 @@ sudo service docker stop
 
 sudo service docker start
 ```
-        
+
+## 更换源和镜像存储地址
+```bash
+# 查看镜像容器存储地址
+sudo docker info | grep "Docker Root Dir"
+vim /etc/docker/daemon.json 
+```
+```json
+
+{
+    "registry-mirrors": ["https://96e6e1rd.mirror.aliyuncs.com"],
+    "graph":"/mnt/e/docker",
+    "runtimes": {
+        "nvidia": {
+            "path": "nvidia-container-runtime",
+            "runtimeArgs": []
+        }
+    }
+}
+```
+
+#### 重启docker
+```
+sudo service docker stop
+sudo service docker restart    
 **To run Docker without root privileges, see Run the Docker daemon as a non-root user (Rootless mode).**
 ```
 sudo groupadd docker
