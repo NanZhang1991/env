@@ -9,7 +9,7 @@ docker run --gpus all -itd  --restart=unless-stopped --name="cuda11.2-miniconda3
 ```
 ## 在日志中查看token/*/--*---
 ```
-docker logs -f cuda11.0-miniconda3-jupyter-ZN
+docker logs -f cuda11.2-miniconda3-jupyter-ZN
 ```
 
 ## 在浏览器中打开jupyterlab 

@@ -1,5 +1,6 @@
 FROM yeluofeng1991/cuda:11.2-centos7.9
 
+ENV LANG en_US.utf8
 ENV  PATH=/usr/local/cuda/bin:$PATH
 ENV  LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 

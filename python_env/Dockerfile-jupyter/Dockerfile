@@ -5,7 +5,7 @@ FROM ubuntu:20.04
 USER root
 
 ENV DEBIAN_FRONTEND=noninteractive
-
+ENV LANG en_US.utf8
 # apt换源
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list  \
 && apt-get clean \
