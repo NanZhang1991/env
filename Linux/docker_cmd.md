@@ -266,7 +266,6 @@ ln -s /home/docker /var/lib/docker
 vim /etc/docker/daemon.json 
 ```
 ```json
-
 {
     "registry-mirrors": ["https://96e6e1rd.mirror.aliyuncs.com"],
     "graph":"/home/docker",

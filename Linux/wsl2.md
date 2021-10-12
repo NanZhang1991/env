@@ -88,12 +88,13 @@ sudo service docker stop
 sudo service docker start
 ```
 
-## 更换源和镜像存储地址
+## Change the storage addresses of the source and mirror
 ```bash
-# 查看镜像容器存储地址
+# View the storage address of the image container
 sudo docker info | grep "Docker Root Dir"
-vim /etc/docker/daemon.json 
+sudo vim /etc/docker/daemon.json 
 ```
+
 ```json
 
 {
@@ -108,14 +109,14 @@ vim /etc/docker/daemon.json
 }
 ```
 
-#### 重启docker
+#### Restart the docker
 ```
 sudo service docker stop
 sudo service docker restart    
 **To run Docker without root privileges, see Run the Docker daemon as a non-root user (Rootless mode).**
 ```
 sudo groupadd docker
-sudo usermod -aG docker $USER
+sudo usermod -aG docker USER
 newgrp docker 
 ```
 
