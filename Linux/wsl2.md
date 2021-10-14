@@ -88,18 +88,20 @@ sudo service docker stop
 sudo service docker start
 ```
 
-## Change the storage addresses of the source and mirror
+## Change the Docker image source
+
 ```bash
 # View the storage address of the image container
 sudo docker info | grep "Docker Root Dir"
 sudo vim /etc/docker/daemon.json 
 ```
+You cannot change the storage address of the image container in this way  
+**"graph":"/home/docker"**
 
 ```json
 
 {
     "registry-mirrors": ["https://96e6e1rd.mirror.aliyuncs.com"],
-    "graph":"/mnt/e/docker",
     "runtimes": {
         "nvidia": {
             "path": "nvidia-container-runtime",

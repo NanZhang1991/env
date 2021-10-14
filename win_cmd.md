@@ -79,3 +79,4 @@ x64：https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
 #设置分发版版本
 wsl --set-default-version 2
 wsl --shutdown 
+wsl -l -v --all
