@@ -21,5 +21,6 @@ RUN yum install -y wget gcc && \
 
 EXPOSE 6379
 
-ENTRYPOINT ["/usr/local/redis/bin/redis-server", "/usr/local/redis/conf/redis.conf"]
+# ENTRYPOINT ["/usr/local/redis/bin/redis-server", "/usr/local/redis/conf/redis.conf"]
+CMD /usr/local/redis/bin/redis-server --daemonize yes && python3
 
