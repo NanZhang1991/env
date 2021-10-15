@@ -13,10 +13,8 @@ docker logs -f cuda11.2-miniconda3-jupyter-ZN
 ```
 
 ## 在浏览器中打开jupyterlab 
-```
 http://127.0.0.1:8801/lab
-## 输入日志中查看的token  并修改密码 
-```
+输入容器日志中查看的token  并修改密码 
 
 ## 在浏览器终端修改密码
 ```
