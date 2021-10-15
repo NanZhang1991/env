@@ -6,6 +6,7 @@ ENV  LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
 USER root
 
+RUN yum update -y
 RUN yum install wget -y
 RUN yum install git -y
 
