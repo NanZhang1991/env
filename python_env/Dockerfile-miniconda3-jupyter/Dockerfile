@@ -7,8 +7,8 @@ ENV  LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 USER root
 
 RUN yum update -y
-RUN yum install wget -y
-RUN yum install git -y
+RUN yum install wget -y \
+&& yum install git -y
 
 RUN wget --no-check-certificate https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh 
 
