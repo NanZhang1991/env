@@ -99,9 +99,8 @@ You cannot change the storage address of the image container in this way
 **"graph":"/home/docker"**
 
 ```json
-
 {
-    "registry-mirrors": ["https://96e6e1rd.mirror.aliyuncs.com"],
+    "registry-mirrors": ["http://hub-mirror.c.163.com"],
     "runtimes": {
         "nvidia": {
             "path": "nvidia-container-runtime",
