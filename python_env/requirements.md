@@ -26,7 +26,7 @@ pip install tqdm
 
 ### 多进程日志
 ```
-pip install concurrent-log-handler==0.9.7
+pip install concurrent-log-handler
 ```
 
 ### 加强正则
@@ -50,8 +50,11 @@ pip install pyinstaller
 pip install latexify-py
 pip install handcalcs
 ```
- 
-## API
+## api 文档生成
+```
+pip install Sphinx
+```
+## 接口服务
 ```
 pip install flask-restful
 pip install flask_cors
