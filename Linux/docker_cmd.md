@@ -292,3 +292,8 @@ docker run --gpus all -itd  --restart=unless-stopped --name="jupyter-tf-gpu-2.1"
 ```bash
 docker rmi $(docker images | grep "none" | awk '{print $3}') 
 ```
+
+## 删除所有未运行的容器
+```bash
+docker rm $(sudo docker ps -a -q)
+```
