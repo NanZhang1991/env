@@ -25,4 +25,4 @@ RUN set -ex \
         && pip3 config set global.ssl_verify false \
         && pip3 install --upgrade pip
         
- # CMD ["python3", "app.py"]
+CMD ["python3", "app.py"]
