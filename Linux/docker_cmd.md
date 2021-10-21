@@ -288,5 +288,7 @@ sudo systemctl restart docker
 docker run --gpus all -itd  --restart=unless-stopped --name="jupyter-tf-gpu-2.1"  -v /mnt/e/project:/mnt -p 8801:8888 tensorflow/tensorflow:latest-gpu-py3-jupyter
 ```
 
-
- 
+##  删除所有"none"镜像 
+```bash
+docker rmi $(docker images | grep "none" | awk '{print $3}') 
+```

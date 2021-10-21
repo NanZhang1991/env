@@ -23,6 +23,13 @@ RUN set -ex \
         && pip3 config set global.index-url https://pypi.douban.com/simple  \
         && pip3 config set install.trusted-host pypi.douban.com \
         && pip3 config set global.ssl_verify false \
-        && pip3 install --upgrade pip
+        && pip3 install --upgrade pip 
+
+COPY requirements.txt /home
+WORKDIR /home        
+RUN pip3 install -r requirements.txt
+
+RUN set -ex \ 
+        && ln -s /usr/local/python3/bin/celery /usr/bin/celery
         
-CMD ["python3", "app.py"]
+# CMD ["python3", "app.py"]
