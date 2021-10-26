@@ -1,8 +1,35 @@
-<font face="微软雅黑" color=blue size=5>How do I use CUDA in WSL</font>
+
+<font face="微软雅黑" color=blue size=6>WSL Documenttation</font>
+
+官方文档 https://docs.microsoft.com/en-us/windows/wsl/install
+首先确保电脑主机开启 **ntel Virtual Technology**
+控制面板--程序与功能--启动或关闭Windows功能勾选适用于Linux的Windows子系统，Hyper-V 重启
+以管理员身份打开 PowerShell 并运行
+```PowerShell
+# 为 Linux 启用 Windows 子系统
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+# 启用虚拟机功能
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+#下载 Linux 内核更新包
+x64：https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+#运行上一步下载的更新包
+# 查看版本
+wsl --list --online
+# 安装指定版本
+wsl --install -d <Distribution Name>
+wsl --list --verbose
+#设置分发版版本
+wsl --set-default-version 2
+# 关闭 wsl 虚拟机
+wsl --shutdown 
+wsl -l -v --all
+```
+
+<font face="微软雅黑" color=blue size=6>How do I use CUDA in WSL</font>
 参考链接
 https://docs.nvidia.com/cuda/pdf/CUDA_on_WSL_User_Guide.pdf
 
-# Setting up CUDA Toolkit on WSL 2
+# 1. Setting up CUDA Toolkit on WSL 2
 Follow the instructions below to install the CUDA Toolkit from the WSL-Ubuntu package on Ubuntu
 ```bash
 wget https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/cuda-wsl-ubuntu.pin
@@ -45,11 +72,11 @@ test cuda
 nvcc -V
 ```
 
-# Running CUDA Containers
-## Setup
+# 2. Running CUDA Containers
+## 2.1. Setup
 This chapter describes the workflow for setting up the NVIDIA Container Toolkit in preparation for running GPU accelerated containers.
 
-##  Install Docker
+## 2.2. Install Docker
 Use the Docker installation script to install Docker for your choice of WSL 2 Linux distribution. Note that NVIDIA Container Toolkit has not yet been validated with Docker Desktop WSL 2 backend.
 
 Note: For this release, install the standard Docker-CE for Linux distributions.
@@ -59,7 +86,7 @@ curl https://get.docker.com | sh
 curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 ```
         
-## Install NVIDIA Container Toolkit
+## 2.3. Install NVIDIA Container Toolkit
 Now install the NVIDIA Container Toolkit (previously known as nvidia-docker2). WSL 2 support is available starting with nvidia-docker2 v2.3 and the underlying runtime library (libnvidia-container >= 1.2.0-rc.1).
 
 For brevity, the installation instructions provided here are for Ubuntu.
@@ -88,7 +115,7 @@ sudo service docker stop
 sudo service docker start
 ```
 
-## Change the Docker image source
+## 2.4. Change the Docker image source
 
 ```bash
 # View the storage address of the image container
@@ -110,7 +137,7 @@ You cannot change the storage address of the image container in this way
 }
 ```
 
-#### Restart the docker
+#### 2.4.1. Restart the docker
 ```
 sudo service docker stop
 sudo service docker restart    
