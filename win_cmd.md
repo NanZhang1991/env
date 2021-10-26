@@ -67,16 +67,4 @@ curl -v http://www.google.com
 set http_proxy=
 set https_proxy=
 ```
-# PowerShell
-控制面板--程序与功能--启动或关闭Windows功能勾选适用于Linux的Windows子系统，Hyper-V 重启
-```PowerShell
-wsl --list --online
-wsl --install -d <Distribution Name>
-wsl --list --verbose
-#下载 Linux 内核更新包
-x64：https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
-#运行上一步下载的更新包
-#设置分发版版本
-wsl --set-default-version 2
-wsl --shutdown 
-wsl -l -v --all
+
