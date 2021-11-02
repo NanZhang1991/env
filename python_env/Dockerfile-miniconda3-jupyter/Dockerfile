@@ -7,7 +7,7 @@ ENV  LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 USER root
 
 RUN yum update -y
-RUN yum install wget -y \
+RUN yum install wget vim -y \
 && yum install git -y
 
 RUN wget --no-check-certificate https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh 
@@ -17,11 +17,9 @@ RUN bash Miniconda3-py39_4.10.3-Linux-x86_64.sh -b \
 
 ENV PATH=$PATH:/root/miniconda3/bin
 
-RUN conda --version
-
-
-RUN conda config --add channels http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ \
-&&  conda config --add channels http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ \
+RUN conda --version \
+&& conda config --add channels http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ \
+&& conda config --add channels http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ \
 && conda config --remove channels defaults \
 && conda config --set show_channel_urls yes 
 

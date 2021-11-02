@@ -23,6 +23,8 @@ wsl --set-default-version 2
 # 关闭 wsl 虚拟机
 wsl --shutdown 
 wsl -l -v --all
+# 注销子系统
+wslconfig /u 'Ubuntu'
 ```
 
 <font face="微软雅黑" color=blue size=6>How do I use CUDA in WSL</font>
@@ -34,9 +36,9 @@ Follow the instructions below to install the CUDA Toolkit from the WSL-Ubuntu pa
 ```bash
 wget https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/cuda-wsl-ubuntu.pin
 sudo mv cuda-wsl-ubuntu.pin /etc/apt/preferences.d/cuda-repository-pin-600
-wget https://developer.download.nvidia.com/compute/cuda/11.4.0/local_installers/cuda-repo-wsl-ubuntu-11-4-local_11.4.0-1_amd64.deb
-sudo dpkg -i cuda-repo-wsl-ubuntu-11-4-local_11.4.0-1_amd64.deb
-sudo apt-key add /var/cuda-repo-wsl-ubuntu-11-4-local/7fa2af80.pub
+wget https://developer.download.nvidia.com/compute/cuda/11.2.0/local_installers/cuda-repo-wsl-ubuntu-11-2-local_11.2.0-1_amd64.deb
+sudo dpkg -i cuda-repo-wsl-ubuntu-11-2-local_11.2.0-1_amd64.deb
+sudo apt-key add /var/cuda-repo-wsl-ubuntu-11-2-local/7fa2af80.pub
 sudo apt-get update
 sudo apt-get -y install cuda
 ```
@@ -93,7 +95,7 @@ For brevity, the installation instructions provided here are for Ubuntu.
 
 Setup the stable and experimental repositories and the GPG key. The changes to the runtime to support WSL 2 are available in the experimental repository.
 
-```
+```bash
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
 
 curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
@@ -124,7 +126,7 @@ sudo vim /etc/docker/daemon.json
 ```
 You cannot change the storage address of the image container in this way  
 **"graph":"/home/docker"**
-
+ggdG
 ```json
 {
     "registry-mirrors": ["http://hub-mirror.c.163.com"],
