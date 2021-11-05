@@ -84,7 +84,7 @@ Use the Docker installation script to install Docker for your choice of WSL 2 Li
 Note: For this release, install the standard Docker-CE for Linux distributions.
 ```bash
 curl https://get.docker.com | sh
-#或
+#or
 curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 ```
         
