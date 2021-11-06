@@ -61,6 +61,12 @@ pip install flask_cors
 pip install setuptools_scm
 ```
 
+## 数据科学
+```
+pip isnatll numpy
+pip install pandas
+```
+
 ## 数据可视化
 ```
 pip install graphviz 
@@ -78,8 +84,6 @@ pip install pymongo
 pip install hdfs 
 ```
 
-
-
 ## 机器学习
 ```
 pip install numba
@@ -90,6 +94,7 @@ pip install factor-analyzer
 pip install transitions
 ```
 ## NLP
+### 常用库
 ```
 #pip install snownlp
 #pip install textblob
@@ -126,16 +131,13 @@ pip install pyrouge
 ```
 
 ### 文件处理
-pdfplumber可能会与camelot-py冲突
+#### xml解析
 ```
-pip install pandas
 pip install beautifulsoup4
+```
+#### docx解析
+```
 pip install python-docx
-pip install pdfminer
-pip install pdfplumber
-pip install PyMuPDF 
-pip install pdf2docx
-#pip install camelot-py[cv]
 ```
 **docx参考**
 https://python-docx.readthedocs.io/en/latest/
@@ -143,6 +145,34 @@ https://buildmedia.readthedocs.org/media/pdf/python-docx/latest/python-docx.pdf
 https://www.xml.com/pub/a/2004/12/08/word-to-xml.html
 http://officeopenxml.com/WPparagraph-textFrames.php
 
+```
+pip install pywpsrpc
+```
+**pywpsrpc安装依赖**
+wps下载 https://linux.wps.cn/
+```bash
+wget https://wdl1.cache.wps.cn/wps/download/ep/Linux2019/10702/wps-office-11.1.0.10702-1.x86_64.rpm
+yum localinstall wps-office-11.1.0.10702-1.x86_64.rpm
+## 依赖环境
+yum install qt5-qtbase-gui
+## glibc-2.18字体
+wget https://ftp.gnu.org/gnu/glibc/glibc-2.18.tar.gz
+tar -zxvf glibc-2.18.tar.gz
+cd glibc-2.18 && mkdir build
+cd build
+../configure --prefix=/usr --disable-profile --enable-add-ons --with-headers=/usr/include --with-binutils=/usr/bin
+make && make install
+/lib64/libc.so.6
+```
+#### pdf解析
+pdfplumber可能会与camelot-py冲突
+```bash
+pip install pdfminer
+pip install pdfplumber
+pip install PyMuPDF 
+pip install pdf2docx
+#pip install camelot-py[cv]
+```
 **pdf参考**
 https://pythonhosted.org/PyPDF2/index.html
 https://pypi.org/project/pdfplumber/#extracting-tables
@@ -151,7 +181,7 @@ https://pypi.org/project/pdf2docx/
 https://dothinking.github.io/pdf2docx/quickstart.convert.html
 https://online2pdf.com/pdf2docx#
 
-### OCR
+#### OCR
 **ocr参考**
 https://pypi.org/project/pytesseract/
 https://github.com/tesseract-ocr/
@@ -162,14 +192,13 @@ https://github.com/PaddlePaddle/PaddleOCR/issues/303
 https://gitee.com/paddlepaddle/PaddleOCR/blob/release/2.0/doc/doc_ch/whl.md
 https://pypi.org/project/cnocr/0.2.0/
 
-#### tesserocr 
-
+##### tesserocr 
 数据集需到git 官网下载
 ```bash
 git clone https://github.com/tesseract-ocr/tessdata.git
 git clone https://github.com.cnpmjs.org/tesseract-ocr/tessdata.git
 ```
-##### linux 
+**linux**
 需要安装tesseract官方只有Ubuntu 安装说明
 
 依赖
@@ -181,7 +210,7 @@ apt-get install tesseract-ocr libtesseract-dev libleptonica-dev pkg-config
 pip install pillow tesserocr
 ```
 
-##### windows
+**windows**
 window 上pip 需下载.whl 文件手动安装
 ```
 pip install <package_name>.whl
@@ -189,7 +218,7 @@ pip install <package_name>.whl
 
 在tesserocr安装的python 环境下创建tessdata目录 并将git 下载的tessdata目录中的中文数据集移动到此目录
 
-#### pytesseract 
+##### pytesseract 
 pytesseract 的功能比tesserocr 强大，且版本更新较快，但pytesseract 的使用需要tesseract的支持 请注意pytesseract 版本对应的tesseract版本
 例如pytesseract 0.3.7对应tesseract4.0 以上版本
 tesseract官网安装指导
@@ -238,7 +267,7 @@ pytesseract 安装会自动安装pillow 依赖
 pip install pytesseract
 ```
 
-#### paddleocr
+##### paddleocr
 https://github.com/PaddlePaddle/PaddleOCR
 ```
 pip install paddlepaddle-gpu -i https://mirror.baidu.com/pypi/simple
@@ -249,12 +278,12 @@ from shapely.geos import lgeos
 OSError: [WinError 126] 找不到指定的模块。
 需要同时把geos.dll和geos_c.dll拷贝至你anaconda环境中的library\bin中，问题解决
 
-#### 开源的OCR
+##### 开源的OCR
 https://pypi.org/project/cnocr/0.2.0/
 https://github.com/alisen39/TrWebOCR
 https://github.com/DayBreak-u/chineseocr_lite
 
-#### ttf
+**ttf**
 .ttf 字体需要自行下载
 
 ## CV
