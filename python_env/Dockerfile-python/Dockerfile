@@ -31,5 +31,5 @@ RUN pip3 install -r requirements.txt
 
 RUN set -ex \ 
         && ln -s /usr/local/python3/bin/celery /usr/bin/celery
-        
+# WORKDIR /home/service_name     
 # CMD ["python3", "app.py"]
