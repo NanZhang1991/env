@@ -1,7 +1,7 @@
 FROM centos:7.9-py3.7.9
 
 WORKDIR /home
-
+ENV 
 RUN yum install -y wget gcc && \      
         rpm --rebuilddb && \
         yum -y install gcc automake autoconf libtool make && \
@@ -16,8 +16,8 @@ RUN yum install -y wget gcc && \
         make && make PREFIX=/usr/local/redis install && \
         mkdir -p /usr/local/redis/conf/ && \
         cp /home/redis/redis.conf  /usr/local/redis/conf/  && \
-        sed -i  '69s/127.0.0.1/0.0.0.0/' /usr/local/redis/conf/redis.conf && \
-        sed -i  '88s/protected-mode yes/protected-mode no/' /usr/local/redis/conf/redis.conf
+        sed -i '69s/127.0.0.1/0.0.0.0/' /usr/local/redis/conf/redis.conf && \
+        sed -i '88s/protected-mode yes/protected-mode no/' /usr/local/redis/conf/redis.conf
 
 EXPOSE 6379
 
