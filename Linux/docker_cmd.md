@@ -291,6 +291,7 @@ docker run --gpus all -itd  --restart=unless-stopped --name="jupyter-tf-gpu-2.1"
 ##  删除所有"none"镜像 
 ```bash
 docker rmi $(docker images | grep "none" | awk '{print $3}') 
+docker image prune -f
 ```
 
 ## 删除所有未运行的容器

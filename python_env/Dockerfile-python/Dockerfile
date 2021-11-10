@@ -5,7 +5,9 @@ ENV LANG C.UTF-8
 ENV PYTHON_VERSION 3.7.9
 
 #  Dependencies required to install Python 3.7.9 Otherwise, the pip3 package will not be installed
-RUN yum update -y
+RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo \
+    && yum update \
+
 RUN yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel libffi-devel gcc make
 RUN yum install git -y
 

@@ -312,7 +312,7 @@ cd /etc/yum.repos.d
 cp CentOS-Base.repo CentOS-Base.repo.bak
 ```
 
-## 下载
+## 下载文件并重命名
 ```
 curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
 # 或

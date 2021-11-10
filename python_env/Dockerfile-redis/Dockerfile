@@ -1,7 +1,7 @@
 FROM centos:7.9-py3.7.9
 
 WORKDIR /home
-ENV 
+
 RUN yum install -y wget gcc && \      
         rpm --rebuilddb && \
         yum -y install gcc automake autoconf libtool make && \
