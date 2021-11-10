@@ -30,10 +30,11 @@ wslconfig /u 'Ubuntu'
 # 查看ip
 cat /etc/resolv.conf
 ```
-# 设置代理
+## 设置代理
 ```bash
 export windows_host=`cat /etc/resolv.conf|grep nameserver|awk '{print $2}'`
-export ALL_PROXY=socks5://$windows_host:10808
+export ALL_PROXY=$windows_host:1080
+# export ALL_PROXY=socks5://$windows_host:1080
 export HTTP_PROXY=$ALL_PROXY
 export http_proxy=$ALL_PROXY
 export HTTPS_PROXY=$ALL_PROXY
@@ -53,6 +54,14 @@ export https_proxy=$ALL_PROXY
 if [ "`git config --global --get proxy.https`" != "socks5://$windows_host:10808" ]; then
             git config --global proxy.https socks5://$windows_host:10808
 fi
+```
+## 取消代理
+```bash
+export http_proxy=""
+export https_proxy=""
+export HTTP_PROXY=""
+export HTTPS_PROXY=""
+export ALL_PROXY=""
 ```
 
 <font face="微软雅黑" color=blue size=6>How do I use CUDA in WSL</font>
