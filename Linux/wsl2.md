@@ -1,6 +1,5 @@
-
+# wsl
 <font face="微软雅黑" color=blue size=6>WSL Documenttation</font>
-
 官方文档 https://docs.microsoft.com/en-us/windows/wsl/install
 首先确保电脑主机开启 **ntel Virtual Technology**
 控制面板--程序与功能--启动或关闭Windows功能勾选适用于Linux的Windows子系统，Hyper-V 重启
@@ -25,8 +24,35 @@ wsl --shutdown
 wsl -l -v --all
 # 注销子系统
 wslconfig /u 'Ubuntu'
+```
+
+```bash
 # 查看ip
 cat /etc/resolv.conf
+```
+# 设置代理
+```bash
+export windows_host=`cat /etc/resolv.conf|grep nameserver|awk '{print $2}'`
+export ALL_PROXY=socks5://$windows_host:10808
+export HTTP_PROXY=$ALL_PROXY
+export http_proxy=$ALL_PROXY
+export HTTPS_PROXY=$ALL_PROXY
+export https_proxy=$ALL_PROXY
+```
+```bash
+vim ~/.bashrc
+```
+```vim
+export windows_host=`cat /etc/resolv.conf|grep nameserver|awk '{print $2}'`
+export ALL_PROXY=socks5://$windows_host:10808
+export HTTP_PROXY=$ALL_PROXY
+export http_proxy=$ALL_PROXY
+export HTTPS_PROXY=$ALL_PROXY
+export https_proxy=$ALL_PROXY
+
+if [ "`git config --global --get proxy.https`" != "socks5://$windows_host:10808" ]; then
+            git config --global proxy.https socks5://$windows_host:10808
+fi
 ```
 
 <font face="微软雅黑" color=blue size=6>How do I use CUDA in WSL</font>
