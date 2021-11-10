@@ -1,6 +1,7 @@
 # 用户管理
 ## 配置用户名
-```
+
+```bash
 git config user.name zhangnan
 git config user.email zhangnan@apexsoft.com.cn
 git config user.password abcd
@@ -9,24 +10,34 @@ git config --global user.name nanzhang1991
 git config --global user.email nanzhang1991@gmail.com
 git config --global user.password abcd
 ## 记住用户密码
-```
 git config --global credential.helper store
+```
+
+## 删除用户名
+```bash
+git config --unset user.name
+git config --unset user.email
+git config --unset credential.helper
+git config --unset user.password
+
+git config --global --unset user.name
+git config --global --unset user.email
+git config --global --unset user.password
+git config --global --unset credential.helper
+
 ```
 # 代理
 ## 设置代理
-Linux
-```
+```bash
+# Linux
+git config --global http.proxy http://127.0.0.1:1080
+git config --global https.proxy https://127.0.0.1:1080
+git config --global http.proxy "socks5://127.0.0.1:1080"
+# windows
 git config --global http.proxy http://127.0.0.1:1080
 git config --global https.proxy https://127.0.0.1:1080
 git config --global http.proxy "socks5://127.0.0.1:1080"
 ```
-windows
-```
-git config --global http.proxy http://127.0.0.1:1080
-git config --global https.proxy https://127.0.0.1:1080
-git config --global http.proxy "socks5://127.0.0.1:1080"
-```
-
 ## 取消代理
 ```
 git config --global --unset http.proxy
@@ -35,13 +46,12 @@ git config --global --unset https.proxy
 
 ## 查看config
 
-##  查看系统config
-```
+```bash
+# 查看用户配置
+git config --list
+# 查看系统config
 git config --system --list
-```
-
-## 查看当前用户（global）配置
-```
+# 查看当前用户（global）配置
 git config --global  --list
 ```
 

@@ -25,6 +25,8 @@ wsl --shutdown
 wsl -l -v --all
 # 注销子系统
 wslconfig /u 'Ubuntu'
+# 查看ip
+cat /etc/resolv.conf
 ```
 
 <font face="微软雅黑" color=blue size=6>How do I use CUDA in WSL</font>
