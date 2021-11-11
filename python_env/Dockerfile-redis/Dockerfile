@@ -21,6 +21,7 @@ RUN yum install -y wget gcc && \
 
 EXPOSE 6379
 ENV PATH=$PATH/usr/local/redis/bin
+ENV PATH=$PATH/usr/local/redis/conf
 # ENTRYPOINT ["redis-server", "redis.conf"]
 CMD redis-server --daemonize yes && python3
 
