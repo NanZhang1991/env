@@ -298,3 +298,8 @@ docker image prune -f
 ```bash
 docker rm $(sudo docker ps -a -q)
 ```
+
+## 删除正在运行的容器
+```bash
+docker rm -f <container>
+```
