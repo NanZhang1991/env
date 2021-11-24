@@ -5,7 +5,7 @@ docker build -t jupyterlab .
 
 ## 运行容器
 ```
-docker run --gpus all -itd  --restart=unless-stopped --name="jupyterlab" -v /data:/mnt -p 8800:8888 jupyterlab
+docker run  -itd  --restart=unless-stopped --name="jupyterlab" -v /data:/mnt -p 8800:8888 jupyterlab
 ```
 
 ## 在日志中查看token
