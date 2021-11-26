@@ -25,8 +25,8 @@ RUN conda --version \
 RUN conda install -y -c conda-forge nb_conda
 
 # 安装cuda
-RUN export cuDNN="8.1" \
-&&conda install cuDNN=$cuDNN -c conda-forge
+# RUN export cuDNN="8.1" \
+# &&conda install cuDNN=$cuDNN -c conda-forge
 
 RUN pip config set global.index-url https://pypi.douban.com/simple \
 && pip config set install.trusted-host pypi.douban.com \
