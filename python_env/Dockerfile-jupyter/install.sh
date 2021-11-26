@@ -1,7 +1,7 @@
 #如果容器存在删除
 export contains_name="jupyterlab" 
 if [[ -n $(docker ps | grep $contains_name) ]];then
-	echo "$contains_name has been installed older versions will be uninstalled"
+	echo "$contains_name has been installed, older versions will be uninstalled"
     docker rm -f $contains_name
 fi
 

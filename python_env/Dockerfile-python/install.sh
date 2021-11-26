@@ -2,7 +2,7 @@
 export contains_name="centos7-python3.7" 
 
 if [[ -n $(docker ps | grep $contains_name) ]];then
-	echo "$contains_name has been installed older versions will be uninstalled"
+	echo "$contains_name has been installed, older versions will be uninstalled"
     docker rm -f $contains_name
 fi
 
