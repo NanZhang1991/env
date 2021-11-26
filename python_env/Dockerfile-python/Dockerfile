@@ -1,12 +1,16 @@
 FROM centos:centos7.9.2009
 
+USER root
+
+RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+
 ENV LANG C.UTF-8
 
 ENV PYTHON_VERSION 3.7.9
 
 #  Dependencies required to install Python 3.7.9 Otherwise, the pip3 package will not be installed
-RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo \
-    && yum update \
+
+RUN yum update -y
 
 RUN yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel libffi-devel gcc make
 RUN yum install git -y
@@ -26,12 +30,3 @@ RUN set -ex \
         && pip3 config set install.trusted-host pypi.douban.com \
         && pip3 config set global.ssl_verify false \
         && pip3 install --upgrade pip 
-
-COPY requirements.txt /home
-WORKDIR /home        
-RUN pip3 install -r requirements.txt
-
-RUN set -ex \ 
-        && ln -s /usr/local/python3/bin/celery /usr/bin/celery
-# WORKDIR /home/service_name     
-# CMD ["python3", "app.py"]
