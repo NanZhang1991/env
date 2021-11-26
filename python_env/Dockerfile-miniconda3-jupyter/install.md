@@ -5,7 +5,7 @@ docker build -t yeluofeng1991/cuda:11.2-centos7.9-miniconda3-jupyter .
 
 ## 运行容器
 ```bash
-docker run --gpus all -itd  --restart=unless-stopped --name="cuda11.2-miniconda3-jupyter-ZN"  -v /mnt/e:/mnt -p 8801:8888 yeluofeng1991/cuda:11.2-centos7.9-miniconda3-jupyter
+docker run --gpus all -itd  --restart=unless-stopped --name="cuda11.2-miniconda3-jupyter-ZN"  -v /mnt/e:/mnt -p 8802:8888 yeluofeng1991/cuda:11.2-centos7.9-miniconda3-jupyter
 ```
 ## 在日志中查看token/*/--*---
 ```bash

@@ -1,4 +1,4 @@
-FROM yeluofeng1991/cuda:11.2-centos7.9
+FROM centos:centos7.9.2009
 
 ENV LANG en_US.utf8
 ENV  PATH=/usr/local/cuda/bin:$PATH

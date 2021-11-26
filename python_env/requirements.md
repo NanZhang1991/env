@@ -110,7 +110,11 @@ pip install gensim
 pip install langdetect
 pip install simhash
 ```
-
+### 模型评估
+```bash
+seqeval 是一个用于序列标记评估的 Python 框架。seqeval 可以评估分块任务的性能，例如命名实体识别、词性标注、语义角色标注等。
+pip install seqeval
+```
 ### 文本纠错
 Windows下安装kenlm,需安装Microsoft Visual C++  14.0 
 Linux 需要gcc环境、
