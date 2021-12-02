@@ -6,7 +6,7 @@ if [[ -n $(docker ps | grep $contains_name) ]];then
 fi
 
 #如果镜像存在，则删除
-export image_name="yeluofeng1991/centos:7.9-py3.7.9"
+export image_name="yeluofeng1991/ubuntu:20.04-jupyterlab"
 docker inspect $image_name 2> /dev/nul
 if [ $? -eq 0 ];then
     echo $image_name" image is existed,we will remove it!!!"

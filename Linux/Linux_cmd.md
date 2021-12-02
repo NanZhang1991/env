@@ -852,5 +852,14 @@ sudo ntpdate time.windows.com
 sudo hwclock --localtime --systohc
 ```
 
-
+## /usr/bin/env: ‘sh\r’: No such file or directory
+问题是你的行尾字符。您的文件是在 Windows 系统上创建或编辑的，并使用 Windows/DOS 样式的行尾 (CR+LF)，而 Ubuntu 等 Linux 系统则需要 Unix 样式的行尾 </bar>
+有一个简单的工具可以为转换两种不同的样式，称为dos2unix.
+通过运行安装它
+```bash
+sudo apt install dos2unix
+#之后，可以使用以下命令之一在任一方向转换文件
+dos2unix /PATH/TO/YOUR/WINDOWS_FILE
+unix2dos /PATH/TO/YOUR/LINUX_FILE
+```
 
