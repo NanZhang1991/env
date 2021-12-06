@@ -12,9 +12,10 @@ ENV PYTHON_VERSION 3.7.9
 
 RUN yum update -y
 
-RUN yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel libffi-devel gcc make
+RUN yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel libffi-devel gcc make lzma xz-devel python-backports-lzma
 RUN yum install git -y
 
+# insatll python
 RUN set -ex \ 
         && curl -fSL "https://npm.taobao.org/mirrors/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz" -o python.tar.xz \
         && export GNUPGHOME="$(mktemp -d)" \

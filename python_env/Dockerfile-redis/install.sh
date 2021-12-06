@@ -1,11 +1,12 @@
+image_name="yeluofeng1991/redis:latest"
+contains_name="redis" 
 
 #如果容器存在删除
-export contains_name="redis" 
-
+export contains_name
 docker rm -f $contains_name
 
 #如果镜像存在，则删除
-export image_name="yeluofeng1991/redis:latest"
+export image_name
 
 docker inspect $image_name --format='{{.LogPath}}' 2> /dev/nul
 if [ $? -eq 0 ];then

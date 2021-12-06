@@ -1,12 +1,14 @@
+image_name="yeluofeng1991/cuda:11.2-centos7.9-miniconda3"
+contains_name="miniconda3_jupyter-ZN" 
 #如果容器存在删除
-export contains_name="miniconda3-ZN" 
+export contains_name
 if [[ -n $(docker ps | grep $contains_name) ]];then
 	echo "$contains_name has been installed, older versions will be uninstalled"
     docker rm -f $contains_name
 fi
 
 #如果镜像存在，则删除
-export image_name="yeluofeng1991/centos:7.9-miniconda3"
+export image_name
 docker inspect $image_name 2> /dev/nul
 if [ $? -eq 0 ];then
     echo $image_name" image is existed,we will remove it!!!"
