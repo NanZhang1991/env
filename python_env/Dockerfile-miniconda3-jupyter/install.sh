@@ -1,6 +1,6 @@
 # 自定义
-image_name="yeluofeng1991/cuda:11.2-centos7.9-miniconda3"
-contains_name="miniconda3_jupyter-ZN" 
+image_name="yeluofeng1991/cuda:11.2-centos7.9-miniconda3-jupyter"
+contains_name="cuda11.2_miniconda3_jupyter-ZN" 
 contains_mnt="/mnt/e"
 
 #如果容器存在删除
