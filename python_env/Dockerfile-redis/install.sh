@@ -1,5 +1,7 @@
+# 自定义
 image_name="yeluofeng1991/redis:latest"
 contains_name="redis" 
+contains_mnt="/mnt/e"
 
 #如果容器存在删除
 export contains_name
@@ -21,5 +23,5 @@ docker build -t $image_name .
 # docker build -t $image_name . --no-cache
 
 # 运行容器 
-docker run --gpus all -itd  --restart=unless-stopped --name=$contains_name  -v /mnt/e:/mnt $image_name \
+docker run --gpus all -itd  --restart=unless-stopped --name=$contains_name  -v $contains_mnt:/mnt $image_name \
 && echo "Finish  $contains_name installation"
