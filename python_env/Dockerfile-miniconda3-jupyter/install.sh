@@ -2,6 +2,7 @@
 image_name="yeluofeng1991/cuda:11.2-centos7.9-miniconda3-jupyter"
 contains_name="cuda11.2_miniconda3_jupyter-ZN" 
 contains_mnt="/mnt/e"
+port="8801:8888"
 
 #如果容器存在删除
 export contains_name
@@ -24,7 +25,7 @@ fi
 docker build -t $image_name .
 
 # 运行容器 
-docker run --gpus all -itd  --restart=unless-stopped --name=$contains_name  -v $contains_mnt:/mnt -p 8801:8888 $image_name \
+docker run --gpus all -itd  --restart=unless-stopped --name=$contains_name  -v $contains_mnt:/mnt -p $port $image_name \
 && echo "Finish  $contains_name installation"
 
 ##在日志中查看token/*/--*---
