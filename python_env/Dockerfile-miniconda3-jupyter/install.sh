@@ -23,6 +23,7 @@ fi
 
 ## 构建镜像
 docker build -t $image_name .
+# docker build --no-cache -t $image_name .
 
 # 运行容器 
 docker run --gpus all -itd  --restart=unless-stopped --name=$contains_name  -v $contains_mnt:/mnt -p $port $image_name \

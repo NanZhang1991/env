@@ -4,6 +4,8 @@ FROM ubuntu:20.04
 # 使用root用户
 USER root
 
+ENV TZ=Asia/Shanghai
+    
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LANG en_US.utf8
 # apt换源

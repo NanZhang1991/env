@@ -1,11 +1,15 @@
 # FROM centos:centos7.9.2009
+
+# cuda 环境镜像
 FROM yeluofeng1991/cuda:11.2-centos7.9
+
+USER root
+
+ENV TZ=Asia/Shanghai
 
 ENV LANG en_US.utf8
 ENV  PATH=/usr/local/cuda/bin:$PATH
 ENV  LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
-
-USER root
 
 RUN yum install wget vim -y \
 && yum install git -y

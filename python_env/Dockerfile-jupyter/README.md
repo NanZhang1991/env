@@ -8,7 +8,7 @@ chmod 777 install.sh
 
 ## 在浏览器中打开jupyterlab 
 ```bash
-http://127.0.0.1:8800/lab
+http://ip:port
 ## 输入日志中查看的token  并修改密码 
 ```
 

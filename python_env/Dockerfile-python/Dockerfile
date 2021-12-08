@@ -1,6 +1,10 @@
+# cuda 环境镜像
+# FROM yeluofeng1991/cuda:11.2-centos7.9
 FROM centos:centos7.9.2009
 
 USER root
+
+ENV TZ Asia/Shanghai
 
 RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
 
@@ -31,3 +35,5 @@ RUN set -ex \
         && pip3 config set install.trusted-host pypi.douban.com \
         && pip3 config set global.ssl_verify false \
         && pip3 install --upgrade pip 
+
+# CMD python3 server.py 
