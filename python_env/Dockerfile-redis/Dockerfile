@@ -1,5 +1,9 @@
 FROM centos:centos7.9.2009
 
+USER root
+
+ENV TZ=Asia/Shanghai
+
 RUN yum -y install gcc make net-toolsautomake autoconf libtool 
 
 WORKDIR /home
