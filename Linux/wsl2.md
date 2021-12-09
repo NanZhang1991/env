@@ -143,7 +143,7 @@ sudo service docker restart
 **To run Docker without root privileges, see Run the Docker daemon as a non-root user (Rootless mode).**
 ```bash
 sudo groupadd docker
-sudo usermod -aG docker USER
+sudo usermod -aG docker $USER
 newgrp docker 
 ```
 
