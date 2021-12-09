@@ -24,13 +24,17 @@ wsl --shutdown
 wsl -l -v --all
 # 注销子系统
 wslconfig /u 'Ubuntu'
-```
 
+## wsl子系统
+### 设置root用户密码
 ```bash
-# 查看ip
+sudo passwd root
+```
+### 查看ip
+```bash
 cat /etc/resolv.conf
 ```
-## 设置代理
+### 设置代理
 ```bash
 export windows_host=`cat /etc/resolv.conf|grep nameserver|awk '{print $2}'`
 export ALL_PROXY=$windows_host:1080
@@ -55,7 +59,7 @@ if [ "`git config --global --get proxy.https`" != "socks5://$windows_host:10808"
             git config --global proxy.https socks5://$windows_host:10808
 fi
 ```
-## 取消代理
+### 取消代理
 ```bash
 export http_proxy=""
 export https_proxy=""
@@ -134,24 +138,22 @@ Setup the stable and experimental repositories and the GPG key. The changes to t
 
 ```bash
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-
 curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
-
 curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
 ```
         
 Install the NVIDIA runtime packages (and their dependencies) after updating the package listing.
-```
-sudo apt-get update
+
+```bash
+sudo apt-get update && \
 sudo apt-get install -y nvidia-docker2
 ```
 
 Open a separate WSL 2 window and start the Docker daemon again using the following commands to complete the installation.
 
 ```
-sudo service docker stop
-
 sudo service docker start
+sudo service docker stop
 ```
 
 ## 2.4. Change the Docker image source
