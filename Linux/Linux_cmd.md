@@ -863,3 +863,5 @@ dos2unix /PATH/TO/YOUR/WINDOWS_FILE
 unix2dos /PATH/TO/YOUR/LINUX_FILE
 ```
 
+## 去除Shell脚本的\r字符
+sed -i 's/\r//' one-more.sh
