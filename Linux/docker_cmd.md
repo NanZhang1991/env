@@ -100,11 +100,14 @@ docker images
 ```
 
 #### 删除镜像
-
-```
+```bash
 docker rmi <镜像 ID>
+# 删除所有"none"镜像 
+docker rmi $(docker images | grep "none" | awk '{print $3}') 
+docker image prune -f
+# 删除所有未使用的镜像
+docker rmi $(docker ps -q)
 ```
-·
 
 #### 重命名镜像
 ```
@@ -198,9 +201,16 @@ docker import http://example.com/exampleimage.tgz example/imagerepo
 docker rename old_name new_name
 ```
 #### 删除容器
-```
+```bash
 docker rm -f 1e560fca3906
+## 删除所有未运行的容器
+docker rm $(sudo docker ps -a -q)
+## 删除正在运行的容器
+docker rm -f <container>
+## 删除所有容器
+docker container rm $(docker container ps -aq)
 ```
+
 #### 从容器创建一个新的镜像
 ```
 docker commit <CONTAINER> <images>
@@ -288,23 +298,5 @@ sudo systemctl restart docker
 docker run --gpus all -itd  --restart=unless-stopped --name="jupyter-tf-gpu-2.1"  -v /mnt/e/project:/mnt -p 8801:8888 tensorflow/tensorflow:latest-gpu-py3-jupyter
 ```
 
-##  删除所有"none"镜像 
-```bash
-docker rmi $(docker images | grep "none" | awk '{print $3}') 
-docker image prune -f
-```
 
-## 删除所有未运行的容器
-```bash
-docker rm $(sudo docker ps -a -q)
-```
 
-## 删除正在运行的容器
-```bash
-docker rm -f <container>
-```
-
-## 删除所有正在运行的容器
-```
-docker rm $(sudo docker ps -a -q)
-```
