@@ -43,12 +43,13 @@ vim ~/.ssh/config 添加如下:
 ```vim
 Host *
   AddKeysToAgent yes
-  #如果您选择不向密钥添加密码，则应省略该行
-  UseKeychain yes
+  #如果您选择不向密钥添加密码，则应省略下面这行
+  #UseKeychain yes
   IdentityFile ~/.ssh/id_ed25519
-  ```
+```
 添加秘钥
 ```bash
+chmod 400 ~/.ssh/id_ed25519
 ssh-add ~/.ssh/id_ed25519
 ```
 在git web setting 中添加ssh 公钥
@@ -62,6 +63,8 @@ ssh -T git@github.com
 #查看当前Remote远程地址
 git remote -v
 #修改远程地址
+git remote set-url origin 远程ssh地址
+# 例如
 git remote set-url origin git@github.com:NanZhang1991/env.git
 ```
 
