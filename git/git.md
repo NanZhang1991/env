@@ -9,7 +9,7 @@ git config user.password abcd
 git config --global user.name nanzhang1991
 git config --global user.email nanzhang1991@gmail.com
 git config --global user.password abcd
-## 记住用户密码
+# 记住用户密码
 git config --global credential.helper store
 ```
 
