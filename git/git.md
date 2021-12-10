@@ -24,8 +24,35 @@ git config --global --unset user.name
 git config --global --unset user.email
 git config --global --unset user.password
 git config --global --unset credential.helper
-
 ```
+## 密匙登录
+生成秘钥
+```bash
+ssh-keygen -t ed25519 -C "nanzhang1991@gmail.com"
+```
+在后台启动 ssh 代理
+```bash
+eval "$(ssh-agent -s)"
+```
+vim ~/.ssh/config 添加如下:
+```vim
+Host *
+  AddKeysToAgent yes
+  #如果您选择不向密钥添加密码，则应省略该行
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+  ```
+添加秘钥
+```bash
+ssh-add ~/.ssh/id_ed25519
+```
+在git web setting 中添加ssh 公钥
+打开 Terminal（终端）Terminal（终端）Git Bash
+```bash
+ssh -T git@github.com
+# Attempts to ssh to GitHub
+```
+
 # 代理
 ## 设置代理
 ```bash
