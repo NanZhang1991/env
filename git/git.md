@@ -68,11 +68,6 @@ git remote set-url origin git@github.com:NanZhang1991/env.git
 # 代理
 ## 设置代理
 ```bash
-# Linux
-git config --global http.proxy http://127.0.0.1:1080
-git config --global https.proxy https://127.0.0.1:1080
-git config --global http.proxy "socks5://127.0.0.1:1080"
-# windows
 git config --global http.proxy http://127.0.0.1:1080
 git config --global https.proxy https://127.0.0.1:1080
 git config --global http.proxy "socks5://127.0.0.1:1080"
