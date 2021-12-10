@@ -1,6 +1,6 @@
 # 用户管理
-## 配置用户名
 
+## 配置用户
 ```bash
 git config user.name zhangnan
 git config user.email zhangnan@apexsoft.com.cn
@@ -12,8 +12,13 @@ git config --global user.password abcd
 # 记住用户密码
 git config --global credential.helper store
 ```
+## 查看用户 
+git config user.name 
+git config user.email 
+git config --global user.name
+git config --global user.email
 
-## 删除用户名
+## 删除用户
 ```bash
 git config --unset user.name
 git config --unset user.email
