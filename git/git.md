@@ -52,6 +52,13 @@ ssh-add ~/.ssh/id_ed25519
 ssh -T git@github.com
 # Attempts to ssh to GitHub
 ```
+修改Remote的远程地址为ssh地址
+```bash
+#查看当前Remote远程地址
+git remote -v
+#修改远程地址
+git remote set-url origin git@github.com:NanZhang1991/env.git
+```
 
 # 代理
 ## 设置代理

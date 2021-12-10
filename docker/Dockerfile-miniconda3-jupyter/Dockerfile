@@ -12,12 +12,12 @@ ENV PATH=/usr/local/cuda/bin:$PATH
 ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
 RUN yum install wget vim -y \
-&& yum install git -y \
+&& yum install git -y
 
-RUN git config user.name zhangnan \
-&& git config user.email zhangnan@apexsoft.com.cn \
-&& git config --global user.name nanzhang1991 \
-&& git config --global user.email nanzhang1991@gmail.com
+# RUN git config user.name zhangnan \
+# && git config user.email zhangnan@apexsoft.com.cn \
+# && git config --global user.name nanzhang1991 \
+# && git config --global user.email nanzhang1991@gmail.com
 
 RUN wget --no-check-certificate https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh 
 
