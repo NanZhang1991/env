@@ -31,6 +31,14 @@ wslconfig /u 'Ubuntu'
 ```bash
 sudo passwd root
 ```
+
+**To run Docker without root privileges, see Run the Docker daemon as a non-root user (Rootless mode).**
+```bash
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker 
+```
+
 ### 查看ip
 ```bash
 cat /etc/resolv.conf
@@ -125,7 +133,10 @@ You cannot change the storage address of the image container in this way
 ggdG
 ```json
 {
-    "registry-mirrors": ["http://hub-mirror.c.163.com"],
+    "registry-mirrors": ["https://registry.cn-hangzhou.aliyuncs.com",
+                         "https://registry.docker-cn.com",
+                         "https://mirror.ccs.tencentyun.com",
+                         "http://hub-mirror.c.163.com"],
     "runtimes": {
         "nvidia": {
             "path": "nvidia-container-runtime",
@@ -140,12 +151,7 @@ ggdG
 sudo service docker stop
 sudo service docker restart    
 ```
-**To run Docker without root privileges, see Run the Docker daemon as a non-root user (Rootless mode).**
-```bash
-sudo groupadd docker
-sudo usermod -aG docker $USER
-newgrp docker 
-```
+
 
 ## Running Simple CUDA Containers
 In this example, let’s run an N-body simulation CUDA sample. This example has already been containerized and available from NGC.

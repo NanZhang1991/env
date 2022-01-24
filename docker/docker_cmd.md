@@ -277,7 +277,10 @@ vim /etc/docker/daemon.json
 ```
 ```json
 {
-    "registry-mirrors": ["http://hub-mirror.c.163.com"],
+    "registry-mirrors": ["https://registry.cn-hangzhou.aliyuncs.com",
+                         "https://registry.docker-cn.com",
+                         "https://mirror.ccs.tencentyun.com",
+                         "http://hub-mirror.c.163.com"],
     "graph":"/home/docker",
     "runtimes": {
         "nvidia": {
