@@ -79,7 +79,7 @@ pip install SQLAlchemy
 pip install pymongo
 pip install hdfs 
 ```
-## 数学统计
+## 统计概率
 ```
 pip install statistics
 pip install --user statsmodel
@@ -94,9 +94,11 @@ pip install handcalcs
 ```
 pip install numba
 pip install scikit-learn
+pip install xgboost
 pip install mlxtend
 pip install factor-analyzer
 pip install transitions
+
 ```
 ## NLP
 ### 常用库
