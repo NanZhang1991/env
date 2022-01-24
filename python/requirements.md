@@ -45,11 +45,7 @@ pip install click
 ```
 pip install pyinstaller 
 ```
-### 公式
-```
-pip install latexify-py
-pip install handcalcs
-```
+
 ## api 文档生成
 ```
 pip install Sphinx
@@ -83,12 +79,21 @@ pip install SQLAlchemy
 pip install pymongo
 pip install hdfs 
 ```
+## 数学统计
+```
+pip install statistics
+pip install --user statsmodel
+```
 
+### 公式
+```
+pip install latexify-py
+pip install handcalcs
+```
 ## 机器学习
 ```
 pip install numba
 pip install scikit-learn
-pip install --user statsmodels 
 pip install mlxtend
 pip install factor-analyzer
 pip install transitions
@@ -109,6 +114,7 @@ pip install stanfordcorenlp
 pip install gensim
 pip install langdetect
 pip install simhash
+pip install transformers
 ```
 ### 模型评估
 ```bash
