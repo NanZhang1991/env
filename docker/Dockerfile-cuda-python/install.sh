@@ -1,7 +1,6 @@
 # 自定义
-image_name="yeluofeng1991/ubuntu:20.04-jupyterlab"
-contains_name="jupyterlab" 
-port="8800:8888"
+image_name="yeluofeng1991/cuda:11.2-centos7.9-python3.7"
+contains_name="cuda11.2-centos7-python3.7" 
 contains_mnt="/mnt/e"
 
 #如果容器存在删除
@@ -10,24 +9,22 @@ if [[ -n $(docker ps | grep $contains_name) ]];then
 	echo "$contains_name has been installed, older versions will be uninstalled"
     docker rm -f $contains_name
 fi
-
 #如果镜像存在，则删除
 export image_name
+
 docker inspect $image_name 2> /dev/nul
 if [ $? -eq 0 ];then
-    echo $image_name" image is existed,we will remove it!!!"
+    echo "$image_name is existed,we will remove it!!!"
     docker rmi $image_name
 else
-    echo $image_name" image is not existed!!!"
+    echo "$image_name is not existed!!!"
 fi
 
 ## 构建镜像
 docker build -t $image_name .
+# docker build -t $image_name . --no-cache
 
 # 运行容器 
-docker run --gpus all -itd  --restart=unless-stopped --name=$contains_name  -v $contains_mnt:/mnt -p $port $image_name \
+# docker run -it  --rm --name=$contains_name $image_name python3 \
+docker run --gpus all -itd  --restart=unless-stopped --name=$contains_name  -v $contains_mnt:/mnt $image_name \
 && echo "Finish  $contains_name installation"
-
-##在日志中查看token/*/--*---
-docker logs -f $contains_name
-

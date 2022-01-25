@@ -298,8 +298,18 @@ sudo systemctl restart docker
 
 ## 测试gpu容器
 ```
-docker run --gpus all -itd  --restart=unless-stopped --name="jupyter-tf-gpu-2.1"  -v /mnt/e/project:/mnt -p 8801:8888 tensorflow/tensorflow:latest-gpu-py3-jupyter
+docker run --gpus all -itd  --restart=unless-stopped --name="tf-gpu"  -v /mnt/e/project:/mnt -p 8802:8888 tensorflow/tensorflow:latest-gpu
 ```
 
+## 查看磁盘大小
+```
+docker system df
+```
 
-
+## Docker 清理
+```bash
+# 缓存清理
+docker builder prune
+#清理磁盘，删除关闭的容器、无用的数据卷和网络，以及 dangling 镜像（即无 tag 的镜像）
+docker system prune
+```

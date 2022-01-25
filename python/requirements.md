@@ -282,6 +282,7 @@ pip install pytesseract
 ##### paddleocr
 https://github.com/PaddlePaddle/PaddleOCR
 ```
+pip install paddlepaddle==2.2.2 -i https://mirror.baidu.com/pypi/simple
 pip install paddlepaddle-gpu -i https://mirror.baidu.com/pypi/simple
 pip install paddleocr
 ```

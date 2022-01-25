@@ -92,6 +92,7 @@ Note: For this release, install the standard Docker-CE for Linux distributions.
 curl https://get.docker.com | sh
 # or
 curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+docker version
 ```
         
 ## Install NVIDIA Container Toolkit
@@ -161,7 +162,8 @@ docker run --rm --gpus all nvcr.io/nvidia/k8s/cuda-sample:nbody nbody -gpu -benc
 
 In this example, let’s run a Jupyter notebook.
 ```
-docker run -it --rm --gpus all -p 8888:8888 tensorflow/tensorflow:latest-gpu-py3-jupyter
+docker run -itd --rm --gpus all  --name=tf -p 8802:8888 -v /mnt/e:/mnt  tensorflow/tensorflow:latest-gpu python -c "import tensorflow as tf; print(tf.__version__)
+print(tf.test.is_gpu_available()); print(tf.config.list_physical_devices('GPU'))"
 ```
 
 After the container starts, you can see the following output on the console.
@@ -173,3 +175,7 @@ _  /   /  __/  / / /(__  )/ /_/ /  /   _  __/   _  / / /_/ /_ |/ |/ /
 /_/    \___//_/ /_//____/ \____//_/    /_/      /_/  \____/____/|__/
 
 
+## unsetup
+```
+apt-get remove docker docker-engine docker-ce docker.io
+```

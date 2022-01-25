@@ -1,6 +1,8 @@
-FROM centos:centos7.9.2009
+# FROM yeluofeng1991/cuda:11.0-centos7.9
+FROM yeluofeng1991/cuda:11.2-centos7.9
 
 USER root
+
 ENV PYTHON_VERSION 3.7.9
 
 ENV TZ Asia/Shanghai
