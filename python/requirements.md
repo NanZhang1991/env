@@ -107,6 +107,7 @@ pip install transitions
 #pip install textblob
 pip install zhon
 pip install nltk
+#官方数据在https://github.com/nltk/nltk_data/tree/gh-pages
 pip install scapy
 pip install foolnltk
 pip install jieba
