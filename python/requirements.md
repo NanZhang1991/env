@@ -105,6 +105,7 @@ pip install transitions
 ```
 #pip install snownlp
 #pip install textblob
+pip install rake-nltk
 pip install zhon
 pip install nltk
 #官方数据在https://github.com/nltk/nltk_data/tree/gh-pages
