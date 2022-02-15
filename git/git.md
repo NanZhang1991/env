@@ -12,6 +12,12 @@ git config --global user.password abcd
 # 记住用户密码
 git config --global credential.helper store
 ```
+## 问题
+SL certificate problem: unable to get local issuer certificate
+```
+git config --global http.sslVerify false
+```
+
 ## 查看用户 
 git config user.name 
 git config user.email 
