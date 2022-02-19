@@ -22,6 +22,9 @@ rpm --query centos-release
 sudo su
 su root
 
+# 设置root密码
+sudo passwd root
+
 # 设置root 为默认登陆账户和自动登录
 
 ```
