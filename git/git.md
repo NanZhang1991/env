@@ -357,4 +357,3 @@ vim .git/config
 
 ### 删除.git文件夹中的相关子模块文件
 rm -rf .git/modules/app/docx-add-footnote
->>>>>>> 0e553f77842e6107364cd5a5e8ec951eda1d08d2
