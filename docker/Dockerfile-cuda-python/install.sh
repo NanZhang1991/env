@@ -1,5 +1,5 @@
 # 自定义
-image_name="yeluofeng1991/cuda:11.2-centos7.9-python3.7"
+image_name="yeluofeng1991/cuda:11.2-centos7.9-python3.8"
 contains_name="cuda11.2-centos7-python3.7" 
 contains_mnt="/mnt/e"
 
