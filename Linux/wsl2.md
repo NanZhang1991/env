@@ -32,13 +32,6 @@ wslconfig /u 'Ubuntu'
 sudo passwd root
 ```
 
-**To run Docker without root privileges, see Run the Docker daemon as a non-root user (Rootless mode).**
-```bash
-sudo groupadd docker
-sudo usermod -aG docker $USER
-newgrp docker 
-```
-
 ### 查看ip
 ```bash
 cat /etc/resolv.conf
@@ -94,7 +87,12 @@ curl https://get.docker.com | sh
 curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 docker version
 ```
-        
+**To run Docker without root privileges, see Run the Docker daemon as a non-root user (Rootless mode).**
+```bash
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker 
+```        
 ## Install NVIDIA Container Toolkit
 Now install the NVIDIA Container Toolkit (previously known as nvidia-docker2). WSL 2 support is available starting with nvidia-docker2 v2.3 and the underlying runtime library (libnvidia-container >= 1.2.0-rc.1).
 

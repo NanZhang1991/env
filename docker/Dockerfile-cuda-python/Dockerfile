@@ -3,7 +3,7 @@ FROM yeluofeng1991/cuda:11.2-centos7.9
 
 USER root
 
-ENV PYTHON_VERSION 3.7.9
+ENV PYTHON_VERSION 3.8.5
 
 ENV TZ Asia/Shanghai
 
