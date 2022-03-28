@@ -177,3 +177,18 @@ _  /   /  __/  / / /(__  )/ /_/ /  /   _  __/   _  / / /_/ /_ |/ |/ /
 ```
 apt-get remove docker docker-engine docker-ce docker.io
 ```
+
+# git 
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "youremail@domain.com"
+```
+Git 凭据管理器设置
+若要设置 GCM 以便与 WSL 分发一起使用，请打开分发，然后输入以下命令：
+```bash
+git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/libexec/git-core/git-credential-manager-core.exe"
+```
+若要使用 Azure Repos，需要一些额外配置：
+```bash
+git config --global credential.https://dev.azure.com.useHttpPath true
+```
