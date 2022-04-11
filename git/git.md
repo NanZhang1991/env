@@ -19,10 +19,12 @@ git config --global http.sslVerify false
 ```
 
 ## 查看用户 
+```bash
 git config user.name 
 git config user.email 
 git config --global user.name
 git config --global user.email
+bash
 
 ## 删除用户
 ```bash
