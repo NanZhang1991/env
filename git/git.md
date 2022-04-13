@@ -305,7 +305,29 @@ git commit -m 'add'
 git pull
 git push
 ```
-
+# Git lfs
+##安装
+'''bash
+git lfs install
+```
+## 选择要用LFS追踪的文件
+```bash
+git lfs track "*.svg"
+git lfs track "2.png"
+```
+查看正在被LFS追踪的文件
+```bash
+git lfs ls-files 
+```
+保存并提交配置
+```bash
+git add .gitattributes
+git commit -m "add .gitattributes"
+```
+取消LFS的全局配置
+```bash
+git lfs uninstall
+```
 
 # Git submodul
 submodule允许你将一个Git 仓库当作另外一个Git 仓库的子目录
