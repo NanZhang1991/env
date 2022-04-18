@@ -22,6 +22,40 @@ markdown 语法检查
 markdown 预览
 
 ## 3.4  koroFileHeader
+**setting.json文件中加入**
+```json
+{
+    "fileheader.customMade": { //此为头部注释
+        "@File": "$TM_FILENAME",
+        "@Time": "$CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND",
+        // "@Author": "Zhang Nan ",
+        "@Version": "1.0",
+        // "@Contact": "zhangnan125@h-partners.com",
+        "@License": "(C)Copyright 2021-2022, Liugroup-NLPR-CASIA",
+        "@Desc": "",
+        "@Modify": "$CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE ",
+    },
+    "fileheader.cursorMode": {
+        "Description": "函数注释配置模板",
+        "Parameters": "",
+        "Returns": "",
+    },
+    "fileheader.configObj": {
+        "beforeAnnotation": {
+            "py": "#!/usr/bin/env python\n# coding=utf-8", // py文件默认，可修改
+            "*": "\n" // 所有文件的头部注释都在前面增加一个换行(除了py)
+        },
+        "autoAdd": false, // 默认开启自动添加头部注释，当文件没有设置头部注释时保存会自动添加
+        "autoAlready": true, // 默认开启
+        "prohibitAutoAdd": [
+            "json",
+            "md"
+        ], // 禁止.json .md文件，自动添加头部注释
+        "wideSame": false, // 设置为true开启
+        "wideNum": 13 // 字段长度 默认为13
+    }
+}
+```
 文件头部注释
 crtl+alt+i（window）
 函数注释
