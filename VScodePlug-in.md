@@ -21,7 +21,11 @@ markdown 语法检查
 ## 3.3. Markdown Preview Enhance
 markdown 预览
 
-## 3.4  koroFileHeader koroFileHeader
+## 3.4  koroFileHeader
+文件头部注释
+crtl+alt+i（window）
+函数注释
+ctrl+cmd+t (mac)
 
 # 4. Office Viewer
 
