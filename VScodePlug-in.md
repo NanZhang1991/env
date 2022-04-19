@@ -33,7 +33,7 @@ markdown 预览
         // "@Contact": "zhangnan125@h-partners.com",
         "@License": "(C)Copyright 2021-2022, Liugroup-NLPR-CASIA",
         "@Desc": "",
-        "@Modify": "$CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE ",
+        "@Modify": "$CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE",
     },
     "fileheader.cursorMode": {
         "Description": "函数注释配置模板",
@@ -109,7 +109,7 @@ Windows Reg: .reg
 			// "@Contact: zhangnan125@h-partners.com",
 			"@License: (C)Copyright 2021-2022, Liugroup-NLPR-CASIA",
 			"@Desc: None",
-			"@Modify: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE ",
+			"@Modify: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE",
 			"'''"
 		]
 	},
