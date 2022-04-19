@@ -80,7 +80,7 @@ Windows Reg: .reg
 
 # 5. docker
 
-# python 配置首行
+# 6. python 配置首行
 ```json
 {
 	// Place your snippets for python here. Each snippet is defined under a snippet name and has a prefix, body and 
@@ -129,5 +129,5 @@ Windows Reg: .reg
 	}
 }
 ```
-# Pylint
+# 7. Pylint
 代码检查
