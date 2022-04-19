@@ -80,7 +80,7 @@ Windows Reg: .reg
 
 # 5. docker
 
-# 6. python 配置首行
+# 6. python 配置
 ```json
 {
 	// Place your snippets for python here. Each snippet is defined under a snippet name and has a prefix, body and 
@@ -126,7 +126,8 @@ Windows Reg: .reg
 			"Arg: obj, description",
 			"'''"
 		]
-	}
+	},
+"python.linting.flake8Enabled": true //pip install flake8 
 }
 ```
 # 7. Pylint
