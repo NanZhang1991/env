@@ -99,7 +99,7 @@ Windows Reg: .reg
 	"HEADER": {
 		"prefix": "header",
 		"body": [
-			"#!/usr/bin/env python3",
+			"# !/usr/bin/env python3",
 			"# -*- encoding: utf-8 -*-",
 			"'''",
 			"@File: $TM_FILENAME",
@@ -110,7 +110,7 @@ Windows Reg: .reg
 			"@License: (C)Copyright 2021-2022, Liugroup-NLPR-CASIA",
 			"@Desc: None",
 			"@Modify: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE",
-			"'''"
+			"'''\n"
 		]
 	},
 	"FUNCTION": {
@@ -124,7 +124,7 @@ Windows Reg: .reg
 			"Returns",
 			"----------",
 			"Arg: obj, description",
-			"'''"
+			"'''\n"
 		]
 	}
 }
