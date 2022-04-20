@@ -107,7 +107,7 @@ Windows Reg: .reg
 			// "@Author: Zhang Nan ",
 			"@Version: 1.0",
 			// "@Contact: zhangnan125@h-partners.com",
-			"@License: (C)Copyright 2021-2022, Liugroup-NLPR-CASIA",
+			"@License: (C)Copyright 2021-2022, NanZhang1991",
 			"@Desc: None",
 			"@Modify: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE",
 			"'''\n"
