@@ -124,7 +124,7 @@ Windows Reg: .reg
 	"HEADER": {
 		"prefix": "header",
 		"body": [
-			"# !/usr/bin/env python3",
+			"#!/usr/bin/env python3",
 			"# -*- encoding: utf-8 -*-",
 			"'''",
 			"@File: $TM_FILENAME",
@@ -132,7 +132,7 @@ Windows Reg: .reg
 			// "@Author: Zhang Nan ",
 			"@Version: 1.0",
 			// "@Contact: zhangnan125@h-partners.com",
-			"@License: (C)Copyright Huawei Technologies Co., Ltd. 2021-2022.\n         All rights reserved.",
+			"@License: (C)Copyright Huawei Technologies Co., Ltd. $CURRENT_YEAR. All rights reserved.",
 			"@Desc: File description",
 			"@Modify: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE",
 			"'''\n"
