@@ -32,7 +32,7 @@ markdown 预览
         // "LastEditors": "Do not edit",
         "FilePath": "Do not edit",
         "Version": "1.0",
-        "custom_string_obkoro1_copyright": "License: (C)Copyright Huawei Technologies Co., Ltd. ${now_year}. All rights reserved", // 版权声明 保留所有权利 自动替换年份
+        "custom_string_obkoro1_copyright": "License: (C)Copyright NanZhang1991 ${now_year}. All rights reserved", // 版权声明 保留所有权利 自动替换年份
         "Description": "file description",
     },
     "fileheader.cursorMode": { //函数注释配
@@ -132,8 +132,8 @@ Windows Reg: .reg
 			"@Time: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND",
 			// "@Author: Zhang Nan ",
 			"@Version: 1.0",
-			// "@Contact: zhangnan125@h-partners.com",
-			"@License: (C)Copyright Huawei Technologies Co., Ltd. $CURRENT_YEAR. All rights reserved.",
+			// "@Contact: NanZhang1991@gmail.com.com",
+			"@License: (C)Copyright NanZhang1991 $CURRENT_YEAR. All rights reserved.",
 			"@Desc: File description",
 			"@Modify: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE",
 			"'''\n"
