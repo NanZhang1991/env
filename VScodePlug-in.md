@@ -126,8 +126,7 @@ Windows Reg: .reg
 			"Arg: obj, description",
 			"'''"
 		]
-	},
-"python.linting.flake8Enabled": true //pip install flake8 
+	}
 }
 ```
 # 7. Pylint
