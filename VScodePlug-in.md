@@ -24,17 +24,18 @@ markdown 预览
 ## 3.4  koroFileHeader
 **setting.json文件中加入**
 ```json
-    "fileheader.customMade": {//此为头部注释
+{
+    "fileheader.customMade": { //此为头部注释
         // "Author": "Zhang Nan",
         "Date": "Do not edit",
         "LastEditTime": "Do not edit",
         // "LastEditors": "Do not edit",
         "FilePath": "Do not edit",
         "Version": "1.0",
-        "custom_string_obkoro1_copyright": "License: (C)Copyright Huawei Technologies Co., Ltd. ${now_year}.\n        All rights reserved", // 版权声明 保留所有权利 自动替换年份
+        "custom_string_obkoro1_copyright": "License: (C)Copyright Huawei Technologies Co., Ltd. ${now_year}. All rights reserved", // 版权声明 保留所有权利 自动替换年份
         "Description": "file description",
     },
-    "fileheader.cursorMode": {//函数注释配
+    "fileheader.cursorMode": { //函数注释配
         "Description": "function description",
         "Args": "arg(obj):description",
         "Returns": "obj:escription"
@@ -57,7 +58,7 @@ markdown 预览
         },
         "dateFormat": "YYYY-MM-DD HH:mm:ss", // 默认格式
         "beforeAnnotation": {
-            "py": "# !/usr/bin/env python\n# coding=utf-8", // py文件默认，可修改
+            "py": "#!/usr/bin/env python\n# coding=utf-8", // py文件默认，可修改
             "*": "\n" // 所有文件的头部注释都在前面增加一个换行(除了py)
         },
         "cursorModeInternalAll": {
