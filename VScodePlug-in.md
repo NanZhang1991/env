@@ -44,7 +44,7 @@ Windows Reg: .reg
 settings.json
 ```json
 {
-    "python.linting.flake8Enabled": true //pip install flake8
+    "python.linting.flake8Enabled": true //pip install flake8 静态代码检查PEP8规范
 }
 ```
 # 7. python 配置
