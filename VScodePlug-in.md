@@ -21,72 +21,6 @@ markdown 语法检查
 ## 3.3. Markdown Preview Enhance
 markdown 预览
 
-## 3.4  koroFileHeader
-**setting.json文件中加入**
-```json
-{
-    "fileheader.customMade": { //此为头部注释
-        // "Author": "Zhang Nan",
-        "Date": "Do not edit",
-        "LastEditTime": "Do not edit",
-        // "LastEditors": "Do not edit",
-        "FilePath": "Do not edit",
-        "Version": "1.0",
-        "custom_string_obkoro1_copyright": "License: (C)Copyright NanZhang1991 ${now_year}. All rights reserved", // 版权声明 保留所有权利 自动替换年份
-        "Description": "file description",
-    },
-    "fileheader.cursorMode": { //函数注释配
-        "Description": "function description",
-        "Args": "arg(obj):description",
-        "Returns": "obj:escription"
-    },
-    "fileheader.configObj": {
-        "atSymbolObj": {
-            "python": [
-                "",
-                ""
-            ] // .python文件 头部注释@, 函数注释去掉
-        },
-        "specialOptions": {
-            "Date": "since",
-            "LastEditTime": "lastTime",
-            "LastEditors": "lastAuthor",
-            // "Description": "Desc",
-            "FilePath": "filePath",
-            "param": "param2", // 函数注释parm参数别名
-            "return": "return2", // 函数注释return参数别名
-        },
-        "dateFormat": "YYYY-MM-DD HH:mm:ss", // 默认格式
-        "beforeAnnotation": {
-            "py": "#!/usr/bin/env python\n# coding=utf-8", // py文件默认，可修改
-            "*": "\n" // 所有文件的头部注释都在前面增加一个换行(除了py)
-        },
-        "cursorModeInternalAll": {
-            "python": true, // python语言类型文件时在函数内生成函数注释
-            "defaultSetting": false // 默认是在函数外生成注释
-        },
-        "functionBlankSpaceAll": {
-            "python": 4, // 设置语言：python语言类型 函数注释空格缩进4格
-            "defaultSetting": 0 // 不设置 默认值为0
-        },
-        "autoAdd": true, // 默认开启自动添加头部注释，当文件没有设置头部注释时保存会自动添加
-        "autoAlready": true, // 默认开启
-        "prohibitAutoAdd": [
-            "json",
-            "md",
-            "sh"
-        ], // 禁止.json .md文件，自动添加头部注释
-        "wideSame": false, // 设置为true开启
-        "wideNum": 13 // 字段长度 默认为13
-    },
-    "python.linting.flake8Enabled": true //pip install flake8
-}
-```
-文件头部注释
-crtl+win+i（window）
-函数注释
-ctrl+win+t (window)
-
 # 4. Office Viewer
 
 It support below files now:
@@ -106,7 +40,14 @@ Windows Reg: .reg
 
 # 5. docker
 
-# 6. python 配置
+# 6. settings.json设置
+settings.json
+```json
+{
+    "python.linting.flake8Enabled": true //pip install flake8
+}
+```
+# 7. python 配置
 ```json
 {
 	// Place your snippets for python here. Each snippet is defined under a snippet name and has a prefix, body and 
@@ -136,7 +77,8 @@ Windows Reg: .reg
 			"@License: (C)Copyright NanZhang1991 $CURRENT_YEAR. All rights reserved.",
 			"@Desc: File description",
 			"@Modify: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE",
-			"'''\n"
+			"'''",
+			"$0"
 		]
 	},
 	"FUNCTION": {
@@ -152,10 +94,11 @@ Windows Reg: .reg
 			"Arg: obj, description",
 			"----------",
 			"Examples",
-			"'''\n"
+			"'''",
+			"$0"
 		]
 	}
 }
 ```
 # 7. Pylint
-代码检查
+代码检查(比较严格）
