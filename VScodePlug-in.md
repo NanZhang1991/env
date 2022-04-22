@@ -102,3 +102,6 @@ settings.json
 ```
 # 7. Pylint
 代码检查(比较严格）
+
+# 8. cornflakes-linter
+flake8 代码检查
