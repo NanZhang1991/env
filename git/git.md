@@ -305,7 +305,54 @@ git commit -m 'add'
 git pull
 git push
 ```
-
+# Git lfs
+##安装
+'''bash
+git lfs install
+```
+## 选择要用LFS追踪的文件
+```bash
+git lfs track "*.svg"
+git lfs track "2.png"
+```
+查看正在被LFS追踪的文件
+```bash
+git lfs ls-files 
+```
+保存并提交配置
+```bash
+git add .gitattributes
+git commit -m "add .gitattributes"
+```
+取消LFS的全局配置
+```bash
+git lfs uninstall
+```
+取消追踪
+```bash
+git untrack "*.svg"
+```
+ 
+##Git处理 GitHub 不允许上传超过 100MB 文件的问题
+移除错误重新提交
+###移除错误缓存
+文件
+```bash
+git rm --cached "*.svg"
+```
+文件夹
+```bash
+git rm --cached -r dir_path
+```
+###重新提交
+执行下边命令大文件将会从你的commit记录里移除
+```bash
+git commit --amend -CHEAD
+```
+重新提交
+```bash
+git push
+```
 
 # Git submodul
 submodule允许你将一个Git 仓库当作另外一个Git 仓库的子目录
