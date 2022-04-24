@@ -105,3 +105,7 @@ settings.json
 
 # 8. cornflakes-linter
 flake8 代码检查
+
+# 9. VS Code Counter
+在下拉选项中选择第一项 Command Palette（ctrl+shift+p）  
+工作区选择VscodeCounter:Count lines in directory
