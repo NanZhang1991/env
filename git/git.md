@@ -60,6 +60,10 @@ Host *
 chmod 400 ~/.ssh/id_ed25519
 ssh-add ~/.ssh/id_ed25519
 ```
+打开公钥文件复制内容
+bash```
+vim ~/.ssh/id_ed25519.pub
+```
 在git web setting 中添加ssh 公钥
 打开 Terminal（终端）Terminal（终端）Git Bash
 ```bash
