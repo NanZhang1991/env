@@ -17,7 +17,7 @@ RUN yum install wget vim -y \
 # RUN git config --global user.name nanzhang1991 \
 # && git config --global user.email nanzhang1991@gmail.com
 
-RUN wget --no-check-certificate https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh 
+RUN wget --no-check-certificate https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh 
 
 RUN bash Miniconda3-py39_4.10.3-Linux-x86_64.sh -b \
 && rm Miniconda3-py39_4.10.3-Linux-x86_64.sh 
