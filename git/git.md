@@ -159,7 +159,7 @@ git push
 ```
 git rm -r --cached .
 git add .
-git commit -m 'update .gitignore'
+git commit -m "update .gitignore"
 git push
 ```
 # Git submodul
