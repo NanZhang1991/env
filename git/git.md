@@ -320,6 +320,8 @@ git lfs install
 ```bash
 git lfs track "*.svg"
 git lfs track "2.png"
+# 文件夹
+git lfs track "FrameworkFold/*"
 ```
 ## 查看正在被LFS追踪的文件
 ```bash
