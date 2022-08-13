@@ -301,14 +301,7 @@ git branch -d <name>
 ```
 git status
 ```
-## 对比文件修改过，但是还没有进行提交
-```
-git diff
-git add fname
-git commit -m 'add'
-git pull
-git push
-```
+
 # Git lfs
 
 ##安装
