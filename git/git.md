@@ -335,23 +335,8 @@ git untrack "*.svg"
 ```
  
 ## Git处理 GitHub 不允许上传超过 100MB 文件的问题
-移除错误重新提交
-### 移除错误缓存文件
 ```bash
-git rm --cached "*.svg"
-```
-文件夹
-```bash
-git rm --cached -r dir_path
-```
-### 重新提交
-执行下边命令大文件将会从你的commit记录里移除
-```bash
-git commit --amend -CHEAD
-```
-重新提交
-```bash
-git push
+git lfs migrate import --include="*.zip"
 ```
 
 # Git submodul
