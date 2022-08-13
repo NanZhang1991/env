@@ -309,37 +309,37 @@ git commit -m 'add'
 git pull
 git push
 ```
-# Git 
+# Git lfs
 
 ##安装
 ```bash
 git lfs install
 ```
-```
+
 ## 选择要用LFS追踪的文件
 ```bash
 git lfs track "*.svg"
 git lfs track "2.png"
 ```
-查看正在被LFS追踪的文件
+## 查看正在被LFS追踪的文件
 ```bash
 git lfs ls-files 
 ```
-保存并提交配置
+## 保存并提交配置
 ```bash
 git add .gitattributes
 git commit -m "add .gitattributes"
 ```
-取消LFS的全局配置
+## 取消LFS的全局配置
 ```bash
 git lfs uninstall
 ```
-取消追踪
+## 取消追踪
 ```bash
 git untrack "*.svg"
 ```
  
-##Git处理 GitHub 不允许上传超过 100MB 文件的问题
+## Git处理 GitHub 不允许上传超过 100MB 文件的问题
 移除错误重新提交
 ###移除错误缓存
 文件
