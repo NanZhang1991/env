@@ -309,10 +309,12 @@ git commit -m 'add'
 git pull
 git push
 ```
-# Git lfs
+# Git 
+
 ##安装
-'''bash
+```bash
 git lfs install
+```
 ```
 ## 选择要用LFS追踪的文件
 ```bash
