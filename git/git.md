@@ -160,6 +160,7 @@ git push
 git rm -r --cached .
 git add .
 git commit -m 'update .gitignore'
+git push
 ```
 # Git submodul
 submodule允许你将一个Git 仓库当作另外一个Git 仓库的子目录
