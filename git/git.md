@@ -336,7 +336,12 @@ git untrack "*.svg"
  
 ## Git处理 GitHub 不允许上传超过 100MB 文件的问题
 ```bash
+# Migrating existing repository data to LFS
 git lfs migrate import --include="*.zip"
+git push --force
+# Cleaning up the .git directory after migrating
+git reflog expire --expire-unreachable=now --all
+git gc --prune=now
 ```
 
 # Git submodul
