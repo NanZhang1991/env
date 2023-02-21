@@ -48,6 +48,7 @@ settings.json
 }
 ```
 # 7. python 配置
+file -> Config User Snippetss ->python.json
 ```json
 {
 	// Place your snippets for python here. Each snippet is defined under a snippet name and has a prefix, body and 
@@ -64,7 +65,7 @@ settings.json
 	// 	"description": "Log output to console"
 	// }
 	"HEADER": {
-		"prefix": "header",
+		"prefix": "py header",
 		"body": [
 			"#!/usr/bin/env python3",
 			"# -*- encoding: utf-8 -*-",
@@ -82,7 +83,7 @@ settings.json
 		]
 	},
 	"FUNCTION": {
-		"prefix": "function",
+		"prefix": "function params",
 		"body": [
 			"'''",
 			"Description: function description",
