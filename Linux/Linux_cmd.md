@@ -784,8 +784,8 @@ echo 1 > /proc/sys/vm/drop_caches
 ## 代理
 ### 设置代理
 ```bash
-export http_proxy=http://127.0.0.1:12333
-export https_proxy=http://127.0.0.1:12333
+export http_proxy=http://127.0.0.1:1080
+export https_proxy=http://127.0.0.1:1080
 curl www.google.com
 ```
 ### 检查代理
