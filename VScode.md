@@ -74,7 +74,7 @@ file -> Config User Snippetss ->python.json
 			"@Time: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND",
 			// "@Author: Zhang Nan ",
 			"@Version: 1.0",
-			// "@Contact: NanZhang1991@gmail.com.com",
+			// "@Contact: NanZhang1991@gmail.com",
 			"@License: (C)Copyright NanZhang1991 $CURRENT_YEAR. All rights reserved.",
 			"@Desc: File description",
 			"@Modify: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE",
