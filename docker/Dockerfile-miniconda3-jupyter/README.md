@@ -1,5 +1,10 @@
 
 进入Dockerfile 所在目录下
+进入install.sh文件
+```bash
+vim install.sh
+```
+更改 image_name contains_name contains_mnt 参数
 ## 运行安装脚本 install.sh
 ```bash
 chmod 777 install.sh
