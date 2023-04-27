@@ -305,9 +305,25 @@ git status
 
 # Git lfs
 
-##安装
+## 安装
+
+### linux & windows
+linux 添加存储库
+apt/deb repos: 
+```bash
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+```
+yum/rpm repos:
+```bash
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | sudo bash
+```
 ```bash
 git lfs install
+```
+
+### mac
+```
+brew install git-lfs
 ```
 
 ## 选择要用LFS追踪的文件
