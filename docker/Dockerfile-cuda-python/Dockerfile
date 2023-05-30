@@ -3,7 +3,7 @@ FROM yeluofeng1991/cuda:11.2-centos7.9
 
 USER root
 
-ENV PYTHON_VERSION 3.8.5
+ENV PYTHON_VERSION 3.8.8
 
 ENV TZ Asia/Shanghai
 
@@ -11,9 +11,7 @@ RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Cen
 
 ENV LANG C.UTF-8
 
-#  Dependencies required to install Python 3.7.9 Otherwise, the pip3 package will not be installed
-
-RUN yum update -y
+#  Dependencies required to install Python Otherwise, the pip3 package will not be installed
 
 RUN yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel libffi-devel gcc make lzma xz-devel python-backports-lzma
 RUN yum install git -y
