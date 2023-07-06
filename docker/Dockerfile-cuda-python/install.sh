@@ -26,5 +26,5 @@ docker build -t $image_name .
 
 # 运行容器 
 # docker run -it  --rm --name=$contains_name $image_name python3 \
-docker run --gpus all -itd  --restart=unless-stopped --name=$contains_name  -v $local_path:/mnt $image_name \
+docker run --gpus all --shm-size 16G -itd  --restart=unless-stopped --name=$contains_name  -v $local_path:/mnt $image_name \
 && echo "Finish  $contains_name installation"
