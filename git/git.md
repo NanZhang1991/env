@@ -38,6 +38,12 @@ git config --global --unset user.email
 git config --global --unset user.password
 git config --global --unset credential.helper
 ```
+
+## 本地生成一个文本，上边记录你的账号和密码
+```
+git config --global credential.helper store
+```
+
 ## 密匙登录
 生成秘钥
 ```bash
