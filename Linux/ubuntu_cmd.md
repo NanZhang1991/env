@@ -64,7 +64,7 @@ sudo ubuntu-drivers autoinstall
 ```
 ## 安装指定版本
 ```
-sudo apt install nvidia-470
+sudo apt install nvidia-535
 ```
 ## 卸载
 ```
