@@ -20,7 +20,7 @@ RUN yum install wget vim -y \
 
 RUN wget --no-check-certificate https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh 
 
-RUN bash Miniconda3-latest-Linux-x86_64.sh \
+RUN bash Miniconda3-latest-Linux-x86_64.sh -b \
 && rm Miniconda3-latest-Linux-x86_64.sh 
 
 ENV PATH=$PATH:/root/miniconda3/bin
