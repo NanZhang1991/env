@@ -66,6 +66,10 @@ sudo ubuntu-drivers autoinstall
 ```
 sudo apt install nvidia-470
 ```
+## 卸载
+```
+sudo apt purge nvidia-*
+```
 
 
 # 安装常用软件包
