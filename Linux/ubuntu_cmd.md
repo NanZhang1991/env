@@ -54,6 +54,10 @@ apt install ubuntu-drivers-common
 ```
 
 # 显卡驱动
+## 查看显卡型号
+```
+lspci | grep -i nvidia
+```
 ## 查看版本
 ```
 ubuntu-drivers devices
