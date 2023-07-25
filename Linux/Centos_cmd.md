@@ -829,15 +829,6 @@ cat /etc/passwd |cut -f 1 -d :
 ```
 
 # 安装jdk8
-## ubuntu
-```
-sudo apt install openjdk-8-jdk
-```
-切换java命令软连接指向
-```
-sudo update-alternatives --config java 
-```
-## centos
 ```
 yum -y install java-1.8.0-openjdk
 ```
@@ -846,25 +837,7 @@ yum -y install java-1.8.0-openjdk
 alternatives --config java
 ```
 
-# ubuntu windows 双系统时间问题
-通过修改硬件同步的方法来进行双系统同步，具体命令如下。其操作流程为安装ntpdate、连接到Windows的时间服务器、更新硬件，操作完成后重启系统。
 
-```shell
-sudo apt-get install ntpdate
-sudo ntpdate time.windows.com
-sudo hwclock --localtime --systohc
-```
-
-## /usr/bin/env: ‘sh\r’: No such file or directory
-问题是你的行尾字符。您的文件是在 Windows 系统上创建或编辑的，并使用 Windows/DOS 样式的行尾 (CR+LF)，而 Ubuntu 等 Linux 系统则需要 Unix 样式的行尾 </bar>
-有一个简单的工具可以为转换两种不同的样式，称为dos2unix.
-通过运行安装它
-```bash
-sudo apt install dos2unix
-#之后，可以使用以下命令之一在任一方向转换文件
-dos2unix /PATH/TO/YOUR/WINDOWS_FILE
-unix2dos /PATH/TO/YOUR/LINUX_FILE
-```
 
 ## 去除Shell脚本的\r字符
 sed -i 's/\r//' one-more.sh
