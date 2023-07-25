@@ -1,5 +1,6 @@
 # ubuntu设置root密码
-```sudo passwd root
+```
+sudo passwd root
 ```
 # 查看Ubuntu版本
 ```
