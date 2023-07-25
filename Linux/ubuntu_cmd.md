@@ -68,7 +68,9 @@ sudo apt install nvidia-470
 ```
 ## 卸载
 ```
-sudo apt purge nvidia-*
+sudo apt-get --purge remove nvidia*
+sudo apt-get --purge remove "*nvidia*"
+sudo apt-get autoremove "*nvidia*"
 ```
 
 
@@ -79,6 +81,14 @@ sudo apt-get upgrade
 sudo apt-get install build-essential
 # git
 apt-get install git
+```
+# 卸载
+```
+#仅卸载软件
+sudo apt-get remove <package name>
+#卸载软件并删除配置
+sudo apt-get purge  package_name
+sudo apt-get autoremove <package name>
 ```
 
 # 代理
