@@ -1,7 +1,7 @@
 # 自定义
 image_name="yeluofeng1991/cuda:11.2-centos7.9-python3.8"
-contains_name="cuda11.2-centos7-python3.7" 
-contains_mnt="/mnt/e"
+contains_name="cuda11.2-centos7-python3.8.8" 
+local_path="/"
 
 #如果容器存在删除
 export contains_name
@@ -26,5 +26,5 @@ docker build -t $image_name .
 
 # 运行容器 
 # docker run -it  --rm --name=$contains_name $image_name python3 \
-docker run --gpus all -itd  --restart=unless-stopped --name=$contains_name  -v $contains_mnt:/mnt $image_name \
+docker run --gpus all --shm-size 16G -itd  --restart=unless-stopped --name=$contains_name  -v $local_path:/mnt $image_name \
 && echo "Finish  $contains_name installation"

@@ -38,6 +38,12 @@ git config --global --unset user.email
 git config --global --unset user.password
 git config --global --unset credential.helper
 ```
+
+## 本地生成一个文本，上边记录你的账号和密码
+```
+git config --global credential.helper store
+```
+
 ## 密匙登录
 生成秘钥
 ```bash
@@ -159,7 +165,8 @@ git push
 ```
 git rm -r --cached .
 git add .
-git commit -m 'update .gitignore'
+git commit -m "update .gitignore"
+git push
 ```
 # Git submodul
 submodule允许你将一个Git 仓库当作另外一个Git 仓库的子目录
@@ -301,61 +308,62 @@ git branch -d <name>
 ```
 git status
 ```
-## 对比文件修改过，但是还没有进行提交
-```
-git diff
-git add fname
-git commit -m 'add'
-git pull
-git push
-```
+
 # Git lfs
-##安装
-'''bash
+
+## 安装
+
+### linux & windows
+linux 添加存储库
+apt/deb repos: 
+```bash
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+```
+yum/rpm repos:
+```bash
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | sudo bash
+```
+```bash
 git lfs install
 ```
+
+### mac
+```
+brew install git-lfs
+```
+
 ## 选择要用LFS追踪的文件
 ```bash
 git lfs track "*.svg"
 git lfs track "2.png"
+git lfs track "FrameworkFold"
 ```
-查看正在被LFS追踪的文件
+## 查看正在被LFS追踪的文件
 ```bash
 git lfs ls-files 
 ```
-保存并提交配置
+## 保存并提交配置
 ```bash
 git add .gitattributes
 git commit -m "add .gitattributes"
 ```
-取消LFS的全局配置
+## 取消LFS的全局配置
 ```bash
 git lfs uninstall
 ```
-取消追踪
+## 取消追踪
 ```bash
 git untrack "*.svg"
 ```
  
-##Git处理 GitHub 不允许上传超过 100MB 文件的问题
-移除错误重新提交
-###移除错误缓存
-文件
+## Git处理 GitHub 不允许上传超过 100MB 文件的问题
 ```bash
-git rm --cached "*.svg"
-```
-文件夹
-```bash
-git rm --cached -r dir_path
-```
-###重新提交
-执行下边命令大文件将会从你的commit记录里移除
-```bash
-git commit --amend -CHEAD
-```
-重新提交
-```bash
-git push
+# Migrating existing repository data to LFS
+git lfs migrate import --include="*.zip"
+git push --force
+# Cleaning up the .git directory after migrating
+git reflog expire --expire-unreachable=now --all
+git gc --prune=now
 ```
 
 # Git submodul

@@ -48,6 +48,7 @@ settings.json
 }
 ```
 # 7. python 配置
+file -> Config User Snippetss ->python.json
 ```json
 {
 	// Place your snippets for python here. Each snippet is defined under a snippet name and has a prefix, body and 
@@ -64,16 +65,16 @@ settings.json
 	// 	"description": "Log output to console"
 	// }
 	"HEADER": {
-		"prefix": "header",
+		"prefix": "py header",
 		"body": [
 			"#!/usr/bin/env python3",
 			"# -*- encoding: utf-8 -*-",
 			"'''",
 			"@File: $TM_FILENAME",
 			"@Time: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND",
-			// "@Author: Zhang Nan ",
+			// "@Author: Nan Zhang",
 			"@Version: 1.0",
-			// "@Contact: NanZhang1991@gmail.com.com",
+			// "@Contact: NanZhang1991@gmail.com",
 			"@License: (C)Copyright NanZhang1991 $CURRENT_YEAR. All rights reserved.",
 			"@Desc: File description",
 			"@Modify: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE",
@@ -82,7 +83,7 @@ settings.json
 		]
 	},
 	"FUNCTION": {
-		"prefix": "function",
+		"prefix": "function params",
 		"body": [
 			"'''",
 			"Description: function description",

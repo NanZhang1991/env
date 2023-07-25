@@ -22,6 +22,8 @@ pip install cython
 ### 进度条
 ```
 pip install tqdm 
+pip install progressbar
+pip install progressbar2
 ```
 
 ### 多进程日志
@@ -95,10 +97,10 @@ pip install handcalcs
 pip install numba
 pip install scikit-learn
 pip install xgboost
+pip install lightgbm
 pip install mlxtend
 pip install factor-analyzer
 pip install transitions
-
 ```
 ## NLP
 ### 常用库
@@ -142,6 +144,7 @@ pip install pypinyin
 ### 摘要
 ```
 pip install pyrouge
+pip install lawrouge
 ```
 
 ### 文件处理

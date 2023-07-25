@@ -1,3 +1,4 @@
+
 # FROM centos:centos7.9.2009
 
 # cuda 环境镜像
@@ -36,8 +37,8 @@ RUN conda install -y -c conda-forge nb_conda
 # RUN export cuDNN="8.1" \
 # &&conda install cuDNN=$cuDNN -c conda-forge
 
-RUN pip config set global.index-url https://pypi.douban.com/simple \
-&& pip config set install.trusted-host pypi.douban.com \
+RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple \
+&& pip config set install.trusted-host pypi.tuna.tsinghua.edu.cn \
 && pip config set global.ssl_verify false
 
 RUN pip install --upgrade pip \
