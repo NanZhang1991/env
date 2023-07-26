@@ -57,6 +57,7 @@ apt install ubuntu-drivers-common
 ## 查看显卡型号
 ```
 lspci | grep -i nvidia
+lshw -numeric -C display
 ```
 ## 查看版本
 ```
