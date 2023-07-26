@@ -74,7 +74,6 @@ sudo apt install nvidia-driver-535
 ```
 sudo apt-get --purge remove nvidia*
 sudo apt-get --purge remove "*nvidia*"
-sudo apt-get autoremove "*nvidia*"
 ```
 
 
@@ -92,6 +91,7 @@ apt-get install git
 sudo apt-get remove <package name>
 #卸载软件并删除配置
 sudo apt-get purge  package_name
+#卸载相关的依赖（慎用，可能导致系统崩溃）
 sudo apt-get autoremove <package name>
 ```
 
