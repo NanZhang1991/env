@@ -15,8 +15,8 @@ RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list  
 && apt install -y nodejs npm vim curl wget python3 python3-pip -y \
 && alias python=python3
 
-RUN pip config set global.index-url https://pypi.douban.com/simple \
-&& pip config set install.trusted-host pypi.douban.com \
+RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple \
+&& pip config set install.trusted-host pypi.tuna.tsinghua.edu.cn \
 && pip config set global.ssl_verify false
 
 RUN pip install --upgrade pip \
