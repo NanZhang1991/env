@@ -54,6 +54,7 @@ apt install ubuntu-drivers-common
 ```
 
 # 显卡驱动
+关闭安全启动
 ## 查看显卡型号
 ```
 lspci | grep -i nvidia
