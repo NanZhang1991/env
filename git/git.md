@@ -3,7 +3,7 @@
 ## 配置用户
 ```bash
 git config user.name zhangnan
-git config user.email zhangnan@apexsoft.com.cn
+git config user.email zhangnan@sunnetech.cn
 git config user.password abcd
 
 git config --global user.name nanzhang1991
