@@ -11,6 +11,7 @@ watch -n 0.1 nvidia-smi
 ## gpu 温度监控
 ### 实时监控
 ```
+watch -n 0.5 nvidia-smi -q -d TEMPERATURE
 watch -n 0.5 nvidia-smi -q -i 0,1 -d TEMPERATURE
 ```
 ### HW Slowdown 被激活，可能需要改进机器的冷却
