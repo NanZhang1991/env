@@ -313,3 +313,13 @@ docker builder prune
 #清理磁盘，删除关闭的容器、无用的数据卷和网络，以及 dangling 镜像（即无 tag 的镜像）
 docker system prune
 ```
+
+## 查看容器启动命令
+### 安装第三方包
+```bash
+docker pull cucker/get_command_4_run_container
+```
+### 查看某个容器的启动命令
+```bash
+docker run --rm -v /var/run/docker.sock:/var/run/docker.sock cucker/get_command_4_run_container [容器名称]/[容器ID]
+```
