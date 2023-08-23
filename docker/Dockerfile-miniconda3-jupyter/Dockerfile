@@ -14,6 +14,8 @@ ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
 RUN yum install wget vim -y \
 && yum install git -y
+RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | bash
+
 
 # RUN git config --global user.name nanzhang1991 \
 # && git config --global user.email nanzhang1991@gmail.com
