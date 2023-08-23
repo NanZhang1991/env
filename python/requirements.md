@@ -107,6 +107,8 @@ pip install transitions
 ```
 pip install torch
 pip install tensorflow
+```
+
 ## NLP
 ### 常用库
 ```
