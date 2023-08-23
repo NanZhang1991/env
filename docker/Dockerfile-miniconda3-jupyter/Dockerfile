@@ -16,7 +16,7 @@ RUN yum install wget vim -y \
 && yum install git -y
 # git lfs 
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | bash
-
+&& yum install git-lfs -y
 
 # RUN git config --global user.name nanzhang1991 \
 # && git config --global user.email nanzhang1991@gmail.com
