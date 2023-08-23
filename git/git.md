@@ -319,15 +319,22 @@ yum/rpm repos:
 ```bash
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | sudo bash
 ```
-```bash
-git lfs install
+### apt/deb
 ```
-
+sudo apt-get install git-lfs
+```
+### yum/rpm
+```
+sudo yum install git-lfs
+```
 ### mac
 ```
 brew install git-lfs
 ```
-
+## 安装 Git 命令行扩
+```bash
+git lfs install
+```
 ## 选择要用LFS追踪的文件
 ```bash
 git lfs track "*.svg"
