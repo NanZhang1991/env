@@ -120,6 +120,8 @@ pip install stanfordcorenlp
 pip install gensim
 pip install langdetect
 pip install simhash
+#数据增强
+pip install nlpcda
 pip install transformers
 ```
 ### 模型评估
