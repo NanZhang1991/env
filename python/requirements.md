@@ -48,6 +48,12 @@ pip install click
 pip install pyinstaller 
 ```
 
+### api服务
+```
+pip install flask
+pip install fastapi
+```
+
 ## api 文档生成
 ```
 pip install Sphinx
@@ -120,6 +126,7 @@ pip install nltk
 #官方数据在https://github.com/nltk/nltk_data/tree/gh-pages
 pip install scapy
 pip install foolnltk
+#分词
 pip install jieba
 pip install ltp
 pip install pyhanlp
@@ -129,6 +136,7 @@ pip install langdetect
 pip install simhash
 #数据增强
 pip install nlpcda
+synonyms
 pip install transformers
 ```
 ### 模型评估
