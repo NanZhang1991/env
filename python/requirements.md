@@ -102,6 +102,11 @@ pip install mlxtend
 pip install factor-analyzer
 pip install transitions
 ```
+
+## 深度学习
+```
+pip install torch
+pip install tensorflow
 ## NLP
 ### 常用库
 ```
