@@ -156,7 +156,7 @@ docker restart <容器 ID>
 ```
 #### 重启所有容器
 ```
-docker ps -a -q
+docker restart $(docker ps -a -q)
 ```
 #### 更新
 ```
