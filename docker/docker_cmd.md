@@ -154,7 +154,10 @@ docker stop <容器 ID>
 ```
 docker restart <容器 ID>
 ```
-
+#### 重启所有容器
+```
+docker ps -a -q
+```
 #### 更新
 ```
 apt-get update
