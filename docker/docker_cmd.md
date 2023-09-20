@@ -123,7 +123,7 @@ docker run -itd --name="anaconda3_jupyter"  -p 8888:8888 continuumio/miniconda3 
 ```
 #### 查看所有的容器
 ```
-docker ps -a
+docker restart $(docker ps -a -q)
 ```
 #### 启动容器
 ```
