@@ -1,5 +1,5 @@
 # 自定义
-image_name="yeluofeng1991/cuda:11.2-centos7.9-miniconda3-jupyter-zn"
+image_name="yeluofeng1991/cuda:11.2-centos7.9-miniconda3-jupyter"
 contains_name="cuda11.2_miniconda3_jupyter-zn" 
 local_path="/"
 port="8110:8888"
