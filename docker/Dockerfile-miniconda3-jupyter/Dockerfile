@@ -2,7 +2,7 @@
 # FROM centos:centos7.9.2009
 
 # cuda 环境镜像
-FROM yeluofeng1991/cuda:11.2-centos7.9
+FROM yeluofeng1991/cuda:11.2-centos7.9-c14
 
 USER root
 
@@ -14,8 +14,8 @@ ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
 RUN yum install wget vim -y \
 && yum install git -y
-# git lfs 
-RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | bash
+# git Lfs
+RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | bash \
 && yum install git-lfs -y
 
 # RUN git config --global user.name nanzhang1991 \
@@ -25,6 +25,10 @@ RUN wget --no-check-certificate https://mirrors.tuna.tsinghua.edu.cn/anaconda/mi
 
 RUN bash Miniconda3-latest-Linux-x86_64.sh -b \
 && rm Miniconda3-latest-Linux-x86_64.sh 
+
+RUN source /root/.bashrc
+RUN echo 'Successfully installed miniconda3!'
+
 
 ENV PATH=$PATH:/root/miniconda3/bin
 
@@ -50,3 +54,11 @@ RUN pip install --upgrade pip \
 && chmod -R 777 /root/.jupyter/jupyter_lab_config.py
 
 CMD jupyter lab  --ip='*' --port=8888 --allow-root --no-browser
+
+
+
+
+
+
+
+
