@@ -1,7 +1,7 @@
 # 自定义
-image_name="yeluofeng1991/cuda:11.2-centos7.9-miniconda3-jupyter"
+image_name="yeluofeng1991/cuda:11.2-centos7.9-miniconda3-jupyter-zn"
 contains_name="cuda11.2_miniconda3_jupyter-ZN" 
-local_path="/mnt/e"
+local_path="/mnt"
 port="8801:8888"
 
 #如果容器存在删除
