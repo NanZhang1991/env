@@ -1,8 +1,8 @@
 # 自定义
 image_name="yeluofeng1991/cuda:11.2-centos7.9-miniconda3-jupyter-zn"
-contains_name="cuda11.2_miniconda3_jupyter-ZN" 
-local_path="/mnt"
-port="8801:8888"
+contains_name="cuda11.2_miniconda3_jupyter-zn" 
+local_path="/"
+port="8110:8888"
 
 #如果容器存在删除
 export contains_name
@@ -26,9 +26,8 @@ docker build -t $image_name .
 # docker build --no-cache -t $image_name .
 
 # 运行容器 
-docker run --gpus all -itd  --restart=unless-stopped --name=$contains_name  -v $local_path:/mnt -p $port $image_name \
+docker run --gpus all -itd  --shm-size 16G --restart=unless-stopped --name=$contains_name  -v $local_path:/mnt -p $port $image_name \
 && echo "Finish  $contains_name installation"
 
 ##在日志中查看token/*/--*---
 docker logs -f $contains_name
-
