@@ -34,7 +34,7 @@ RUN conda --version \
 && conda config --remove channels defaults \
 && conda config --set show_channel_urls yes 
 
-RUN conda install -y -c conda-forge nb_conda
+RUN conda install -y nb_conda
 
 # 安装cuda
 # RUN export cuDNN="8.1" \
@@ -50,11 +50,3 @@ RUN pip install --upgrade pip \
 && chmod -R 777 /root/.jupyter/jupyter_lab_config.py
 
 CMD jupyter lab  --ip='*' --port=8888 --allow-root --no-browser
-
-
-
-
-
-
-
-
