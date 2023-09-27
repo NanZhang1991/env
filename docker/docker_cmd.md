@@ -237,6 +237,7 @@ docker load -i /home/source/docker_images/centos7-cuda11.tar
 
 ### 设置NVIDIA Container Toolkit
 以下以centos7 为示例，其他版本可参照官网
+官网 https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
 #### 设置稳定的存储库和GPG密钥
 ```
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
