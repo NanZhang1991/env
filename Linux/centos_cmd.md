@@ -252,7 +252,7 @@ lsmod | grep nouveau
 ```
 vim /etc/modprobe.d/nvidia-installer-disable-nouveau.conf
 ```
-
+添加
 ```vim
 blacklist nouveau
 options nouveau modeset=0
@@ -262,7 +262,7 @@ options nouveau modeset=0
 vim /lib/modprobe.d/nvidia-installer-disable-nouveau.conf
 
 ```
-
+添加
 ```vim
 blacklist nouveau
 options nouveau modeset=0
