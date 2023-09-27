@@ -293,10 +293,10 @@ https://www.nvidia.com/Download/index.aspx
 ```
 wget https://cn.download.nvidia.com/tesla/535.104.12/NVIDIA-Linux-x86_64-535.104.12.run
 ```
-安装
+### 安装
 ```
-chmod +x ./NVIDIA-Linux-x86_64-460.32.03.run
-./NVIDIA-Linux-x86_64-460.32.03.run -no-x-check -no-nouveau-check -no-opengl-files
+chmod +x ./NVIDIA-Linux-x86_64-535.104.12.run
+./NVIDIA-Linux-x86_64-535.104.12.run -no-x-check -no-nouveau-check -no-opengl-files
 ```
 –no-opengl-files 只安装驱动文件，不安装OpenGL文件。这个参数最重要
 –no-x-check 安装驱动时不检查X服务
