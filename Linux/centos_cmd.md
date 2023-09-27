@@ -302,6 +302,10 @@ chmod +x ./NVIDIA-Linux-x86_64-525.125.06.run
 –no-opengl-files 只安装驱动文件，不安装OpenGL文件。这个参数最重要
 –no-x-check 安装驱动时不检查X服务
 –no-nouveau-check 安装驱动时不检查nouveau
+### 卸载
+```
+/usr/bin/nvidia-uninstall
+```
 
 # CentOS 换源设置dnf/yum镜像
 
