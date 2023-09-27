@@ -292,12 +292,12 @@ https://www.nvidia.com/Download/index.aspx
 进入到同意并开始下载页面复制下载链接下载
 例如：
 ```
-wget https://cn.download.nvidia.com/tesla/535.104.12/NVIDIA-Linux-x86_64-535.104.12.run
+wget https://cn.download.nvidia.com/tesla/525.125.06/NVIDIA-Linux-x86_64-525.125.06.run
 ```
 ### 安装
 ```
-chmod +x ./NVIDIA-Linux-x86_64-535.104.12.run
-./NVIDIA-Linux-x86_64-535.104.12.run -no-x-check -no-nouveau-check -no-opengl-files
+chmod +x ./NVIDIA-Linux-x86_64-525.125.06.run
+./NVIDIA-Linux-x86_64-525.125.06.run -no-x-check -no-nouveau-check -no-opengl-files
 ```
 –no-opengl-files 只安装驱动文件，不安装OpenGL文件。这个参数最重要
 –no-x-check 安装驱动时不检查X服务
