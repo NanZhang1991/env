@@ -216,6 +216,7 @@ uname -r
 ## 查看显卡列信息
 
 ```
+lshw -c video
 lspci| grep -i nvidia
 lspci| grep -i vga
 ```
