@@ -1,3 +1,7 @@
+## 查看NVIDIA 信息
+```
+lspci | grep -i nvidia
+```
 ## gpu 状态
 ### 当前状态
 ```
