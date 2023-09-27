@@ -204,7 +204,7 @@ yum groupupdate
 yum groupinfo
 ```
 
-# 安装 NVIDIA 显卡驱动和 CUDA Toolkit
+# 安装 NVIDIA 显卡驱动
 在BIOS的security选项中禁用secure boot
 
 ## 查看系统内核版本
@@ -284,7 +284,16 @@ init 3
 reboot
 ```
 如果安装后再进入图形界面显示器不亮可尝试在图形界面中安装
-## 安装
+## 下载对应版本的NVIDIA驱动并安装
+### 下载
+官方搜索驱动
+https://www.nvidia.com/Download/index.aspx
+进入到同意并开始下载页面复制下载链接下载
+例如：
+```
+wget https://cn.download.nvidia.com/tesla/535.104.12/NVIDIA-Linux-x86_64-535.104.12.run
+```
+安装
 ```
 chmod +x ./NVIDIA-Linux-x86_64-460.32.03.run
 ./NVIDIA-Linux-x86_64-460.32.03.run -no-x-check -no-nouveau-check -no-opengl-files
