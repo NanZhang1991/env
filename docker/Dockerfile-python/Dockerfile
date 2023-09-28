@@ -25,7 +25,7 @@ ENV LD_LIBRARY_PATH=/usr/local/openssl/lib:$LD_LIBRARY_PATH
 
 WORKDIR /app
 
-# insatll python
+# Insatll python
 ENV PYTHON_VERSION 3.8.8
 RUN set -ex \ 
         && curl -fSL "https://mirrors.huaweicloud.com/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz" -o python.tar.xz  \
@@ -39,6 +39,7 @@ RUN set -ex \
         && ln -s /usr/local/python3/bin/python3 /usr/bin/python3 \
         && ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3
         
+# Change pip source        
 RUN set -ex \ 
         && pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple  \
         && pip3 config set install.trusted-host pypi.tuna.tsinghua.edu.cn \
