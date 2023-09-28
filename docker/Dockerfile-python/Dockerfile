@@ -2,8 +2,6 @@ FROM centos:centos7.9.2009
 
 USER root
 
-ENV PYTHON_VERSION 3.8.8
-
 ENV TZ Asia/Shanghai
 
 RUN curl -o /etc/yum.repos.d/CentOS-Base.repo https://repo.huaweicloud.com/repository/conf/CentOS-7-reg.repo
@@ -20,6 +18,7 @@ RUN set -ex \
         && ./config --prefix=/usr/local/openssl --openssldir=/usr/local/openssl shared zlib \
         && make && make install 
 
+
 ENV PATH=/usr/local/openssl/bin:$PATH
 ENV LD_LIBRARY_PATH=/usr/local/openssl/lib:$LD_LIBRARY_PATH
 
@@ -27,6 +26,7 @@ ENV LD_LIBRARY_PATH=/usr/local/openssl/lib:$LD_LIBRARY_PATH
 WORKDIR /app
 
 # insatll python
+ENV PYTHON_VERSION 3.8.8
 RUN set -ex \ 
         && curl -fSL "https://mirrors.huaweicloud.com/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz" -o python.tar.xz  \
         && export GNUPGHOME="$(mktemp -d)" \
@@ -37,7 +37,9 @@ RUN set -ex \
         && ./configure --prefix=/usr/local/python3 --with-openssl=/usr/local/openssl \
         && make && make install \
         && ln -s /usr/local/python3/bin/python3 /usr/bin/python3 \
-        && ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3 \
+        && ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3
+        
+RUN set -ex \ 
         && pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple  \
         && pip3 config set install.trusted-host pypi.tuna.tsinghua.edu.cn \
         && pip3 config set global.ssl_verify false \
