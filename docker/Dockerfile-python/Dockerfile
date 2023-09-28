@@ -23,8 +23,6 @@ ENV PATH=/usr/local/openssl/bin:$PATH
 ENV LD_LIBRARY_PATH=/usr/local/openssl/lib:$LD_LIBRARY_PATH
 
 
-WORKDIR /app
-
 # Insatll python
 ENV PYTHON_VERSION 3.8.8
 RUN set -ex \ 
