@@ -182,6 +182,11 @@ git submodule
 c4d713b98ae762dcd2e9bf82818731a22fcee743 app/docx-add-footnote (heads/main)
 
 ## 更新子模块
+**如果项目已经克隆到了本地，执行下面的步骤**
+### 初始化本地子模块配置文件
+```bash
+git submodule init
+```
 ### 更新项目内子模块到最新版本
 ```bash
 git submodule update
@@ -191,16 +196,9 @@ git submodule update
 git submodule update --remote
 ```
 ## 克隆包含子模块的项目
-### 递归克隆整个项目
+**递归克隆整个项目**
 ```
 git clone https://git.apexsoft.com.cn/forp/YFB/AI-GROUP/forp.footnote.service.git --recursive 
-```
-### 如果项目已经克隆到了本地，执行下面的步骤：
-```bash
-#初始化本地子模块配置文件
-git submodule init
-#更新项目，抓取子模块内容
-git submodule update
 ```
 ## 删除子模块
 ### 删除子模块文件夹
