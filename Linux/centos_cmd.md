@@ -1,5 +1,6 @@
 # 查看linux版本
 ```
+cat /etc/os-release | grep "NAME"
 cat /proc/version
 ```
 
