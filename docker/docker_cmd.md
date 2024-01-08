@@ -1,13 +1,13 @@
 # docker 安装和基本使用
 ## 安装
-###centos 安装
+### centos 安装
 #### 查看已安装的docker列表
 
 ```
 yum list installed |grep docker
 ```
 
-####删除已安装的docker
+### #删除已安装的docker
 
 ```
 yum -y remove docker-ce.x86_64
