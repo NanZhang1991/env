@@ -7,7 +7,7 @@
 yum list installed |grep docker
 ```
 
-### #删除已安装的docker
+#### 删除已安装的docker
 
 ```
 yum -y remove docker-ce.x86_64
