@@ -295,8 +295,8 @@ vim /etc/docker/daemon.json
 }
 ```
 
-#### 如果目录在其他硬盘上需要更换挂在目录
-比如我的硬盘挂在目录是"/data"
+#### 如果目录在其他硬盘上需要更换挂载目录
+比如我的硬盘挂载目录是"/data"
 ```json
 {
   "data-root": "/data/docker"
