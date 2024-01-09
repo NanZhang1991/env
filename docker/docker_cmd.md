@@ -15,9 +15,8 @@ yum -y remove docker-ce.x86_64
 
 #### 使用Docker Engineshequ社区的存储库安装docker。
 
+#### 设置仓库
 在新主机上首次安装 Docker Engine-Community 之前，需要设置 Docker 仓库。之后，您可以从仓库安装和更新 Docker。
-
-### 设置仓库
 
 #### 安装所需的软件包。
 
