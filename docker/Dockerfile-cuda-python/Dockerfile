@@ -14,6 +14,12 @@ ENV LANG C.UTF-8
 #  Dependencies required to install Python Otherwise, the pip3 package will not be installed
 
 RUN yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel libffi-devel gcc make lzma xz-devel python-backports-lzma
+RUN set -ex \ 
+        && curl -fSL https://www.openssl.org/source/openssl-1.1.1t.tar.gz -o openssl-1.1.1t.tar.gz \
+        && tar -zxvf openssl-1.1.1t.tar.gz \
+        && cd openssl-1.1.1t \
+        && ./config --prefix=/usr/local/openssl --openssldir=/usr/local/openssl shared zlib \
+        && make && make install 
 RUN yum install git -y
 
 # insatll python
