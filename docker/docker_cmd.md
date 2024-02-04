@@ -332,5 +332,9 @@ docker pull cucker/get_command_4_run_container
 ```
 ### 查看某个容器的启动命令
 ```bash
-docker run --rm -v /var/run/docker.sock:/var/run/docker.sock cucker/get_command_4_run_container [容器名称]/[容器ID]
+docker run --rm -v /var/run/docker.sock:/var/run/docker.sock cucker/get_command_4_run_container [CONTAINER_ID or CONTAINER_NAME]
+
+## 健康检查
+### 健康检查日志查询
+docker inspect --format='{{json .State.Health}}' 
 ```
