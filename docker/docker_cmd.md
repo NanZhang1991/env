@@ -337,4 +337,4 @@ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock cucker/get_command_
 
 ## 健康检查
 ### 健康检查日志查询
-docker inspect --format='{{json .State.Health}}' 
+docker inspect --format='{{json .State.Health}}' [CONTAINER_ID or CONTAINER_NAME]
