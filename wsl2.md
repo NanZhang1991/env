@@ -24,6 +24,8 @@ wsl --shutdown
 wsl -l -v --all
 # 注销子系统
 wslconfig /u 'Ubuntu'
+# 卸载
+wsl --unregister <DistroName>
 ```
 
 ## wsl子系统
