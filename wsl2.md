@@ -77,8 +77,9 @@ export ALL_PROXY=""
 <font face="微软雅黑" color=blue size=6>How do I use CUDA in WSL</font>
 参考链接
 https://docs.nvidia.com/cuda/pdf/CUDA_on_WSL_User_Guide.pdf
-
-
+# unbuntu 安装docker 
+https://docs.docker.com/engine/install/ubuntu/?ref=crapts.org
+https://docs.docker.com/engine/install/ubuntu/?ref=crapts.org
 # Running CUDA Containers
 This chapter describes the workflow for setting up the NVIDIA Container Toolkit in preparation for running GPU accelerated containers.
 ## Install Docker
@@ -196,4 +197,5 @@ git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/libexec
 ```bash
 git config --global credential.https://dev.azure.com.useHttpPath true
 ```
+
 
