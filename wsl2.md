@@ -48,6 +48,10 @@ export ALL_PROXY=$windows_host:7989
 export http_proxy=$ALL_PROXY
 export https_proxy=$ALL_PROXY
 ```
+测试连接
+```
+curl -v http://www.google.com
+```
 ```bash
 vim ~/.bashrc
 ```
@@ -187,6 +191,7 @@ git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/libexec
 ```bash
 git config --global credential.https://dev.azure.com.useHttpPath true
 ```
+
 
 
 
