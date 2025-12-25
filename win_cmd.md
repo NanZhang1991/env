@@ -53,7 +53,9 @@ rd/s/q 盘符:\某个文件夹
 ```
 del/f/s/q 盘符:\文件名  
 ```
+
 ## 11. 终端代理
+管理员身份进入cmd
 ```
 set http_proxy=http://127.0.0.1:1080
 set http_proxys=http://127.0.0.1:1080
@@ -67,4 +69,5 @@ curl -v http://www.google.com
 set http_proxy=
 set https_proxy=
 ```
+
 
