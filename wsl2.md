@@ -3,6 +3,8 @@
 官方文档 https://docs.microsoft.com/en-us/windows/wsl/install
 首先确保电脑主机开启 **ntel Virtual Technology**
 控制面板--程序与功能--启动或关闭Windows功能勾选适用于Linux的Windows子系统，Hyper-V 重启
+官网安装步骤 https://learn.microsoft.com/zh-cn/windows/wsl/install
+旧版windows server 上安装
 以管理员身份打开 PowerShell 并运行
 ```PowerShell
 # 为 Linux 启用 Windows 子系统
@@ -194,3 +196,4 @@ git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/libexec
 ```bash
 git config --global credential.https://dev.azure.com.useHttpPath true
 ```
+
