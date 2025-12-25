@@ -65,9 +65,6 @@ fi
 ```bash
 export http_proxy=""
 export https_proxy=""
-export HTTP_PROXY=""
-export HTTPS_PROXY=""
-export ALL_PROXY=""
 ```
 
 <font face="微软雅黑" color=blue size=6>How do I use CUDA in WSL</font>
@@ -190,6 +187,7 @@ git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/libexec
 ```bash
 git config --global credential.https://dev.azure.com.useHttpPath true
 ```
+
 
 
 
