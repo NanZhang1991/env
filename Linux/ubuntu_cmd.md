@@ -100,8 +100,8 @@ sudo apt-get autoremove <package name>
 # 代理
 ## 设置代理
 ```bash
-export http_proxy=http://127.0.0.1:12333
-export https_proxy=http://127.0.0.1:12333
+export http_proxy=http://127.0.0.1:7890
+export https_proxy=http://127.0.0.1:7890
 curl www.google.com
 ```
 ## 检查代理
@@ -125,8 +125,8 @@ export ALL_PROXY=""
 
 ## 设置git代理
 ```bash
-git config --global http.proxy http://127.0.0.1:12333
-git config --global https.proxy https://127.0.0.1:12333
+git config --global http.proxy http://127.0.0.1:7890
+git config --global https.proxy https://127.0.0.1:7890
 ```
 
 ## 取消git代理
@@ -246,6 +246,7 @@ sudo apt install dos2unix
 dos2unix /PATH/TO/YOUR/WINDOWS_FILE
 unix2dos /PATH/TO/YOUR/LINUX_FILE
 ```
+
 
 
 
