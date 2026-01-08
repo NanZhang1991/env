@@ -206,9 +206,9 @@ vim /etc/docker/daemon.json
 ```
 ```json
 {
-    "registry-mirrors": [],
+    "registry-mirrors": ["https://1ok8elni.mirror.aliyuncs.com"],
     "data-root": "/home/docker",
-    "runtimes": {
+    "runtimes": { 
         "nvidia": {
             "path": "nvidia-container-runtime",
             "runtimeArgs": []
@@ -242,6 +242,7 @@ sudo apt install dos2unix
 dos2unix /PATH/TO/YOUR/WINDOWS_FILE
 unix2dos /PATH/TO/YOUR/LINUX_FILE
 ```
+
 
 
 
