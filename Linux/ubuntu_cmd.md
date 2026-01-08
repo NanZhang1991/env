@@ -221,48 +221,6 @@ vim /etc/docker/daemon.json
 ```
 sudo systemctl restart docker
 ```
-#### Docker配置本地镜像与容器的存储位置
-```
-sudo docker info | grep "Docker Root Dir"
-```
-一般默认在这个目录下/var/lib/docker 
-
-**停掉Docker服务**
-```
-service docker stop
-```
-**移动整个/var/lib/docker目录到目的路径**
-```
-mv /var/lib/docker /home/docker
-```
-**建立软连接**
-```
-ln -s /home/docker /var/lib/docker
-```
-#### 更换源和镜像存储地址
-```bash
-vim /etc/docker/daemon.json 
-```
-```json
-{
-    "registry-mirrors": ["https://registry.cn-hangzhou.aliyuncs.com",
-                         "https://registry.docker-cn.com",
-                         "https://mirror.ccs.tencentyun.com",
-                         "http://hub-mirror.c.163.com"],
-    "data-root": "/data/docker", # 如果目录在其他硬盘上需要更换挂载目录
-    "runtimes": {
-        "nvidia": {
-            "path": "nvidia-container-runtime",
-            "runtimeArgs": []
-        }
-    }
-}
-```
-
-#### 重启docker
-```
-sudo systemctl restart docker
-```
 
 
 # ubuntu windows 双系统时间问题
@@ -284,6 +242,7 @@ sudo apt install dos2unix
 dos2unix /PATH/TO/YOUR/WINDOWS_FILE
 unix2dos /PATH/TO/YOUR/LINUX_FILE
 ```
+
 
 
 
