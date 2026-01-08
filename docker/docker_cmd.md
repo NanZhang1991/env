@@ -281,13 +281,14 @@ vim /etc/docker/daemon.json
 ```json
 {
     "registry-mirrors": [
-                         "https://hub-mirror.c.163.com",
-                         "https://ustc-edu-cn.mirror.aliyuncs.com",
-                         "https://ghcr.io",
-                         "https://mirror.baidubce.com"
-                        ],
+    "https://docker.m.daocloud.io",
+    "https://docker.imgdb.de",
+    "https://docker-0.unsee.tech",
+    "https://docker.hlmirror.com",
+    "https://cjie.eu.org"
+ ],
     "data-root": "/home/docker",
-    "runtimes": {
+    "runtimes": { 
         "nvidia": {
             "path": "nvidia-container-runtime",
             "runtimeArgs": []
@@ -332,6 +333,7 @@ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock cucker/get_command_
 ## 健康检查
 ### 健康检查日志查询
 docker inspect --format='{{json .State.Health}}' [CONTAINER_ID or CONTAINER_NAME]
+
 
 
 
