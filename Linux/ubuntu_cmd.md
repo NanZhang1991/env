@@ -231,6 +231,12 @@ vim /etc/docker/daemon.json
 sudo systemctl restart docker
 ```
 
+## nvidia-docker
+官网链接 https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
+如何使用地理 请更换如下命令
+```
+sudo -E apt-get update && sudo -E apt-get install -y nvidia-container-toolkit
+```
 
 # ubuntu windows 双系统时间问题
 通过修改硬件同步的方法来进行双系统同步，具体命令如下。其操作流程为安装ntpdate、连接到Windows的时间服务器、更新硬件，操作完成后重启系统。
@@ -260,6 +266,7 @@ sudo apt install dos2unix
 dos2unix /PATH/TO/YOUR/WINDOWS_FILE
 unix2dos /PATH/TO/YOUR/LINUX_FILE
 ```
+
 
 
 
