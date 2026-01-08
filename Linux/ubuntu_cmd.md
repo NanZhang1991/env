@@ -206,10 +206,10 @@ vim /etc/docker/daemon.json
 ```
 ```json
 {
-    "registry-mirrors": ["https://registry.cn-hangzhou.aliyuncs.com",
-                         "https://registry.docker-cn.com",
-                         "https://mirror.ccs.tencentyun.com",
-                         "http://hub-mirror.c.163.com"],
+    "registry-mirrors": ["https://hub-mirror.c.163.com",
+                         "https://ustc-edu-cn.mirror.aliyuncs.com",
+                         "https://ghcr.io",
+                         "https://mirror.baidubce.com"],
     "data-root": "/home/docker",
     "runtimes": {
         "nvidia": {
