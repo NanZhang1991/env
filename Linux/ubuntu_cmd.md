@@ -206,10 +206,11 @@ vim /etc/docker/daemon.json
 ```
 ```json
 {
-    "registry-mirrors": ["https://hub-mirror.c.163.com",
-                         "https://ustc-edu-cn.mirror.aliyuncs.com",
-                         "https://ghcr.io",
-                         "https://mirror.baidubce.com"],
+    "registry-mirrors": [
+                         "https://registry.docker-cn.com",
+                         "https://docker.mirrors.ustc.edu.cn",
+                         "https://hub-mirror.c.163.com"
+                        ],
     "data-root": "/home/docker",
     "runtimes": {
         "nvidia": {
@@ -245,6 +246,7 @@ sudo apt install dos2unix
 dos2unix /PATH/TO/YOUR/WINDOWS_FILE
 unix2dos /PATH/TO/YOUR/LINUX_FILE
 ```
+
 
 
 
