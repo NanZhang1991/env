@@ -157,20 +157,23 @@ sudo curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt
 sudo add-apt-repository "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
 sudo apt-get install docker-ce -y
 
-## 启动Docker服务
-sudo systemctl start docker
+## docker 基本命令
+### 加入开机启动
+```
 sudo systemctl enable docker
-
-
-## docker 运行命令
-### 状态
-service docker status
+```
 ### 启动
-sudo service docker start
-### 停止
-sudo service docker stop
-### 重启
-sudo service docker restart
+```
+sudo systemctl start docker
+```
+### 查看是否启动成功
+```
+docker ps -a
+```
+
+
+
+
 
 ## 卸载
 sudo apt-get remove docker docker-engine docker.io containerd runc
@@ -242,6 +245,7 @@ sudo apt install dos2unix
 dos2unix /PATH/TO/YOUR/WINDOWS_FILE
 unix2dos /PATH/TO/YOUR/LINUX_FILE
 ```
+
 
 
 
