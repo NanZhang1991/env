@@ -207,7 +207,7 @@ vim /etc/docker/daemon.json
                          "https://registry.docker-cn.com",
                          "https://mirror.ccs.tencentyun.com",
                          "http://hub-mirror.c.163.com"],
-    "data-root": "/home/docker" #### 如果目录在其他硬盘上需要更换挂载目录
+    "data-root": "/home/docker",
     "runtimes": {
         "nvidia": {
             "path": "nvidia-container-runtime",
@@ -284,6 +284,7 @@ sudo apt install dos2unix
 dos2unix /PATH/TO/YOUR/WINDOWS_FILE
 unix2dos /PATH/TO/YOUR/LINUX_FILE
 ```
+
 
 
 
