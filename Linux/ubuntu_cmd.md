@@ -176,7 +176,10 @@ docker ps -a
 
 
 ## 卸载
-sudo apt-get remove docker docker-engine docker.io containerd runc
+```
+sudo apt-get purge -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
+```
+
 ### 查询相关软件包
 dpkg -l | grep docker
 ### 删除这个包
@@ -248,6 +251,7 @@ sudo apt install dos2unix
 dos2unix /PATH/TO/YOUR/WINDOWS_FILE
 unix2dos /PATH/TO/YOUR/LINUX_FILE
 ```
+
 
 
 
