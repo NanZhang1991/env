@@ -284,21 +284,13 @@ vim /etc/docker/daemon.json
                          "https://registry.docker-cn.com",
                          "https://mirror.ccs.tencentyun.com",
                          "http://hub-mirror.c.163.com"],
-    "graph":"/home/docker",
+    "data-root": "/home/docker",
     "runtimes": {
         "nvidia": {
             "path": "nvidia-container-runtime",
             "runtimeArgs": []
         }
     }
-}
-```
-
-#### 如果目录在其他硬盘上需要更换挂载目录
-比如我的硬盘挂载目录是"/data"
-```json
-{
-  "data-root": "/data/docker"
 }
 ```
 
@@ -338,3 +330,4 @@ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock cucker/get_command_
 ## 健康检查
 ### 健康检查日志查询
 docker inspect --format='{{json .State.Health}}' [CONTAINER_ID or CONTAINER_NAME]
+
