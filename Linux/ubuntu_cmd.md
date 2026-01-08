@@ -147,6 +147,8 @@ du --max-depth=1 -h
 
 # docker
 ## 安装
+sudo apt-get update
+
 ### 下载并执行Docker官方安装脚本
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
@@ -155,18 +157,19 @@ sudo curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt
 sudo add-apt-repository "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
 sudo apt-get install docker-ce -y
 
-# 启动Docker服务
+## 启动Docker服务
 sudo systemctl start docker
 sudo systemctl enable docker
 
-sudo apt-get update
-## 状态
+
+## docker 运行命令
+### 状态
 service docker status
-## 启动
+### 启动
 sudo service docker start
-## 停止
+### 停止
 sudo service docker stop
-## 重启
+### 重启
 sudo service docker restart
 
 ## 卸载
@@ -175,6 +178,108 @@ sudo apt-get remove docker docker-engine docker.io containerd runc
 dpkg -l | grep docker
 ### 删除这个包
 sudo apt remove --purge docker.io
+
+## Docker配置本地镜像与容器的存储位置
+```
+sudo docker info | grep "Docker Root Dir"
+```
+一般默认在这个目录下/var/lib/docker 
+
+**停掉Docker服务**
+```
+service docker stop
+```
+**移动整个/var/lib/docker目录到目的路径**
+```
+mv /var/lib/docker /home/docker
+```
+**建立软连接**
+```
+ln -s /home/docker /var/lib/docker
+```
+#### 更换源和镜像存储地址
+```bash
+vim /etc/docker/daemon.json 
+```
+```json
+{
+    "registry-mirrors": ["https://registry.cn-hangzhou.aliyuncs.com",
+                         "https://registry.docker-cn.com",
+                         "https://mirror.ccs.tencentyun.com",
+                         "http://hub-mirror.c.163.com"],
+    "graph":"/home/docker",
+    "runtimes": {
+        "nvidia": {
+            "path": "nvidia-container-runtime",
+            "runtimeArgs": []
+        }
+    }
+}
+```
+
+#### 如果目录在其他硬盘上需要更换挂载目录
+比如我的硬盘挂载目录是"/data"
+```json
+{
+  "data-root": "/data/docker"
+}
+```
+
+#### 重启docker
+```
+sudo systemctl restart docker
+```
+#### Docker配置本地镜像与容器的存储位置
+```
+sudo docker info | grep "Docker Root Dir"
+```
+一般默认在这个目录下/var/lib/docker 
+
+**停掉Docker服务**
+```
+service docker stop
+```
+**移动整个/var/lib/docker目录到目的路径**
+```
+mv /var/lib/docker /home/docker
+```
+**建立软连接**
+```
+ln -s /home/docker /var/lib/docker
+```
+#### 更换源和镜像存储地址
+```bash
+vim /etc/docker/daemon.json 
+```
+```json
+{
+    "registry-mirrors": ["https://registry.cn-hangzhou.aliyuncs.com",
+                         "https://registry.docker-cn.com",
+                         "https://mirror.ccs.tencentyun.com",
+                         "http://hub-mirror.c.163.com"],
+    "graph":"/home/docker",
+    "runtimes": {
+        "nvidia": {
+            "path": "nvidia-container-runtime",
+            "runtimeArgs": []
+        }
+    }
+}
+```
+
+#### 如果目录在其他硬盘上需要更换挂载目录
+比如我的硬盘挂载目录是"/data"
+```json
+{
+  "data-root": "/data/docker"
+}
+```
+
+#### 重启docker
+```
+sudo systemctl restart docker
+```
+
 
 # ubuntu windows 双系统时间问题
 通过修改硬件同步的方法来进行双系统同步，具体命令如下。其操作流程为安装ntpdate、连接到Windows的时间服务器、更新硬件，操作完成后重启系统。
@@ -195,5 +300,6 @@ sudo apt install dos2unix
 dos2unix /PATH/TO/YOUR/WINDOWS_FILE
 unix2dos /PATH/TO/YOUR/LINUX_FILE
 ```
+
 
 
