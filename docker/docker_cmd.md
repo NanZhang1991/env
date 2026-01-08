@@ -304,7 +304,7 @@ sudo systemctl restart docker
 
 ## 测试gpu容器
 ```
-docker run --gpus all -itd  --restart=unless-stopped --name="tf-gpu"  -v /mnt/e/project:/mnt -p 8802:8888 tensorflow/tensorflow:latest-gpu
+sudo docker run --rm --runtime=nvidia --gpus all ubuntu nvidia-smi
 ```
 
 ## 查看磁盘大小
@@ -333,6 +333,7 @@ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock cucker/get_command_
 ## 健康检查
 ### 健康检查日志查询
 docker inspect --format='{{json .State.Health}}' [CONTAINER_ID or CONTAINER_NAME]
+
 
 
 
