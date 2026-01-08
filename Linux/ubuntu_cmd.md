@@ -233,7 +233,7 @@ sudo systemctl restart docker
 
 ## nvidia-docker
 官网链接 https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html    
-如果使用地理 请更换如下命令
+如果使用代理 请更换如下命令
 ```
 sudo -E apt-get update && sudo -E apt-get install -y nvidia-container-toolkit
 ```
@@ -266,6 +266,7 @@ sudo apt install dos2unix
 dos2unix /PATH/TO/YOUR/WINDOWS_FILE
 unix2dos /PATH/TO/YOUR/LINUX_FILE
 ```
+
 
 
 
