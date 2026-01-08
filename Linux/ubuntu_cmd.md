@@ -147,7 +147,14 @@ du --max-depth=1 -h
 
 # docker
 ## 安装
-curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+# 下载并执行Docker官方安装脚本
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+# 启动Docker服务
+sudo systemctl start docker
+sudo systemctl enable docker
+
 sudo apt-get update
 ## 状态
 service docker status
@@ -184,3 +191,4 @@ sudo apt install dos2unix
 dos2unix /PATH/TO/YOUR/WINDOWS_FILE
 unix2dos /PATH/TO/YOUR/LINUX_FILE
 ```
+
