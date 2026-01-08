@@ -147,9 +147,13 @@ du --max-depth=1 -h
 
 # docker
 ## 安装
-# 下载并执行Docker官方安装脚本
+### 下载并执行Docker官方安装脚本
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
+### 阿里云安装
+sudo curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt-get install docker-ce -y
 
 # 启动Docker服务
 sudo systemctl start docker
@@ -191,4 +195,5 @@ sudo apt install dos2unix
 dos2unix /PATH/TO/YOUR/WINDOWS_FILE
 unix2dos /PATH/TO/YOUR/LINUX_FILE
 ```
+
 
