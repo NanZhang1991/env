@@ -57,7 +57,7 @@ docker-ce.x86_64  18.06.1.ce-3.el7                    docker-ce-stable
 docker-ce.x86_64  18.06.0.ce-3.el7                    docker-ce-stable
 通过其完整的软件包名称安装特定版本，该软件包名称是软件包名称（docker-ce）加上版本字符串（第二列），从第一个冒号（:）一直到第一个连字符，并用连字符（-）分隔。例如：docker-ce-18.09.1。
 ### 基本命令
-### #启动并加入开机启动
+#### 加入开机启动
 
 ```
 sudo systemctl enable docker.service
@@ -330,4 +330,5 @@ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock cucker/get_command_
 ## 健康检查
 ### 健康检查日志查询
 docker inspect --format='{{json .State.Health}}' [CONTAINER_ID or CONTAINER_NAME]
+
 
