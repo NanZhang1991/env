@@ -101,15 +101,24 @@ sudo apt-get autoremove <package name>
 clash 下载地址 https://mega.nz/folder/ou9jjJhb#IqFnaxXGNNcDZdxArULIeg/folder/46lSVZRa   https://mega.nz/folder/ou9jjJhb#IqFnaxXGNNcDZdxArULIeg/file/561hTSwT    
 ## 安装代理
 ```
-cd /home/ubuntu/clash
+gzip -d clash-linux-amd64-v1.18.0.gz
+```
+
+``` 在指定文件夹内，比如上步的/home/clash内下载Clash配置
+wget https://www.ccsub.online/link/你自己的Clash订阅地址 -O config.yaml
+```
+在指定文件夹内，比如第三步的/home//clash，首次运行Clash    
+```
+cd /home/clash
+chmod +x clash-linux-amd64-v1.18.0
 ./clash-linux-amd64-v1.18.0
 ```
 
 ~/.config/clash路径下生成config.yaml文件和Country.mmdb文件 如果没有Country.mmdb 到https://github.com/Dreamacro/maxmind-geoip/releases下载    
-Ctrl+C退出Clash，并将下载的config.yaml配置文件覆盖掉~/.config/clash路径下的config.yaml文件
+Ctrl+C退出Clash，并将下载的config.yaml配置文件覆盖掉~/.config/clash路径下的config.yaml文件    
 ```
 
-mv -i /home/ubuntu/clash/config.yaml ~/.config/clash/config.yaml 
+mv -i /home/clash/config.yaml ~/.config/clash/config.yaml 
 ```
 输入y覆盖
 
@@ -118,9 +127,9 @@ cd /home/ubuntu/clash
 ./clash-linux-amd64-v1.18.0
 ```
 
-打开yacd网站，进行外部控制
-http://yacd.haishan.me/#/configs
-输入你的服务器IP和端口，点击Add
+打开yacd网站，进行外部控制   
+http://yacd.haishan.me/#/configs    
+输入你的服务器IP和端口，点击Add   
 
 ## 设置终端代理
 ```bash
