@@ -241,15 +241,33 @@ ln -s /home/docker /var/lib/docker
 ```bash
 vim /etc/docker/daemon.json 
 ```
+使用国内镜像
 ```json
 {
     "registry-mirrors": [
-    "https://docker.m.daocloud.io",
-    "https://docker.imgdb.de",
-    "https://docker-0.unsee.tech",
-    "https://docker.hlmirror.com",
-    "https://cjie.eu.org"
- ],
+        "https://docker.m.daocloud.io",
+        "https://docker.imgdb.de",
+        "https://docker-0.unsee.tech",
+        "https://docker.hlmirror.com",
+        "https://cjie.eu.org"
+     ],
+    "data-root": "/home/docker",
+    "runtimes": { 
+        "nvidia": {
+            "path": "nvidia-container-runtime",
+            "runtimeArgs": []
+        }
+    }
+}
+```
+
+使用代理
+```json
+{
+"proxies": {
+        "http-proxy": "http://127.0.0.1:7890",
+        "https-proxy": "http://127.0.0.1:7890" 
+     },
     "data-root": "/home/docker",
     "runtimes": { 
         "nvidia": {
@@ -300,6 +318,7 @@ sudo apt install dos2unix
 dos2unix /PATH/TO/YOUR/WINDOWS_FILE
 unix2dos /PATH/TO/YOUR/LINUX_FILE
 ```
+
 
 
 
