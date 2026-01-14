@@ -98,7 +98,27 @@ sudo apt-get autoremove <package name>
 ```
 
 # 代理
-## 设置代理
+clash 下载地址 https://mega.nz/folder/ou9jjJhb#IqFnaxXGNNcDZdxArULIeg/folder/46lSVZRa   https://mega.nz/folder/ou9jjJhb#IqFnaxXGNNcDZdxArULIeg/file/561hTSwT    
+## 安装代理
+```
+cd /home/ubuntu/clash
+./clash-linux-amd64-v1.18.0
+```
+~/.config/clash路径下生成config.yaml文件和Country.mmdb文件 如果没有Country.mmdb 到https://github.com/Dreamacro/maxmind-geoip/releases下载    
+Ctrl+C退出Clash，并将下载的config.yaml配置文件覆盖掉~/.config/clash路径下的config.yaml文件
+```
+mv -i /home/ubuntu/clash/config.yaml ~/.config/clash/config.yaml 
+```
+输入y覆盖
+```
+cd /home/ubuntu/clash
+./clash-linux-amd64-v1.18.0
+```
+打开yacd网站，进行外部控制
+http://yacd.haishan.me/#/configs
+输入你的服务器IP和端口，点击Add
+
+## 设置终端代理
 ```bash
 export http_proxy=http://127.0.0.1:7890
 export https_proxy=http://127.0.0.1:7890
@@ -266,6 +286,7 @@ sudo apt install dos2unix
 dos2unix /PATH/TO/YOUR/WINDOWS_FILE
 unix2dos /PATH/TO/YOUR/LINUX_FILE
 ```
+
 
 
 
