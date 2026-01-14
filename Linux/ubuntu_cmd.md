@@ -104,16 +104,20 @@ clash 下载地址 https://mega.nz/folder/ou9jjJhb#IqFnaxXGNNcDZdxArULIeg/folder
 cd /home/ubuntu/clash
 ./clash-linux-amd64-v1.18.0
 ```
+
 ~/.config/clash路径下生成config.yaml文件和Country.mmdb文件 如果没有Country.mmdb 到https://github.com/Dreamacro/maxmind-geoip/releases下载    
 Ctrl+C退出Clash，并将下载的config.yaml配置文件覆盖掉~/.config/clash路径下的config.yaml文件
 ```
+
 mv -i /home/ubuntu/clash/config.yaml ~/.config/clash/config.yaml 
 ```
 输入y覆盖
+
 ```
 cd /home/ubuntu/clash
 ./clash-linux-amd64-v1.18.0
 ```
+
 打开yacd网站，进行外部控制
 http://yacd.haishan.me/#/configs
 输入你的服务器IP和端口，点击Add
@@ -286,6 +290,7 @@ sudo apt install dos2unix
 dos2unix /PATH/TO/YOUR/WINDOWS_FILE
 unix2dos /PATH/TO/YOUR/LINUX_FILE
 ```
+
 
 
 
