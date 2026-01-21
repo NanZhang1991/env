@@ -22,3 +22,6 @@ watch -n 0.5 nvidia-smi -q -i 0,1 -d TEMPERATURE
 ```
 nvidia-smi -q -d TEMPERATURE,PERFORMANCE
 ```
+
+# 查看cuda 版本
+nvcc --version

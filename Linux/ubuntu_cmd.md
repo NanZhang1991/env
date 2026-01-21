@@ -77,6 +77,16 @@ sudo apt install nvidia-driver-535
 sudo apt-get --purge remove nvidia*
 sudo apt-get --purge remove "*nvidia*"
 ```
+## cuDNN
+### 安装
+```
+apt install nvidia-cuda-toolkit
+```
+### 卸载
+```
+sudo apt-get remove --auto-remove nvidia-cuda-toolkit
+sudo apt-get purge --auto-remove nvidia-cuda-toolkit
+```
 
 
 # 安装常用软件包
