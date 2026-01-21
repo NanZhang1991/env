@@ -70,7 +70,7 @@ bash```
 vim ~/.ssh/id_ed25519.pub
 ```
 在git web setting 中添加ssh 公钥
-打开 Terminal（终端）Terminal（终端）Git Bash
+打开 Terminal（终端）
 ```bash
 ssh -T git@github.com
 # Attempts to ssh to GitHub
