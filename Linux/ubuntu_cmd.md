@@ -329,6 +329,12 @@ dos2unix /PATH/TO/YOUR/WINDOWS_FILE
 unix2dos /PATH/TO/YOUR/LINUX_FILE
 ```
 
+# ubuntu vscdoe 添加文件修改权限
+```
+sudo chown -R myuser /path/to/folder
+```
+
+
 
 
 
