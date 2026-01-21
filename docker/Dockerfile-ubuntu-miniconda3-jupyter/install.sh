@@ -1,5 +1,5 @@
 # 自定义
-image_name="yeluofeng1991/cuda:13.1.0-devel-ubuntu24.04-miniconda3-jupyter"
+image_name="yeluofeng1991/cuda:13.0.2-cudnn-runtime-ubuntu24.04-miniconda3-jupyter"
 contains_name="cuda_ubuntu_miniconda3_jupyter-zn" 
 local_path="/"
 port="8110:8888"
