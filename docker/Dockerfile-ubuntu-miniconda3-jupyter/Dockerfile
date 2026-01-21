@@ -1,8 +1,5 @@
-
-# FROM centos:centos7.9.2009
-
 # cuda 环境镜像
-FROM nvidia/cuda:13.0.0-tensorrt-runtime-ubuntu24.04 
+FROM nvidia/cuda:13.0.2-cudnn-runtime-ubuntu24.04
 
 USER root
 
