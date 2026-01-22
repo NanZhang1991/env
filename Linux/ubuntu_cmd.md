@@ -70,7 +70,7 @@ sudo ubuntu-drivers autoinstall
 ```
 ## 安装指定版本
 ```
-sudo apt install nvidia-driver-535
+sudo apt install nvidia-driver-580-open 
 ```
 ## 卸载
 ```
@@ -215,10 +215,6 @@ sudo systemctl start docker
 docker ps -a
 ```
 
-
-
-
-
 ## 卸载
 ```
 sudo apt-get purge -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
@@ -309,13 +305,22 @@ sudo ntpdate time.windows.com
 sudo hwclock --localtime --systohc
 ```
 
+# 查看所有文件系统（分区）的磁盘空间使用情况  
+```
+df -h 
+```
+# 列出所有块设备（硬盘、分区等）的树状结构信息，包括大小、类型和挂载点
+```
+lsblk
+```
+
 # ubuntu 挂载windows 硬盘
 ```
 lsblk
 sudo mkdir /mnt/windows
 sudo apt update
 sudo apt install ntfs-3g
-sudo mount /dev/nvme0n1p1 /mnt/windows
+sudo mount /dev/nvme0n1p4 /mnt/windows
 ```
 
 ## /usr/bin/env: ‘sh\r’: No such file or directory
@@ -333,6 +338,8 @@ unix2dos /PATH/TO/YOUR/LINUX_FILE
 ```
 sudo chown -R myuser /path/to/folder
 ```
+
+
 
 
 
