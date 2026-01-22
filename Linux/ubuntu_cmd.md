@@ -316,7 +316,6 @@ lsblk
 
 # ubuntu 挂载windows 硬盘
 ```
-lsblk
 sudo mkdir /mnt/windows
 sudo apt update
 sudo apt install ntfs-3g
