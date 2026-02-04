@@ -1,0 +1,24 @@
+
+进入Dockerfile 所在目录下
+进入install.sh文件
+```bash
+vim install.sh
+```
+更改 image_name contains_name contains_mnt 参数
+## 运行安装脚本 install.sh
+```bash
+chmod 777 install.sh
+```
+./install.sh
+## 在浏览器中打开jupyterlab 
+http://ip:port
+输入容器日志中查看的token  并修改密码
+
+## 在浏览器终端修改密码
+```
+jupyter lab password
+```
+## 重启容器
+```
+docker restart <contains_name>
+```
