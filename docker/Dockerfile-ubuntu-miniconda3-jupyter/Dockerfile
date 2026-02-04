@@ -44,10 +44,6 @@ RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkg
 
 RUN conda install -y nb_conda -c conda-forge
 
-# 安装cuda 先查看是否有对应版本 conda search nvidia::cudnn -c conda-forge
-RUN export cuDNN="9.8" \
-&&conda install cuDNN=$cuDNN -c conda-forge
-
 RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple \
 && pip config set install.trusted-host pypi.tuna.tsinghua.edu.cn \
 && pip config set global.ssl_verify false
