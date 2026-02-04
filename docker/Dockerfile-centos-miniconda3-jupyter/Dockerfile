@@ -38,7 +38,7 @@ RUN conda --version \
 RUN conda install -y nb_conda
 
 # 安装cuda
-# RUN export cuDNN="8.1" \
+# RUN export cuDNN="9.8" \
 # &&conda install cuDNN=$cuDNN -c conda-forge
 
 RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple \
