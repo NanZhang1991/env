@@ -24,7 +24,7 @@ RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.r
 RUN git config --global user.name nanzhang1991 \
 && git config --global user.email nanzhang1991@gmail.com
 
-RUN apt install curl -y
+# RUN apt install curl -y
 # RUN curl -o Miniconda3-latest-Linux-x86_64.sh  https://repo.anaconda.com/miniconda/Miniconda3-py310_25.7.0-2-Linux-x86_64.sh 
 RUN wget --no-check-certificate -O Miniconda3-latest-Linux-x86_64.sh https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_25.3.1-1-Linux-x86_64.sh
 
