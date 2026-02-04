@@ -48,8 +48,8 @@ RUN conda install -y nb_conda -c conda-forge
 RUN export cuDNN="9.8" \
 &&conda install cuDNN=$cuDNN -c conda-forge
 
-RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ \
-&& pip config set install.trusted-host https://mirrors.aliyun.com \
+RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple \
+&& pip config set install.trusted-host pypi.tuna.tsinghua.edu.cn \
 && pip config set global.ssl_verify false
 
 RUN pip install --upgrade pip \

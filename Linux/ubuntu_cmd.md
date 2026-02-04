@@ -6,6 +6,12 @@ sudo passwd root
 ```
 cat /etc/issue
 ```
+
+# Linux架构
+```
+uname -m
+‵‵‵
+
 # 更新
 ```
 apt-get update
@@ -77,7 +83,8 @@ sudo apt install nvidia-driver-580-open
 sudo apt-get --purge remove nvidia*
 sudo apt-get --purge remove "*nvidia*"
 ```
-## cuDNN
+ 
+## CUDA 
 ### 安装
 #### 自动版本
 ```
@@ -85,6 +92,22 @@ apt install nvidia-cuda-toolkit
 ```
 #### 指定版本
 https://developer.nvidia.com/cuda-toolkit-archive
+
+### 打开、编辑环境变量的配置文件：
+```bash
+vim ~/.bashrc 
+```
+
+```vim
+# cuda
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64
+export PATH=$PATH:/usr/local/cuda/bin
+```
+
+```bash
+source ~/.bashrc
+nvcc -V
+```
 
 ### 卸载
 ```
