@@ -79,9 +79,13 @@ sudo apt-get --purge remove "*nvidia*"
 ```
 ## cuDNN
 ### 安装
+#### 自动版本
 ```
 apt install nvidia-cuda-toolkit
 ```
+#### 指定版本
+https://developer.nvidia.com/cuda-toolkit-archive
+
 ### 卸载
 ```
 sudo apt-get remove --auto-remove nvidia-cuda-toolkit

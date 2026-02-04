@@ -16,19 +16,20 @@ RUN apt-get install sudo -y
 
 RUN apt install wget vim -y \
 && apt install git -y
+
 # git Lfs
-RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | bash \
+RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | sudo bash \
 && apt install git-lfs -y
 
 RUN git config --global user.name nanzhang1991 \
 && git config --global user.email nanzhang1991@gmail.com
 
-# RUN wget --no-check-certificate https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-# RUN wget --no-check-certificate https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh 
-RUN wget --no-check-certificate https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_25.3.1-1-Linux-x86_64.sh
+RUN apt install curl -y
+# RUN curl -o Miniconda3-latest-Linux-x86_64.sh  https://repo.anaconda.com/miniconda/Miniconda3-py310_25.7.0-2-Linux-x86_64.sh 
+RUN wget --no-check-certificate -O Miniconda3-latest-Linux-x86_64.sh https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py310_25.3.1-1-Linux-x86_64.sh
 
-RUN bash Miniconda3-py310_25.3.1-1-Linux-x86_64.sh -b \
-&& rm Miniconda3-py310_25.3.1-1-Linux-x86_64.sh
+RUN bash Miniconda3-latest-Linux-x86_64.sh -b \
+&& rm Miniconda3-latest-Linux-x86_64.sh
 
 ENV PATH=$PATH:/root/miniconda3/bin
 
@@ -41,14 +42,14 @@ RUN conda --version \
 RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main \
 && conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 
-RUN conda install -y nb_conda
+RUN conda install -y nb_conda -c conda-forge
 
 # 安装cuda 先查看是否有对应版本 conda search nvidia::cudnn -c conda-forge
 RUN export cuDNN="9.8" \
 &&conda install cuDNN=$cuDNN -c conda-forge
 
-RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple \
-&& pip config set install.trusted-host pypi.tuna.tsinghua.edu.cn \
+RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ \
+&& pip config set install.trusted-host https://mirrors.aliyun.com \
 && pip config set global.ssl_verify false
 
 RUN pip install --upgrade pip \
