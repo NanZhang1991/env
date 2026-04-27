@@ -1,8 +1,8 @@
 # 自定义
 image_name="yeluofeng1991/cuda:13.0.2-ubuntu24.04-miniconda3-jupyter"
-contains_name="cuda_ubuntu_miniconda3_jupyter-zn" 
+contains_name="cuda_ubuntu_miniconda3_jupyter-zn-2" 
 local_path="/"
-port="8110:8888"
+port="8111:8888"
 
 #如果容器存在删除
 export contains_name
@@ -26,8 +26,15 @@ docker build -t $image_name .
 # docker build --no-cache -t $image_name .
 
 # 运行容器 
-docker run --gpus all -itd  --shm-size 16G --restart=unless-stopped --name=$contains_name  -v $local_path:/mnt -p $port $image_name \
-&& echo "Finish  $contains_name installation"
+# docker run --gpus all -itd  --shm-size 16G --restart=unless-stopped --name=$contains_name  -v $local_path:/mnt -p $port $image_name \
+# && echo "Finish  $contains_name installation"
+
+docker run --gpus all -itd  --shm-size 16G --restart=unless-stopped --name=$contains_name  -v $local_path:/mnt -p $port \
+    --add-host=host.docker.internal:host-gateway \
+    -e HTTP_PROXY=http://host.docker.internal:7890 \
+    -e HTTPS_PROXY=http://host.docker.internal:7890 \
+    $image_name && echo "Finish  $contains_name installation"
+
 
 ##在日志中查看token/*/--*---
 docker logs -f $contains_name
