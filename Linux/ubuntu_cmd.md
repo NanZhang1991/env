@@ -134,6 +134,8 @@ sudo apt-get purge  package_name
 sudo apt-get autoremove <package name>
 ```
 
+
+
 # 代理
 clash 下载地址 https://mega.nz/folder/ou9jjJhb#IqFnaxXGNNcDZdxArULIeg/folder/46lSVZRa   https://mega.nz/folder/ou9jjJhb#IqFnaxXGNNcDZdxArULIeg/file/561hTSwT    
 ## 安装代理
@@ -169,6 +171,12 @@ cd /home/ubuntu/clash
 http://yacd.haishan.me/#/configs    
 输入你的服务器IP和端口，点击Add   
 
+# 查看clash 后台启动程序
+```shell
+systemctl --user list-unit-files | grep -i clash
+ps aux | grep clash
+ps -eo pid,lstart,cmd | grep clash
+```
 ## 设置终端代理
 ```bash
 export http_proxy=http://127.0.0.1:7890
@@ -361,15 +369,36 @@ unix2dos /PATH/TO/YOUR/LINUX_FILE
 ```
 
 # ubuntu vscdoe 添加文件修改权限
-```
+```bash
 sudo chown -R myuser /path/to/folder
 ```
 
+# crontab 定时任务
 
+## 查看
+```bash
+crontab -l              # 当前用户
+sudo crontab -l -u xxx  # 指定用户
+```
 
+## 编辑
+```bash
+crontab -e              # 编辑当前用户的 crontab
+sudo crontab -e -u xxx  # 编辑指定用户
+```
+## 删除
+```bash
+crontab -r              # 删除当前用户所有 crontab（危险，无确认）
+crontab -ri             # 删除前确认
+```
 
-
-
+## 格式
+* * * * * command
+│ │ │ │ └── 星期 (0-7, 0和7都是周日)
+│ │ │ └──── 月份 (1-12)
+│ │ └────── 日期 (1-31)
+│ └──────── 小时 (0-23)
+└────────── 分钟 (0-59)
 
 
 

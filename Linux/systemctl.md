@@ -53,3 +53,14 @@ systemctl is-enabled jupyterlab
 ```bash
 systemctl list-unit-files
 ```
+
+### systemd 服务
+```bash
+systemctl list-unit-files | grep -i clash
+systemctl status clash
+```
+
+### 用户级 systemd 服务
+```bash
+systemctl --user list-unit-files | grep -i clash
+```
