@@ -171,12 +171,16 @@ cd /home/ubuntu/clash
 http://yacd.haishan.me/#/configs    
 输入你的服务器IP和端口，点击Add   
 
-# 查看clash 后台启动程序
+## clash 后台启动程序
 ```shell
-systemctl --user list-unit-files | grep -i clash
+systemctl --user list-unit-files | grep -i clash # 查看
+ls ~/.config/autostart/ | grep -i clash # 查看盘配置文件
+rm ~/.config/autostart/clash-linux-amd64-v1.18.0.desktop # 删除自动启动配置文件
 ps aux | grep clash
 ps -eo pid,lstart,cmd | grep clash
 ```
+
+
 ## 设置终端代理
 ```bash
 export http_proxy=http://127.0.0.1:7890
@@ -344,6 +348,12 @@ sudo hwclock --localtime --systohc
 ```
 df -h 
 ```
+
+# 按大小排序（找最大目录🔥）
+```bash
+du -h --max-depth=1 | sort -hr
+```
+
 # 列出所有块设备（硬盘、分区等）的树状结构信息，包括大小、类型和挂载点
 ```
 lsblk
@@ -399,8 +409,6 @@ crontab -ri             # 删除前确认
 │ │ └────── 日期 (1-31)
 │ └──────── 小时 (0-23)
 └────────── 分钟 (0-59)
-
-
 
 
 
