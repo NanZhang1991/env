@@ -5,7 +5,7 @@ docker run --gpus all -itd  --name="Deepseek_r1_distill_qwen-14b_int4_awq"\
   --ipc=host \
   vllm/vllm-openai:latest \
   --model /mnt/models/Deepseek_r1_distill_qwen-14b_int4_awq \
-  --model-name Deepseek_r1_distill_qwen-14b_int4_awq \
+  --served-model-name deepseek_r1_14b_aqw \
   --tensor-parallel-size 1 \
   --max-num-seqs 1 \
   --port 8000 \
@@ -23,7 +23,6 @@ docker run --gpus '"device=0"' -itd  --name="Deepseek_r1_distill_qwen-14b_int4_a
   --ipc=host \
   vllm/vllm-openai:latest \
   --model /vllm-workspace/Deepseek_r1_distill_qwen-14b_int4_awq \
-  --model-name Deepseek_r1_distill_qwen-14b_int4_awq \
   --served-model-name deepseek_r1_14b_aqw \
   --port 9000 \
   --tensor-parallel-size 1 \
@@ -39,7 +38,6 @@ docker run --gpus '"device=0,1"' \
   --ipc=host \
   vllm/vllm-openai:latest \
   --model /mnt/models/Deepseek_r1_distill_qwen-14b_int4_awq \
-  --model-name Deepseek_r1_distill_qwen-14b_int4_awq \
   --tensor-parallel-size 2 \
   --gpu-memory-utilization 0.8 \
   --max-model-len 4096
