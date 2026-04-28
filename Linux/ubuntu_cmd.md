@@ -1,39 +1,60 @@
 # ubuntu设置root密码
-```
+```bash
 sudo passwd root
 ```
+
 # 查看Ubuntu版本
-```
+```bash
 cat /etc/issue
 ```
 
 # Linux架构
-```
+```bash
 uname -m
-‵‵‵
+```
 
 # 更新
+
+## 1. 修好源
 ```
-apt-get update
+sudo apt update
+```
+
+## 2. 升级包
+```
+sudo apt upgrade -y
+```
+
+## 3. 清理旧包
+sudo apt autoremove -y
+```
+
+# 安装vin
+```
 apt-get install vim
 ```
+
 **容器内查看Linux版本号**
 ```
 cat /etc/issue
 ```
+
 # 更换/etc/apt/sources.list文件里的源
 ```
 sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list 
 ```
+
 ## 备份源列表
 ## 首先备份源列表
 ```
 sudo mv /etc/apt/sources.list /etc/apt/sources.list_backup
 ```
+
 # 打开sources.list文件
 ```
 vim /etc/apt/sources.list
 ```
+
 **编辑/etc/apt/sources.list文件, 在文件最前面添加阿里云镜像源：**
 ```vim
 #阿里源
@@ -66,6 +87,12 @@ apt install ubuntu-drivers-common
 lspci | grep -i nvidia
 lshw -numeric -C display
 ```
+
+## 查看已安装的驱动包
+```
+dpkg -l | grep -E "nvidia|cuda"
+```
+
 ## 查看版本
 ```
 ubuntu-drivers devices
@@ -78,11 +105,15 @@ sudo ubuntu-drivers autoinstall
 ```
 sudo apt install nvidia-driver-580-open 
 ```
+
+
 ## 卸载
 ```
 sudo apt-get --purge remove nvidia*
 sudo apt-get --purge remove "*nvidia*"
 ```
+
+
  
 ## CUDA 
 ### 安装
@@ -125,12 +156,18 @@ sudo apt-get install build-essential
 apt-get install git
 ```
 # 卸载
+## 仅卸载软件
 ```
-#仅卸载软件
 sudo apt-get remove <package name>
-#卸载软件并删除配置
+```
+
+##  卸载软件并删除配置
+```
 sudo apt-get purge  package_name
-#卸载相关的依赖（慎用，可能导致系统崩溃）
+```
+
+## 卸载相关的依赖（慎用，可能导致系统崩溃）
+```
 sudo apt-get autoremove <package name>
 ```
 
@@ -187,6 +224,12 @@ export http_proxy=http://127.0.0.1:7890
 export https_proxy=http://127.0.0.1:7890
 curl www.google.com
 ```
+
+## 保留当前用户的环境变量 更新
+```
+sudo -E apt-get update
+```
+
 ## 检查代理
 ```bash
 echo $http_proxy 
