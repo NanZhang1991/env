@@ -347,3 +347,23 @@ docker network connect llm-net <CONTAINER_NAME>
 ### 把另一个容器也加入
 docker network connect llm-net <ANOTHER CONTAINER_NAME>
 
+### 检查
+docker inspect <ANOTHER CONTAINER_NAME> | grep -A 20 '"Networks"'
+
+
+# Docker 代理
+## 创建 Docker 代理配置目录
+```bash
+mkdir -p /etc/systemd/system/docker.service.d
+## 写入代理配置
+cat > /etc/systemd/system/docker.service.d/proxy.conf << EOF
+[Service]
+Environment="HTTP_PROXY=http://127.0.0.1:7890"
+Environment="HTTPS_PROXY=http://127.0.0.1:7890"
+Environment="NO_PROXY=localhost,127.0.0.1"
+EOF
+
+## 重启 Docker
+systemctl daemon-reload
+systemctl restart docker
+```
