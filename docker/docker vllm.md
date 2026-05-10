@@ -48,6 +48,18 @@ docker run --gpus '"device=0,1"' \
 ```
 
 
+curl http://Deepseek_r1_distill_qwen-14b_int4_awq:9000/v1/models
+
+
+curl Deepseek_r1_distill_qwen-14b_int4_awq:9000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "deepseek_r1_14b_awq",
+    "messages": [
+      {"role": "user", "content": "你好，介绍一下你自己"}
+    ]
+  }'
+  
 curl http://localhost:9000/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
@@ -56,3 +68,10 @@ curl http://localhost:9000/v1/chat/completions \
       {"role": "user", "content": "你好，介绍一下你自己"}
     ]
   }'
+
+
+HF_ENDPOINT=https://hf-mirror.com \
+huggingface-cli download \
+  --repo-type dataset \
+  harborframework/terminal-bench-2.0 \
+  --local-dir /home/nanzhang/文档/terminal-bench-2.0
