@@ -334,8 +334,16 @@ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock cucker/get_command_
 ### 健康检查日志查询
 docker inspect --format='{{json .State.Health}}' [CONTAINER_ID or CONTAINER_NAME]
 
-
+### 检查容器启动时的命令
 docker inspect --format='{{.Path}} {{.Args}}' <CONTAINER_ID or CONTAINER_NAME>
 
+## 同一台宿主机上容器间网络访问
+### 宿主机上执行
+docker network create llm-net
 
+### 把 vLLM 容器加入网络
+docker network connect llm-net <CONTAINER_NAME>
+
+### 把另一个容器也加入
+docker network connect llm-net <ANOTHER CONTAINER_NAME>
 

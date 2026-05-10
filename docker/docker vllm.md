@@ -5,11 +5,11 @@ docker run --gpus all -itd  --name="Deepseek_r1_distill_qwen-14b_int4_awq"\
   --ipc=host \
   vllm/vllm-openai:latest \
   -model /vllm-workspace/Deepseek_r1_distill_qwen-14b_int4_awq \
-  --served-model-name deepseek_r1_14b_aqw \
+  --served-model-name deepseek_r1_14b_awq \
   --tensor-parallel-size 1 \
   --max-num-seqs 1 \
   --port 8000 \
-  --gpu-memory-utilization 0.9 \
+  --gpu-memory-utilization 0.85 \
   --quantization awq \
   --enforce-eager \
   --max-model-len 1024
@@ -24,10 +24,10 @@ docker run --gpus '"device=0"' -itd  --name="Deepseek_r1_distill_qwen-14b_int4_a
   --ipc=host \
   vllm/vllm-openai:latest \
   --model /vllm-workspace/Deepseek_r1_distill_qwen-14b_int4_awq \
-  --served-model-name deepseek_r1_14b_aqw \
+  --served-model-name deepseek_r1_14b_awq \
   --port 9000 \
   --tensor-parallel-size 1 \
-  --gpu-memory-utilization 0.9 \
+  --gpu-memory-utilization 0.85 \
   --max-model-len 1024
 ```
 
@@ -41,8 +41,18 @@ docker run --gpus '"device=0,1"' \
   --ipc=host \
   vllm/vllm-openai:latest \
   -model /vllm-workspace/Deepseek_r1_distill_qwen-14b_int4_awq \
+  --served-model-name deepseek_r1_14b_awq \
   --tensor-parallel-size 2 \
   --gpu-memory-utilization 0.9 \
   --max-model-len 4096
 ```
 
+
+curl http://localhost:9000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "deepseek_r1_14b_awq",
+    "messages": [
+      {"role": "user", "content": "你好，介绍一下你自己"}
+    ]
+  }'
