@@ -299,6 +299,7 @@ vim /etc/docker/daemon.json
 
 #### 重启docker
 ```
+systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
