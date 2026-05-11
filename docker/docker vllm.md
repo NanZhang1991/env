@@ -145,3 +145,30 @@ uv run harbor run \
 find /home/nanzhang/文档/jobs/2026-05-11__02-03-27 -type f | head -20
 cat /home/nanzhang/文档/jobs/2026-05-11__02-03-27/sqlite-db-truncate__YnL9ivB/exception.txt
 ```
+
+
+# 指定GPU
+```bash
+docker rm -f Deepseek_r1_distill_qwen-14b_int4_awq
+
+docker run --gpus '"device=0"' -itd  --name="Deepseek_r1_distill_qwen-14b_int4_awq" \
+  -e CUDA_VISIBLE_DEVICES=0 \
+  --shm-size 32g \
+  -v /home/nanzhang/文档/models/LLM/Deepseek_r1_distill_qwen-14b_int4_awq:/workspace/Deepseek_r1_distill_qwen-14b_int4_awq \
+  -p 30000:30000 \
+  --ipc=host \
+  lmsysorg/sglang:latest \
+  python3 -m sglang.launch_server --model-path /workspace/Deepseek_r1_distill_qwen-14b_int4_awq --host 0.0.0.0 --port 30000 \
+    --quantization awq \
+    --mem-fraction-static 0.85 \
+    --max-total-tokens 10240 \
+    --context-length 4096 \
+    --chunked-prefill-size 256 \
+    --strip-thinking-cache \
+    --reasoning-parser deepseek-r1 \
+    --kv-cache-dtype bf16
+    --tensor-parallel-size 1
+
+docker network connect llm-net Deepseek_r1_distill_qwen-14b_int4_awq
+docker logs -f Deepseek_r1_distill_qwen-14b_int4_awq
+```

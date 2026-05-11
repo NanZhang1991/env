@@ -17,6 +17,7 @@ watch -n 0.1 nvidia-smi
 ```
 watch -n 0.5 nvidia-smi -q -d TEMPERATURE
 watch -n 0.5 nvidia-smi -q -i 0,1 -d TEMPERATURE
+watch -n 0.5 nvidia-smi -q -d MEMORY,TEMPERATURE
 ```
 ### HW Slowdown 被激活，可能需要改进机器的冷却
 ```
