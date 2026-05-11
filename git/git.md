@@ -4,12 +4,12 @@
 ```bash
 git config user.name zhangnan
 git config user.email zhangnan@sunnetech.cn
-git config user.password abcd
 
 git config --global user.name nanzhang1991
 git config --global user.email nanzhang1991@gmail.com
 git config --global user.password abcd
 ```
+
 
 ## 问题
 SL certificate problem: unable to get local issuer certificate
@@ -30,16 +30,14 @@ git config --global user.email
 git config --unset user.name
 git config --unset user.email
 git config --unset credential.helper
-git config --unset user.password
 
 git config --global --unset user.name
 git config --global --unset user.email
-git config --global --unset user.password
 git config --global --unset credential.helper
 ```
 
 ## 本地生成一个文本，上边记录你的账号和密码
-```
+```bash
 git config --global credential.helper store
 ```
 
@@ -52,6 +50,7 @@ ssh-keygen -t ed25519 -C "nanzhang1991@gmail.com"
 ```bash
 eval "$(ssh-agent -s)"
 ```
+
 vim ~/.ssh/config 添加如下:
 ```vim
 Host *
@@ -60,17 +59,21 @@ Host *
   #UseKeychain yes
   IdentityFile ~/.ssh/id_ed25519
 ```
+
 添加秘钥
 ```bash
 chmod 400 ~/.ssh/id_ed25519
 ssh-add ~/.ssh/id_ed25519
 ```
+
 打开公钥文件复制内容
-bash```
+```bash
 vim ~/.ssh/id_ed25519.pub
 ```
+
 在git web setting 中添加ssh 公钥
 打开 Terminal（终端）
+
 ```bash
 ssh -T git@github.com
 # Attempts to ssh to GitHub
