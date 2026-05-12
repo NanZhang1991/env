@@ -1,10 +1,10 @@
 ```bash
-docker run --gpus all -itd  --name="Deepseek_r1_distill_qwen-14b_int4_awq"\
-  -v /home/nanzhang/文档/models/LLM/Deepseek_r1_distill_qwen-14b_int4_awq:/mnt/models/Deepseek_r1_distill_qwen-14b_int4_awq \
+docker run --gpus all -itd  --name="Qwen3-14B-AWQ"\
+  -v /home/nanzhang/文档/models/LLM/Qwen3-14B-AWQ:/mnt/models/Qwen3-14B-AWQ \
   -p 9000:8000 \
   --ipc=host \
   vllm/vllm-openai:latest \
-  -model /vllm-workspace/Deepseek_r1_distill_qwen-14b_int4_awq \
+  -model /vllm-workspace/Qwen3-14B-AWQ \
   --served-model-name deepseek_r1_14b_awq \
   --tensor-parallel-size 1 \
   --max-num-seqs 1 \
@@ -17,35 +17,37 @@ docker run --gpus all -itd  --name="Deepseek_r1_distill_qwen-14b_int4_awq"\
 
 # 指定GPU
 ```bash
-docker rm -f Deepseek_r1_distill_qwen-14b_int4_awq
+docker rm -f Qwen3-14B-AWQ
 
-docker run --gpus '"device=0"' -itd  --name="Deepseek_r1_distill_qwen-14b_int4_awq" \
+docker run --gpus '"device=0"' -itd  --name="Qwen3-14B-AWQ" \
   -e CUDA_VISIBLE_DEVICES=0 \
-  -v /home/nanzhang/文档/models/LLM/Deepseek_r1_distill_qwen-14b_int4_awq:/vllm-workspace/Deepseek_r1_distill_qwen-14b_int4_awq \
+  -e TZ=Asia/Shanghai \
+  -v /home/nanzhang/文档/models/LLM/Qwen3-14B-AWQ:/vllm-workspace/Qwen3-14B-AWQ \
   -p 9000:9000 \
   --ipc=host \
   vllm/vllm-openai:latest \
-  --model /vllm-workspace/Deepseek_r1_distill_qwen-14b_int4_awq \
-  --served-model-name deepseek_r1_14b_awq \
+  --model /vllm-workspace/Qwen3-14B-AWQ \
+  --served-model-name Qwen3-14B-AWQ \
   --port 9000 \
   --tensor-parallel-size 1 \
   --gpu-memory-utilization 0.85 \
-  --max-model-len 8192
+  --max-model-len 10240 \
+  --max-num-seqs 1
 
-docker network connect llm-net Deepseek_r1_distill_qwen-14b_int4_awq
-docker logs -f Deepseek_r1_distill_qwen-14b_int4_awq
+docker network connect llm-net Qwen3-14B-AWQ
+docker logs -f Qwen3-14B-AWQ
 ```
 
 
 # 指定多GPU 使用容器内默认的8000端口
 ```bash
-docker run --gpus '"device=0,1"' -itd  --name="Deepseek_r1_distill_qwen-14b_int4_awq" \
+docker run --gpus '"device=0,1"' -itd  --name="Qwen3-14B-AWQ" \
   -e CUDA_VISIBLE_DEVICES=0,1 \
-  -v /home/nanzhang/文档/models/LLM/Deepseek_r1_distill_qwen-14b_int4_awq:/mnt/models/Deepseek_r1_distill_qwen-14b_int4_awq \
+  -v /home/nanzhang/文档/models/LLM/Qwen3-14B-AWQ:/mnt/models/Qwen3-14B-AWQ \
   -p 9000:8000 \
   --ipc=host \
   vllm/vllm-openai:latest \
-  -model /vllm-workspace/Deepseek_r1_distill_qwen-14b_int4_awq \
+  -model /vllm-workspace/Qwen3-14B-AWQ \
   --served-model-name deepseek_r1_14b_awq \
   --tensor-parallel-size 2 \
   --gpu-memory-utilization 0.9 \
@@ -54,10 +56,10 @@ docker run --gpus '"device=0,1"' -itd  --name="Deepseek_r1_distill_qwen-14b_int4
 
 
 
-curl http://Deepseek_r1_distill_qwen-14b_int4_awq:9000/v1/models
+curl http://Qwen3-14B-AWQ:9000/v1/models
 
 
-curl Deepseek_r1_distill_qwen-14b_int4_awq:9000/v1/chat/completions \
+curl Qwen3-14B-AWQ:9000/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
     "model": "deepseek_r1_14b_awq",
@@ -149,26 +151,39 @@ cat /home/nanzhang/文档/jobs/2026-05-11__02-03-27/sqlite-db-truncate__YnL9ivB/
 
 # 指定GPU
 ```bash
-docker rm -f Deepseek_r1_distill_qwen-14b_int4_awq
+docker rm -f Qwen3-14B-AWQ
 
-docker run --gpus '"device=0"' -itd  --name="Deepseek_r1_distill_qwen-14b_int4_awq" \
+docker run --gpus '"device=0"' -itd  --name="Qwen3-14B-AWQ" \
   -e CUDA_VISIBLE_DEVICES=0 \
+  -e TZ=Asia/Shanghai \
   --shm-size 32g \
-  -v /home/nanzhang/文档/models/LLM/Deepseek_r1_distill_qwen-14b_int4_awq:/workspace/Deepseek_r1_distill_qwen-14b_int4_awq \
+  -v /home/nanzhang/文档/models/LLM/Qwen3-14B-AWQ:/workspace/Qwen3-14B-AWQ \
   -p 30000:30000 \
   --ipc=host \
   lmsysorg/sglang:latest \
-  python3 -m sglang.launch_server --model-path /workspace/Deepseek_r1_distill_qwen-14b_int4_awq --host 0.0.0.0 --port 30000 \
-    --quantization awq \
+  python3 -m sglang.launch_server --model-path /workspace/Qwen3-14B-AWQ --host 0.0.0.0 --port 30000 \
     --mem-fraction-static 0.85 \
     --max-total-tokens 10240 \
-    --context-length 4096 \
-    --chunked-prefill-size 256 \
-    --strip-thinking-cache \
-    --reasoning-parser deepseek-r1 \
-    --kv-cache-dtype bf16
+    --context-length 12048 \
+    --chunked-prefill-size 32 \
+    --disable-radix-cache \
     --tensor-parallel-size 1
 
-docker network connect llm-net Deepseek_r1_distill_qwen-14b_int4_awq
-docker logs -f Deepseek_r1_distill_qwen-14b_int4_awq
+docker network connect llm-net Qwen3-14B-AWQ
+
+docker logs -f Qwen3-14B-AWQ
 ```
+
+
+
+```bash
+curl http://localhost:30000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "Qwen3-14B-AWQ",
+    "messages": [
+      {"role": "user", "content": "你好，介绍一下你自己"}
+    ]
+  }'
+```
+
