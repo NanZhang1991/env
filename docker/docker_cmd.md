@@ -308,9 +308,14 @@ sudo systemctl restart docker
 sudo docker run --rm --runtime=nvidia --gpus all ubuntu nvidia-smi
 ```
 
-## 查看磁盘大小
+## 查看镜像大小
 ```
 docker system df
+```
+
+## 查看容器大小
+```bash
+docker ps -as
 ```
 
 ## Docker 清理
@@ -368,3 +373,4 @@ EOF
 systemctl daemon-reload
 systemctl restart docker
 ```
+
