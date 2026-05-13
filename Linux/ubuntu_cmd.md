@@ -454,7 +454,12 @@ crontab -ri             # 删除前确认
 └────────── 分钟 (0-59)
 
 
-
+# 更改文件权限为当前用户
+```bash
+ls -ld . # --> root root
+whoami # --> nanzhang
+sudo chown -R nanzhang:nanzhang 你的项目目录
+```
 
 
 
