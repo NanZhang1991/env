@@ -168,12 +168,12 @@ export https_proxy=http://127.0.0.1:7890
 export OPENAI_API_KEY=not-needed
 # claude-code  terminus-2
 # alexgshaw/sqlite-db-truncate:20251031
-uv run harbor run \
+harbor run \
 --path /home/nanzhang/文档/datasets/terminal-bench-2.0 \
 --agent terminus-2 \
---model Qwen3-14B-AWQ \
+--model openai/n3-14B-AWQ \
 --n-concurrent 1 \
---include-task-name sqlite-db-truncate \
+--include-task-name adaptive-rejection-sampler \
 --jobs-dir /home/nanzhang/文档/jobs \
 --agent-timeout-multiplier 300 \
 --agent-kwarg api_base=http://localhost:30000/v1 \
