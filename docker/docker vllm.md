@@ -175,7 +175,7 @@ harbor run \
 --n-concurrent 1 \
 --include-task-name adaptive-rejection-sampler \
 --jobs-dir /home/nanzhang/文档/jobs \
---agent-timeout-multiplier 300 \
+--agent-timeout-multiplier 1800 \
 --agent-kwarg api_base=http://localhost:30000/v1 \
 --agent-kwarg temperature=0 \
 --agent-kwarg max_turns=30 \
