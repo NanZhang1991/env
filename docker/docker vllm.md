@@ -85,6 +85,43 @@ hf download \
   --local-dir /home/nanzhang/文档/terminal-bench-2.0 -->
 
 
+# sglang
+```bash
+docker rm -f Qwen3-14B-AWQ
+
+docker run --gpus '"device=0"' -itd  --name="Qwen3-14B-AWQ" \
+  -e CUDA_VISIBLE_DEVICES=0 \
+  -e TZ=Asia/Shanghai \
+  --shm-size 32g \
+  -v /home/nanzhang/文档/models/LLM/Qwen3-14B-AWQ:/workspace/Qwen3-14B-AWQ \
+  -p 30000:30000 \
+  --ipc=host \
+  lmsysorg/sglang:latest \
+  python3 -m sglang.launch_server --model-path /workspace/Qwen3-14B-AWQ --host 0.0.0.0 --port 30000 \
+    --mem-fraction-static 0.85 \
+    --max-total-tokens 112288 \
+    --context-length 12048 \
+    --chunked-prefill-size 2048 \
+    --disable-radix-cache \
+    --tensor-parallel-size 1
+
+docker network connect llm-net Qwen3-14B-AWQ
+
+docker logs -f Qwen3-14B-AWQ
+```
+
+# 测试大模型服务接口
+```bash
+curl http://localhost:30000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "Qwen3-14B-AWQ",
+    "messages": [
+      {"role": "user", "content": "你好，介绍一下你自己"}
+    ]
+  }'
+```
+
 # habor 测试
 ## 数据集下载
 ```bash
@@ -92,14 +129,14 @@ sudo apt install git-lfs
 git lfs install
 
 git clone https://huggingface.co/datasets/harborframework/terminal-bench-2.0 \
-  /data/datasets/terminal-bench-2.0
+  /home/nanzhang/文档/datasets/terminal-bench-2.0
 
 # 或走镜像
 git clone https://hf-mirror.com/datasets/harborframework/terminal-bench-2.0 \
-  /data/datasets/terminal-bench-2.0
+  /home/nanzhang/文档/datasets/terminal-bench-2.0
 
 git clone https://github.com/harbor-framework/terminal-bench-2 \
-  /home/nanzhang/文档/terminal-bench-2.0
+  /home/nanzhang/文档/datasets/terminal-bench-2.0
 ```
 
 ## 安装
@@ -118,28 +155,31 @@ source ~/.bashrc
 harbor --version
 ```
 
-# 设置代理
+## 设置代理
 ```bash
 export http_proxy=http://127.0.0.1:7890
 export https_proxy=http://127.0.0.1:7890
 ```
 
+## 测试
 ```bash
 # OPENAI_API_BASE=http://localhost:9000/v1 \
 # LiteLLM / OpenAI SDK 强制要求 api_key
 export OPENAI_API_KEY=not-needed
-
+# claude-code  terminus-2
+# alexgshaw/sqlite-db-truncate:20251031
 uv run harbor run \
 --path /home/nanzhang/文档/datasets/terminal-bench-2.0 \
 --agent terminus-2 \
---model openai/deepseek_r1_14b_awq \
+--model Qwen3-14B-AWQ \
 --n-concurrent 1 \
 --include-task-name sqlite-db-truncate \
 --jobs-dir /home/nanzhang/文档/jobs \
---agent-kwarg api_base=http://localhost:9000/v1 \
+--agent-timeout-multiplier 300 \
+--agent-kwarg api_base=http://localhost:30000/v1 \
 --agent-kwarg temperature=0 \
 --agent-kwarg max_turns=30 \
---agent-kwarg max_tokens=512
+--agent-kwarg max_tokens=8192
 ```
 
 ## 查看异常
@@ -147,43 +187,3 @@ uv run harbor run \
 find /home/nanzhang/文档/jobs/2026-05-11__02-03-27 -type f | head -20
 cat /home/nanzhang/文档/jobs/2026-05-11__02-03-27/sqlite-db-truncate__YnL9ivB/exception.txt
 ```
-
-
-# 指定GPU
-```bash
-docker rm -f Qwen3-14B-AWQ
-
-docker run --gpus '"device=0"' -itd  --name="Qwen3-14B-AWQ" \
-  -e CUDA_VISIBLE_DEVICES=0 \
-  -e TZ=Asia/Shanghai \
-  --shm-size 32g \
-  -v /home/nanzhang/文档/models/LLM/Qwen3-14B-AWQ:/workspace/Qwen3-14B-AWQ \
-  -p 30000:30000 \
-  --ipc=host \
-  lmsysorg/sglang:latest \
-  python3 -m sglang.launch_server --model-path /workspace/Qwen3-14B-AWQ --host 0.0.0.0 --port 30000 \
-    --mem-fraction-static 0.85 \
-    --max-total-tokens 10240 \
-    --context-length 12048 \
-    --chunked-prefill-size 32 \
-    --disable-radix-cache \
-    --tensor-parallel-size 1
-
-docker network connect llm-net Qwen3-14B-AWQ
-
-docker logs -f Qwen3-14B-AWQ
-```
-
-
-
-```bash
-curl http://localhost:30000/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "Qwen3-14B-AWQ",
-    "messages": [
-      {"role": "user", "content": "你好，介绍一下你自己"}
-    ]
-  }'
-```
-
