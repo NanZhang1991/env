@@ -5,7 +5,13 @@ sudo passwd root
 
 # 查看Ubuntu版本
 ```bash
+cat /etc/os-release | grep "NAME"
+cat /proc/version
 cat /etc/issue
+```
+# 主板厂商 常嫔型号 序列号
+```bash
+dmidecode -t system | grep -E "Manufacturer|Product Name|Serial Number" 
 ```
 
 # Linux架构
