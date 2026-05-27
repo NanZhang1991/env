@@ -200,11 +200,11 @@ harbor run \
 --model openai/$model_name \
 --n-concurrent 1 \
 --include-task-name $task_name \
---jobs-dir /home/nanzhang/文档/models/eval/$model_name/terminal-bench-2.0/$$task_name \
+--jobs-dir /home/nanzhang/文档/models/eval/$model_name/terminal_bench_2.0/${$task_name} \
 --agent-timeout-multiplier 1800 \
 --agent-kwarg api_base=http://localhost:30000/v1 \
 --agent-kwarg temperature=0 \
---agent-kwarg max_turns=15 \
+--agent-kwarg max_turns=30 \
 --agent-kwarg max_tokens=16384 \
 --agent-kwarg response_format={"type":"json_object"}
 ```
