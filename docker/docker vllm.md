@@ -1,4 +1,10 @@
+# 大模型部署
+
+## vllm
+### 使用所有gpu
 ```bash
+export model_name=Qwen3-14B-AWQ
+
 docker run --gpus all -itd  --name="$model_name"\
   -v /home/nanzhang/文档/models/LLM/$model_name:/mnt/models/$model_name \
   -p 9000:8000 \
@@ -15,7 +21,7 @@ docker run --gpus all -itd  --name="$model_name"\
   --max-model-len 1024
 ```
 
-# 指定GPU
+### 指定GPU
 ```bash
 docker rm -f $model_name
 
@@ -39,7 +45,7 @@ docker logs -f $model_name
 ```
 
 
-# 指定多GPU 使用容器内默认的8000端口
+### 指定多GPU 使用容器内默认的8000端口
 ```bash
 docker run --gpus '"device=0,1"' -itd  --name="$model_name" \
   -e CUDA_VISIBLE_DEVICES=0,1 \
@@ -54,7 +60,7 @@ docker run --gpus '"device=0,1"' -itd  --name="$model_name" \
   --max-model-len 4096
 ```
 
-# 测试
+### 测试
 ```bash
 curl http://$model_name:9000/v1/models
 
@@ -80,10 +86,10 @@ curl http://localhost:9000/v1/chat/completions \
 
 
 
-# sglang
+## sglang
 ```bash
-# export model_name=Qwen3-14B-AWQ
-export model_name=gpt-oss-20b
+export model_name=Qwen3-14B-AWQ
+# export model_name=gpt-oss-20b
 
 docker rm -f $model_name
 
@@ -101,9 +107,9 @@ docker run --gpus '"device=0"' -itd  --name="$model_name" \
     --context-length 12048 \
     --chunked-prefill-size 2048 \
     --tensor-parallel-size 1 \
-    --reasoning-parser gpt-oss \
+    --reasoning-parser qwen3-thinking \
     --strip-thinking-cache \
-    --tool-call-parser gpt-oss
+    --tool-call-parser qwen3_coder
 
 # [--reasoning-parser {deepseek-r1,deepseek-v3,glm45,hunyuan,gpt-oss,kimi,kimi_k2,mimo,qwen3,qwen3-thinking,minimax,minimax-append-think,step3,step3p5,mistral,nemotron_3,interns1,gemma4}]
 #                     [--strip-thinking-cache]
@@ -187,14 +193,14 @@ cd ${terminal_bench_2_path}/$task_name/environment
 # docker build -t alexgshaw/$task_name:20251031 .
 docker pull alexgshaw/$task_name:20251031
 
-export model_name=gpt-oss-20b
+export model_name=Qwen3-14B-AWQ
 harbor run \
 --path ${terminal_bench_2_path} \
 --agent terminus-2 \
 --model openai/$model_name \
 --n-concurrent 1 \
 --include-task-name $task_name \
---jobs-dir /home/nanzhang/文档/models/eval/terminal-bench-2.0/$task_name \
+--jobs-dir /home/nanzhang/文档/models/eval/$model_name/terminal-bench-2.0/$$task_name \
 --agent-timeout-multiplier 1800 \
 --agent-kwarg api_base=http://localhost:30000/v1 \
 --agent-kwarg temperature=0 \
