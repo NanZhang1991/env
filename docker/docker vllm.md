@@ -100,7 +100,6 @@ docker run --gpus '"device=0"' -itd  --name="$model_name" \
     --max-total-tokens 112288 \
     --context-length 12048 \
     --chunked-prefill-size 2048 \
-    --disable-radix-cache \
     --tensor-parallel-size 1 \
     --reasoning-parser gpt-oss \
     --strip-thinking-cache \
