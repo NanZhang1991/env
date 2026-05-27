@@ -204,7 +204,7 @@ harbor run \
 --agent-timeout-multiplier 1800 \
 --agent-kwarg api_base=http://localhost:30000/v1 \
 --agent-kwarg temperature=0 \
---agent-kwarg max_turns=6 \
+--agent-kwarg max_turns=35 \
 --agent-kwarg max_tokens=16384 \
 --agent-kwarg response_format={"type":"json_object"}
 ```
