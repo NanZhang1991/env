@@ -78,12 +78,6 @@ curl http://localhost:9000/v1/chat/completions \
   }'
 ```
 
-# 下载的不完整
-<!-- HF_ENDPOINT=https://hf-mirror.com \
-hf download \
-  --repo-type dataset \
-  harborframework/terminal-bench-2.0 \
-  --local-dir /home/nanzhang/文档/terminal-bench-2.0 -->
 
 
 # sglang
@@ -137,6 +131,14 @@ curl http://localhost:30000/v1/chat/completions \
 
 # habor 测试
 ## 数据集下载
+### hf download 下载的不完整
+<!-- HF_ENDPOINT=https://hf-mirror.com \
+hf download \
+  --repo-type dataset \
+  harborframework/terminal-bench-2.0 \
+  --local-dir /home/nanzhang/文档/terminal-bench-2.0 -->
+
+### git-lfs
 ```bash
 sudo apt install git-lfs
 git lfs install
