@@ -1,10 +1,10 @@
 ```bash
-docker run --gpus all -itd  --name="Qwen3-14B-AWQ"\
-  -v /home/nanzhang/文档/models/LLM/Qwen3-14B-AWQ:/mnt/models/Qwen3-14B-AWQ \
+docker run --gpus all -itd  --name="$model_name"\
+  -v /home/nanzhang/文档/models/LLM/$model_name:/mnt/models/$model_name \
   -p 9000:8000 \
   --ipc=host \
   vllm/vllm-openai:latest \
-  -model /vllm-workspace/Qwen3-14B-AWQ \
+  -model /vllm-workspace/$model_name \
   --served-model-name deepseek_r1_14b_awq \
   --tensor-parallel-size 1 \
   --max-num-seqs 1 \
@@ -17,37 +17,37 @@ docker run --gpus all -itd  --name="Qwen3-14B-AWQ"\
 
 # 指定GPU
 ```bash
-docker rm -f Qwen3-14B-AWQ
+docker rm -f $model_name
 
-docker run --gpus '"device=0"' -itd  --name="Qwen3-14B-AWQ" \
+docker run --gpus '"device=0"' -itd  --name="$model_name" \
   -e CUDA_VISIBLE_DEVICES=0 \
   -e TZ=Asia/Shanghai \
-  -v /home/nanzhang/文档/models/LLM/Qwen3-14B-AWQ:/vllm-workspace/Qwen3-14B-AWQ \
+  -v /home/nanzhang/文档/models/LLM/$model_name:/vllm-workspace/$model_name \
   -p 9000:9000 \
   --ipc=host \
   vllm/vllm-openai:latest \
-  --model /vllm-workspace/Qwen3-14B-AWQ \
-  --served-model-name Qwen3-14B-AWQ \
+  --model /vllm-workspace/$model_name \
+  --served-model-name $model_name \
   --port 9000 \
   --tensor-parallel-size 1 \
   --gpu-memory-utilization 0.85 \
   --max-model-len 10240 \
   --max-num-seqs 1
 
-docker network connect llm-net Qwen3-14B-AWQ
-docker logs -f Qwen3-14B-AWQ
+docker network connect llm-net $model_name
+docker logs -f $model_name
 ```
 
 
 # 指定多GPU 使用容器内默认的8000端口
 ```bash
-docker run --gpus '"device=0,1"' -itd  --name="Qwen3-14B-AWQ" \
+docker run --gpus '"device=0,1"' -itd  --name="$model_name" \
   -e CUDA_VISIBLE_DEVICES=0,1 \
-  -v /home/nanzhang/文档/models/LLM/Qwen3-14B-AWQ:/mnt/models/Qwen3-14B-AWQ \
+  -v /home/nanzhang/文档/models/LLM/$model_name:/mnt/models/$model_name \
   -p 9000:8000 \
   --ipc=host \
   vllm/vllm-openai:latest \
-  -model /vllm-workspace/Qwen3-14B-AWQ \
+  -model /vllm-workspace/$model_name \
   --served-model-name deepseek_r1_14b_awq \
   --tensor-parallel-size 2 \
   --gpu-memory-utilization 0.9 \
@@ -56,10 +56,10 @@ docker run --gpus '"device=0,1"' -itd  --name="Qwen3-14B-AWQ" \
 
 
 
-curl http://Qwen3-14B-AWQ:9000/v1/models
+curl http://$model_name:9000/v1/models
 
 
-curl Qwen3-14B-AWQ:9000/v1/chat/completions \
+curl $model_name:9000/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
     "model": "deepseek_r1_14b_awq",
@@ -87,17 +87,19 @@ hf download \
 
 # sglang
 ```bash
-docker rm -f Qwen3-14B-AWQ
+export model_name=Qwen3-14B-AWQ
 
-docker run --gpus '"device=0"' -itd  --name="Qwen3-14B-AWQ" \
+docker rm -f $model_name
+
+docker run --gpus '"device=0"' -itd  --name="$model_name" \
   -e CUDA_VISIBLE_DEVICES=0 \
   -e TZ=Asia/Shanghai \
   --shm-size 32g \
-  -v /home/nanzhang/文档/models/LLM/Qwen3-14B-AWQ:/workspace/Qwen3-14B-AWQ \
+  -v /home/nanzhang/文档/models/LLM/$model_name:/workspace/$model_name \
   -p 30000:30000 \
   --ipc=host \
   lmsysorg/sglang:latest \
-  python3 -m sglang.launch_server --model-path /workspace/Qwen3-14B-AWQ --host 0.0.0.0 --port 30000 \
+  python3 -m sglang.launch_server --model-path /workspace/$model_name --host 0.0.0.0 --port 30000 \
     --mem-fraction-static 0.85 \
     --max-total-tokens 112288 \
     --context-length 12048 \
@@ -105,17 +107,18 @@ docker run --gpus '"device=0"' -itd  --name="Qwen3-14B-AWQ" \
     --disable-radix-cache \
     --tensor-parallel-size 1
 
-docker network connect llm-net Qwen3-14B-AWQ
+docker network connect llm-net $model_name
 
-docker logs -f Qwen3-14B-AWQ
+docker logs -f $model_name
 ```
 
 # 测试大模型服务接口
 ```bash
+curl http://localhost:30000/v1/models
 curl http://localhost:30000/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "Qwen3-14B-AWQ",
+    "model": "${model_name}",
     "messages": [
       {"role": "user", "content": "你好，介绍一下你自己"}
     ]
@@ -187,3 +190,4 @@ harbor run \
 find /home/nanzhang/文档/jobs/2026-05-11__02-03-27 -type f | head -20
 cat /home/nanzhang/文档/jobs/2026-05-11__02-03-27/sqlite-db-truncate__YnL9ivB/exception.txt
 ```
+
