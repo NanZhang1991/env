@@ -54,8 +54,8 @@ docker run --gpus '"device=0,1"' -itd  --name="$model_name" \
   --max-model-len 4096
 ```
 
-
-
+# 测试
+```bash
 curl http://$model_name:9000/v1/models
 
 
@@ -76,6 +76,7 @@ curl http://localhost:9000/v1/chat/completions \
       {"role": "user", "content": "你好，介绍一下你自己"}
     ]
   }'
+```
 
 # 下载的不完整
 <!-- HF_ENDPOINT=https://hf-mirror.com \
@@ -87,7 +88,8 @@ hf download \
 
 # sglang
 ```bash
-export model_name=Qwen3-14B-AWQ
+# export model_name=Qwen3-14B-AWQ
+export model_name=gpt-oss-20b
 
 docker rm -f $model_name
 
@@ -105,7 +107,15 @@ docker run --gpus '"device=0"' -itd  --name="$model_name" \
     --context-length 12048 \
     --chunked-prefill-size 2048 \
     --disable-radix-cache \
-    --tensor-parallel-size 1
+    --tensor-parallel-size 1 \
+    --reasoning-parser gpt-oss \
+    --strip-thinking-cache \
+    --tool-call-parser gpt-oss
+
+# [--reasoning-parser {deepseek-r1,deepseek-v3,glm45,hunyuan,gpt-oss,kimi,kimi_k2,mimo,qwen3,qwen3-thinking,minimax,minimax-append-think,step3,step3p5,mistral,nemotron_3,interns1,gemma4}]
+#                     [--strip-thinking-cache]
+#                     [--tool-call-parser {deepseekv3,deepseekv31,deepseekv32,glm,glm45,glm47,gpt-oss,kimi_k2,lfm2,llama3,mimo,mistral,pythonic,qwen,qwen25,qwen3_coder,step3,step3p5,minimax-m2,trinity,interns1,hermes,hunyuan,gigachat3,gemma4}]
+#                     [--tool-server TOOL_SERVER] [--sampling-defaults {openai,model}]
 
 docker network connect llm-net $model_name
 
@@ -166,18 +176,24 @@ export https_proxy=http://127.0.0.1:7890
 
 ## 测试
 ```bash
-# OPENAI_API_BASE=http://localhost:9000/v1 \
 # LiteLLM / OpenAI SDK 强制要求 api_key
 export OPENAI_API_KEY=not-needed
 # claude-code  terminus-2
-# alexgshaw/sqlite-db-truncate:20251031
+export task_name=cobol-modernization
+export terminal_bench_2_path=/home/nanzhang/文档/datasets/terminal-bench-2.0
+# 构建任务镜像
+cd ${terminal_bench_2_path}/$task_name/environment
+# docker build -t alexgshaw/$task_name:20251031 .
+docker pull alexgshaw/$task_name:20251031
+
+export model_name=gpt-oss-20b
 harbor run \
---path /home/nanzhang/文档/datasets/terminal-bench-2.0 \
+--path ${terminal_bench_2_path} \
 --agent terminus-2 \
---model openai/n3-14B-AWQ \
+--model openai/$model_name \
 --n-concurrent 1 \
---include-task-name adaptive-rejection-sampler \
---jobs-dir /home/nanzhang/文档/jobs \
+--include-task-name $task_name \
+--jobs-dir /home/nanzhang/文档/models/eval/terminal-bench-2.0/$task_name \
 --agent-timeout-multiplier 1800 \
 --agent-kwarg api_base=http://localhost:30000/v1 \
 --agent-kwarg temperature=0 \

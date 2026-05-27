@@ -14,14 +14,20 @@ watch -n 0.1 nvidia-smi
 
 ## gpu 温度监控
 ### 实时监控
-```
+```bash
 watch -n 0.5 nvidia-smi -q -d TEMPERATURE
-watch -n 0.5 nvidia-smi -q -i 0,1 -d TEMPERATURE
-watch -n 0.5 nvidia-smi -q -d MEMORY,TEMPERATURE
+watch -n 0.5 nvidia-smi -q -i 0,1 -d MEMORY,TEMPERATURE 
+watch -n 0.5 nvidia-smi -q -d MEMORY,TEMPERATURE，PERFORMANCE
 ```
+参数解析
+watch -n 0.5：每隔 0.5 秒自动刷新一次命令结果
+-q：查询（Query）模式，输出详细的 GPU 状态信息。
+-d TEMPERATURE：显示（Display）过滤，只输出与温度相关的数据 MEMORY-->显存 PERFORMANCE-->性能状态
+-i 0,1：索引（Index）指定，限制只查询第 0 块和第 1 块 GPU。
+
 ### HW Slowdown 被激活，可能需要改进机器的冷却
 ```
-nvidia-smi -q -d TEMPERATURE,PERFORMANCE
+
 ```
 
 # 查看cuda 版本
