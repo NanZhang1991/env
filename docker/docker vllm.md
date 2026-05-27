@@ -198,7 +198,7 @@ harbor run \
 --agent-timeout-multiplier 1800 \
 --agent-kwarg api_base=http://localhost:30000/v1 \
 --agent-kwarg temperature=0 \
---agent-kwarg max_turns=30 \
+--agent-kwarg max_turns=15 \
 --agent-kwarg max_tokens=8192
 ```
 
