@@ -42,7 +42,7 @@ RUN conda --version \
 RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main \
 && conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 
-RUN conda install -y nb_conda -c conda-forge
+RUN conda install -y nb_conda_kernels -c conda-forge
 
 RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple \
 && pip config set install.trusted-host pypi.tuna.tsinghua.edu.cn \
