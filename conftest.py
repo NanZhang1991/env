@@ -2,8 +2,10 @@
 conftest.py
 
 作用：把每条测试用例中产生的 Python warnings（warnings.warn(...)）
-自动附加到 pytest-html 报告里对应那一行的 "Warnings" 展开区域，
+自动附加到 pytest-html 报告里对应那一行的 Links 区域，
 同时不影响warnings在终端的正常打印和pytest自身的warnings summary。
+
+环境要求：pytest-html 4.2（只用了 report.extras，不兼容<4.0的report.extra）。
 
 实现要点（踩过的两个坑）：
 1. 不能用 warnings.catch_warnings(record=True) 整体接管——会把警告吞进
@@ -79,11 +81,9 @@ def pytest_runtest_makereport(item, call):
         preview = preview[:200] + "…（完整内容见链接）"
     extra_block = extras.text(full_text, name=preview)
 
-    # pytest-html 4.x起属性名是 extras（复数），旧版(<4.0)是 extra（单数）
-    for attr_name in ("extras", "extra"):
-        current = getattr(report, attr_name, [])
-        current.append(extra_block)
-        setattr(report, attr_name, current)
+    extras_list = getattr(report, "extras", [])
+    extras_list.append(extra_block)
+    report.extras = extras_list
 
 
 def pytest_html_results_summary(prefix, summary, postfix):
