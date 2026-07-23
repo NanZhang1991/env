@@ -1,0 +1,102 @@
+# Embedding API 测试用例配置
+# 所有可变的测试数据、期望值都在这里维护，改用例不用碰代码
+
+connection:
+  base_url_env: EMBEDDING_BASE_URL
+  api_key_env: EMBEDDING_API_KEY
+  timeout_seconds: 30
+
+models:
+  default: your-model-name
+  large: your-model-large          # 用于dimensions裁剪测试
+  compare_group:                   # 多模型对比测试的模型列表
+    - your-model-name
+    - your-model-large
+  native_dim: 1536
+  max_batch_size: 2048
+
+# 期望的错误状态码——必须对照你要测的接口官方文档修改，这里只是常见惯例默认值
+expected_status:
+  empty_input: 400
+  model_not_found: 404
+  auth_failed: 401
+  text_too_long: 400
+  batch_over_limit: 400
+  invalid_dimensions: 400
+  invalid_encoding_format: 400
+
+thresholds:
+  single_latency_ms: 2000
+  idempotency_min_cosine: 0.9999
+  batch_vs_single_min_cosine: 0.999
+  concurrency_min_cosine: 0.9999
+
+sample_texts:
+  batch_default:
+    - 苹果很好吃
+    - 今天天气不错
+    - 北京是中国的首都
+  multilingual:
+    - text: "Hello world 你好世界"
+      label: 中英混合
+    - text: "こんにちは world 안녕하세요"
+      label: 中日韩英混合
+    - text: "🎉 emoji test 测试 🚀"
+      label: emoji混合
+
+encoding_format_test:
+  # 底层模型推理精度不同，float/base64一致性校验的容忍度也应不同。
+  # 硬件(NVIDIA/Ascend/TPU等)+精度组合会影响实际数值噪声水平，
+  # 建议先用脚本实测真实误差分布(见README)，再按下表设置atol/rtol，
+  # 不要凭感觉瞎猜，也不要设得比真实bug误差还宽。
+  #
+  # 常见dtype机器精度参考(仅供起点参考，不是标准值)：
+  #   float16    epsilon ≈ 9.8e-4   建议 atol ≈ 1e-2 ~ 1e-3
+  #   bfloat16   epsilon ≈ 7.8e-3   建议 atol ≈ 1e-2
+  #   float32    epsilon ≈ 1.2e-7   建议 atol ≈ 1e-6
+  #   float64    epsilon ≈ 2.2e-16  建议 atol ≈ 1e-9（一般用不到这么高精度）
+  numeric_dtype: float32       # 默认模型底层推理/输出的数值精度，仅作说明用途
+  atol: 1.0e-6
+  rtol: 1.0e-5
+
+  # 可选：不同模型跑在不同硬件/精度上时，按模型名单独覆盖阈值
+  # 不在此列表里的模型使用上面的默认 atol/rtol
+  overrides: []
+  # 示例：
+  # overrides:
+  #   - model: your-model-on-ascend-fp16
+  #     numeric_dtype: float16
+  #     atol: 1.0e-2
+  #     rtol: 1.0e-2
+  #   - model: your-model-on-nvidia-fp32
+  #     numeric_dtype: float32
+  #     atol: 1.0e-6
+  #     rtol: 1.0e-5
+
+dimensions_test:
+  valid_targets: [64, 256, 512]
+  over_native_offset: 1000        # native_dim + 该值 = 非法值
+  invalid_values: [0, -1]
+
+error_cases:
+  - name: 空字符串输入
+    input: ""
+    expected_key: empty_input
+  - name: 空数组输入
+    input: []
+    expected_key: empty_input
+  - name: 模型不存在
+    input: "测试"
+    model_override: not-a-real-model-xyz
+    expected_key: model_not_found
+  - name: 鉴权失败
+    input: "测试"
+    api_key_override: invalid-key-000
+    expected_key: auth_failed
+  - name: 超长文本
+    input_repeat: ["测试", 100000]   # 表示 "测试" * 100000
+    expected_key: text_too_long
+
+concurrency:
+  workers: 10
+  rate_limit_burst_count: 100
