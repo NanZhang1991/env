@@ -202,6 +202,16 @@ def pytest_generate_tests(metafunc):
 
 class TestSingleEmbedding:
 
+    def test_canary_warning_plumbing(self):
+        """金丝雀用例：无条件触发一次warning，跟业务逻辑无关。
+        只用于验证 conftest.py 里的html警告收集机制本身是否工作正常。
+        确认没问题后可以删掉这条用例。"""
+        warnings.warn(
+            "这是一条金丝雀警告，用于验证warnings能否正确出现在终端和HTML报告的Warnings区域里",
+            UserWarning,
+        )
+        assert True
+
     def test_basic_response_structure(self, client):
         resp = client.embed(input="你好，世界", model=MODEL)
         assert resp.status_code == 200, resp.text
@@ -457,6 +467,10 @@ class TestConcurrency:
 
     @pytest.mark.slow
     def test_concurrent_single_requests_consistency(self, client):
+        """注意：这条用同一文本并发，只能验证幂等性，
+        无法检测服务端把结果错位分发给别的并发请求这类串扰bug——
+        因为文本相同，就算真的串了，结果看起来也还是"一致"的。
+        真正能检测串扰的是下面的 test_concurrent_distinct_requests_no_crosstalk。"""
         workers = CONFIG["concurrency"]["workers"]
         text = "并发一致性测试文本"
 
@@ -471,7 +485,70 @@ class TestConcurrency:
         for v in vecs[1:]:
             assert cosine(base, v) > THRESHOLDS["concurrency_min_cosine"]
 
+    @pytest.mark.slow
+    def test_concurrent_distinct_requests_no_crosstalk(self, client):
+        """每个线程发不同的文本，提前串行算好每条文本的基准向量。
+        并发跑完后，把每个线程实际收到的向量跟"它自己那条文本"的基准比对，
+        而不是线程之间互相比对——这样如果服务端把响应错位分发给了
+        别的并发请求，能够被检测出来(错位后向量对不上对应文本的基准)。"""
+        workers = CONFIG["concurrency"]["workers"]
+        texts = [f"并发串扰测试文本第{i}条-{'x' * i}" for i in range(workers)]
 
-def pytest_configure(config):
-    config.addinivalue_line("markers", "slow: 耗时较长的用例(并发/限流探测)")
-    config.addinivalue_line("markers", "calibration: 阈值校准用诊断用例，不随主套件默认运行")
+        # 第一步：低并发(串行)建立基准，作为"标准答案"
+        baseline = {}
+        for text in texts:
+            resp = client.embed(input=text, model=MODEL)
+            assert resp.status_code == 200, f"基准建立失败: {resp.text}"
+            baseline[text] = np.array(resp.json()["data"][0]["embedding"])
+
+        # 第二步：并发重新请求同一批文本
+        def call(text):
+            resp = client.embed(input=text, model=MODEL)
+            assert resp.status_code == 200
+            return text, np.array(resp.json()["data"][0]["embedding"])
+
+        mismatches = []
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            futures = [executor.submit(call, t) for t in texts]
+            for f in as_completed(futures):
+                text, vec = f.result()
+                sim = cosine(baseline[text], vec)
+                if sim <= THRESHOLDS["concurrency_min_cosine"]:
+                    mismatches.append((text, sim))
+
+        assert not mismatches, (
+            f"并发场景下检测到{len(mismatches)}条请求返回的向量与自身文本的基准不匹配，"
+            f"疑似响应错位/串扰: {mismatches}"
+        )
+
+    @pytest.mark.slow
+    def test_concurrent_latency_percentiles(self, client, sample_texts):
+        """非纯正确性断言：采集并发压力下的延迟分位数，
+        如果P95显著劣化(超过单请求延迟阈值的3倍)，发软性警告而非直接失败，
+        因为"并发下变慢多少算合理"跟具体接口的限流/扩容策略有关，
+        不该在通用测试里硬编码一个失败阈值。"""
+        workers = CONFIG["concurrency"]["workers"]
+
+        def call():
+            start = time.time()
+            resp = client.embed(input=sample_texts, model=MODEL)
+            elapsed_ms = (time.time() - start) * 1000
+            assert resp.status_code == 200
+            return elapsed_ms
+
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            latencies = [f.result() for f in as_completed([executor.submit(call) for _ in range(workers)])]
+
+        latencies_arr = np.array(latencies)
+        p50 = float(np.percentile(latencies_arr, 50))
+        p95 = float(np.percentile(latencies_arr, 95))
+        p99 = float(np.percentile(latencies_arr, 99))
+        print(f"\n[并发延迟分位数] workers={workers} P50={p50:.0f}ms P95={p95:.0f}ms P99={p99:.0f}ms")
+
+        single_threshold = THRESHOLDS["single_latency_ms"]
+        if p95 > single_threshold * 3:
+            warnings.warn(
+                f"并发{workers}路时P95延迟{p95:.0f}ms，是单请求阈值{single_threshold}ms的"
+                f"{p95/single_threshold:.1f}倍，性能劣化明显，建议关注",
+                UserWarning,
+            )
