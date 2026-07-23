@@ -52,6 +52,22 @@ MAX_BATCH_SIZE = CONFIG["models"]["max_batch_size"]
 
 EXPECTED = CONFIG["expected_status"]
 THRESHOLDS = CONFIG["thresholds"]
+ENCODING_TEST_CFG = CONFIG["encoding_format_test"]
+
+
+def get_numeric_tolerance(model: str) -> dict:
+    """按模型名查找是否有独立的atol/rtol覆盖(不同模型可能跑在不同硬件/精度上)，
+    没有则回退到默认值。"""
+    for override in ENCODING_TEST_CFG.get("overrides", []):
+        if override.get("model") == model:
+            return {
+                "atol": float(override.get("atol", ENCODING_TEST_CFG["atol"])),
+                "rtol": float(override.get("rtol", ENCODING_TEST_CFG["rtol"])),
+            }
+    return {
+        "atol": float(ENCODING_TEST_CFG["atol"]),
+        "rtol": float(ENCODING_TEST_CFG["rtol"]),
+    }
 
 RESPONSE_SCHEMA = {
     "type": "object",
@@ -293,11 +309,48 @@ class TestEncodingFormat:
 
         vec_float = np.array(resp_float.json()["data"][0]["embedding"])
         vec_b64 = decode_base64_to_floats(resp_b64.json()["data"][0]["embedding"])
-        assert np.allclose(vec_float, vec_b64, atol=1e-5)
+
+        tol = get_numeric_tolerance(MODEL)
+        diff = np.abs(vec_float - vec_b64)
+        is_close = np.allclose(vec_float, vec_b64, atol=tol["atol"], rtol=tol["rtol"])
+        assert is_close, (
+            f"float与base64数值不一致 (dtype={ENCODING_TEST_CFG['numeric_dtype']}, "
+            f"atol={tol['atol']}, rtol={tol['rtol']}) -> "
+            f"max_diff={diff.max():.3e}, mean_diff={diff.mean():.3e}, "
+            f"p99_diff={np.percentile(diff, 99):.3e}"
+        )
 
     def test_invalid_encoding_format_rejected(self, client):
         resp = client.embed(input="非法格式测试", model=MODEL, encoding_format="xml")
         assert resp.status_code == EXPECTED["invalid_encoding_format"]
+
+    @pytest.mark.calibration
+    def test_measure_real_numeric_noise(self, client, sample_texts):
+        """诊断用例，不做断言。多条文本反复测float/base64误差，
+        打印出真实的max/mean/p99差异，用于回填yaml里的atol/rtol，
+        而不是凭感觉设置阈值。默认不随主套件运行：
+            pytest test_embedding_api_v2.py -v -m calibration
+        """
+        all_diffs = []
+        for text in sample_texts:
+            resp_float = client.embed(input=text, model=MODEL, encoding_format="float")
+            resp_b64 = client.embed(input=text, model=MODEL, encoding_format="base64")
+            if resp_float.status_code != 200 or resp_b64.status_code != 200:
+                continue
+            vf = np.array(resp_float.json()["data"][0]["embedding"])
+            vb = decode_base64_to_floats(resp_b64.json()["data"][0]["embedding"])
+            all_diffs.append(np.abs(vf - vb))
+
+        assert all_diffs, "没有任何成功的请求，无法采集误差数据"
+        diffs = np.concatenate(all_diffs)
+        print(
+            f"\n[误差校准结果] dtype={ENCODING_TEST_CFG['numeric_dtype']} "
+            f"样本数={len(diffs)} "
+            f"max={diffs.max():.3e} mean={diffs.mean():.3e} "
+            f"p99={np.percentile(diffs, 99):.3e} p999={np.percentile(diffs, 99.9):.3e}\n"
+            f"建议：atol 设为 max_diff 的 5~10 倍留余量，回填到 test_cases.yaml "
+            f"的 encoding_format_test.atol"
+        )
 
 
 # ============================================================
@@ -375,3 +428,4 @@ class TestConcurrency:
 
 def pytest_configure(config):
     config.addinivalue_line("markers", "slow: 耗时较长的用例(并发/限流探测)")
+    config.addinivalue_line("markers", "calibration: 阈值校准用诊断用例，不随主套件默认运行")
