@@ -17,6 +17,7 @@ import base64
 import os
 import struct
 import time
+import warnings
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Optional, Union
 
@@ -217,9 +218,17 @@ class TestSingleEmbedding:
         resp = client.embed(input="延迟测试文本", model=MODEL)
         elapsed_ms = (time.time() - start) * 1000
         assert resp.status_code == 200
-        assert elapsed_ms < THRESHOLDS["single_latency_ms"], (
-            f"延迟{elapsed_ms:.0f}ms超过阈值{THRESHOLDS['single_latency_ms']}ms"
-        )
+        threshold = THRESHOLDS["single_latency_ms"]
+        assert elapsed_ms < threshold, f"延迟{elapsed_ms:.0f}ms超过阈值{threshold}ms"
+
+        # 软性警告：还没超阈值，但已经逼近了(超过80%)，提前预警性能在恶化
+        warn_ratio = 0.8
+        if elapsed_ms > threshold * warn_ratio:
+            warnings.warn(
+                f"延迟{elapsed_ms:.0f}ms已达到阈值{threshold}ms的{elapsed_ms/threshold:.0%}，"
+                f"虽未失败但已接近上限，建议关注",
+                UserWarning,
+            )
 
     def test_multilingual_mixed_input(self, client, multilingual_case):
         resp = client.embed(input=multilingual_case["text"], model=MODEL)
@@ -326,6 +335,16 @@ class TestEncodingFormat:
             f"max_diff={diff.max():.3e}, mean_diff={diff.mean():.3e}, "
             f"p99_diff={np.percentile(diff, 99):.3e}"
         )
+
+        # 软性警告：数值一致，但误差已经逼近atol容忍上限(超过50%)，
+        # 说明精度余量在收窄，值得留意，不代表当前测试失败
+        warn_ratio = 0.5
+        if diff.max() > tol["atol"] * warn_ratio:
+            warnings.warn(
+                f"float/base64最大误差{diff.max():.3e}已达到atol({tol['atol']:.3e})的"
+                f"{diff.max()/tol['atol']:.0%}，精度余量正在收窄，建议重新校准阈值",
+                UserWarning,
+            )
 
     def test_invalid_encoding_format_rejected(self, client):
         resp = client.embed(input="非法格式测试", model=MODEL, encoding_format="xml")
