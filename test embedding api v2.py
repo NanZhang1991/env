@@ -136,11 +136,18 @@ def cosine(a: np.ndarray, b: np.ndarray) -> float:
 
 
 def resolve_input(case: dict):
-    """从error_cases配置项还原出实际input值，支持字符串/数组/repeat语法"""
+    """从boundary_cases配置项还原出实际input值，支持字符串/数组/repeat语法"""
     if "input_repeat" in case:
         text, times = case["input_repeat"]
         return text * times
     return case["input"]
+
+
+def resolve_expected_status(case: dict) -> int:
+    """用例可以直接写expected_status(具体数字)，也可以用expected_key引用字典"""
+    if "expected_status" in case:
+        return int(case["expected_status"])
+    return EXPECTED[case["expected_key"]]
 
 
 # ============================================================
@@ -162,10 +169,10 @@ def sample_texts() -> List[str]:
 # ============================================================
 
 def pytest_generate_tests(metafunc):
-    if "error_case" in metafunc.fixturenames:
-        cases = CONFIG["error_cases"]
+    if "boundary_case" in metafunc.fixturenames:
+        cases = CONFIG["boundary_cases"]
         metafunc.parametrize(
-            "error_case",
+            "boundary_case",
             cases,
             ids=[c["name"] for c in cases],
         )
@@ -357,26 +364,46 @@ class TestEncodingFormat:
 # 任务6：错误码透传（用例完全来自yaml的 error_cases）
 # ============================================================
 
-class TestErrorPassthrough:
+class TestBoundaryAndErrorHandling:
+    """测试各类边界/异常输入。不假设都会报错——同一种边界输入在不同实现下
+    可能是合法的(如vLLM把空字符串当合法输入返回200)，也可能是非法的。
+    按每条用例实际期望的状态码，分别走成功响应校验或错误响应校验。"""
 
-    def test_error_cases(self, client, error_case):
+    def test_boundary_cases(self, client, boundary_case):
         kwargs = {
-            "input": resolve_input(error_case),
-            "model": error_case.get("model_override", MODEL),
+            "input": resolve_input(boundary_case),
+            "model": boundary_case.get("model_override", MODEL),
         }
-        if "api_key_override" in error_case:
-            kwargs["api_key"] = error_case["api_key_override"]
+        if "api_key_override" in boundary_case:
+            kwargs["api_key"] = boundary_case["api_key_override"]
 
         resp = client.embed(**kwargs)
-        expected_code = EXPECTED[error_case["expected_key"]]
+        expected_code = resolve_expected_status(boundary_case)
+        name = boundary_case["name"]
+
         assert resp.status_code == expected_code, (
-            f"[{error_case['name']}] 期望{expected_code}，实际{resp.status_code}: {resp.text[:200]}"
+            f"[{name}] 期望状态码{expected_code}，实际{resp.status_code}: {resp.text[:200]}"
         )
-        try:
-            body = resp.json()
-            assert "error" in body or "code" in body, f"[{error_case['name']}] 错误体缺少结构化字段"
-        except ValueError:
-            pytest.fail(f"[{error_case['name']}] 错误响应不是合法JSON")
+
+        if expected_code < 400:
+            # 期望是合法请求：应返回符合标准schema的成功响应
+            try:
+                body = resp.json()
+            except ValueError:
+                pytest.fail(f"[{name}] 期望成功响应，但响应体不是合法JSON: {resp.text[:200]}")
+            try:
+                jsonschema_validate(instance=body, schema=RESPONSE_SCHEMA)
+            except ValidationError as e:
+                pytest.fail(f"[{name}] 成功响应不符合schema: {e.message}")
+        else:
+            # 期望是错误响应：应返回结构化错误体，而不是被网关包装成裸500或空body
+            try:
+                body = resp.json()
+            except ValueError:
+                pytest.fail(f"[{name}] 错误响应不是合法JSON: {resp.text[:200]}")
+            assert "error" in body or "code" in body, (
+                f"[{name}] 错误体缺少结构化字段(error/code): {body}"
+            )
 
     @pytest.mark.slow
     def test_rate_limit_returns_429_with_retry_after(self, client):

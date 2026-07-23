@@ -78,10 +78,16 @@ dimensions_test:
   over_native_offset: 1000        # native_dim + 该值 = 非法值
   invalid_values: [0, -1]
 
-error_cases:
+# 边界输入用例：不假设所有case都是错误场景。
+# 同一种边界输入(比如空字符串)在不同实现下行为可能完全不同——
+# 例如 vLLM 把空字符串视为合法输入返回200，但空数组返回400。
+# 每条用例可以直接写 expected_status(具体数字)，也可以用 expected_key
+# 引用上面 expected_status 字典里的值；测试代码会按实际期望状态码
+# 走不同的响应结构校验路径(2xx走成功schema校验，4xx/5xx走错误结构校验)。
+boundary_cases:
   - name: 空字符串输入
     input: ""
-    expected_key: empty_input
+    expected_status: 200        # 按你的接口实际行为调整：vLLM等实现是200，也有实现是400
   - name: 空数组输入
     input: []
     expected_key: empty_input
