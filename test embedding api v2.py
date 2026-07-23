@@ -6,6 +6,7 @@ Embedding API pytest测试套件（配置驱动版）
 
 依赖:
     pip install pytest requests numpy jsonschema pyyaml
+    pip install httpx   # 可选，异步并发测试需要，不装的话相关用例会自动跳过
 
 运行:
     pytest test_embedding_api_v2.py -v --html=report.html --self-contained-html
@@ -13,12 +14,16 @@ Embedding API pytest测试套件（配置驱动版）
     EMBEDDING_TEST_CONFIG=my_cases.yaml pytest test_embedding_api_v2.py   # 切换配置文件
 """
 
+import asyncio
 import base64
+import json
 import os
 import struct
 import time
 import warnings
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime, timezone
+from pathlib import Path
 from typing import List, Optional, Union
 
 import numpy as np
@@ -26,6 +31,12 @@ import pytest
 import requests
 import yaml
 from jsonschema import validate as jsonschema_validate, ValidationError
+
+try:
+    import httpx
+    HTTPX_AVAILABLE = True
+except ImportError:
+    HTTPX_AVAILABLE = False
 
 
 CONFIG_PATH = os.environ.get(
@@ -552,3 +563,436 @@ class TestConcurrency:
                 f"{p95/single_threshold:.1f}倍，性能劣化明显，建议关注",
                 UserWarning,
             )
+
+
+# ============================================================
+# 补充场景：变长文本混合并发（检测队头阻塞/长文本饿死短文本）
+# ============================================================
+
+class TestVariableLengthConcurrency:
+
+    @pytest.mark.slow
+    def test_mixed_length_no_starvation(self, client):
+        """短/中/长/超长文本混合并发发出，按长度分组统计各组延迟。
+        如果短文本因为排在长文本后面而被迫等更久(队头阻塞)，
+        短文本组的延迟会显著劣化，用这个来发现调度不公平的问题。"""
+        cfg = CONFIG["concurrency"]["variable_length"]
+        n = cfg["requests_per_length"]
+
+        groups = {
+            "short": ["测" * cfg["short_chars"]] * n,
+            "medium": ["测" * cfg["medium_chars"]] * n,
+            "long": ["测" * cfg["long_chars"]] * n,
+            "extreme": ["测" * cfg["extreme_chars"]] * n,
+        }
+
+        def call(label, text):
+            start = time.time()
+            resp = client.embed(input=text, model=MODEL)
+            elapsed_ms = (time.time() - start) * 1000
+            assert resp.status_code == 200, f"[{label}] 请求失败: {resp.text[:200]}"
+            return label, elapsed_ms
+
+        tasks = [(label, text) for label, texts in groups.items() for text in texts]
+        results_by_label = {label: [] for label in groups}
+
+        with ThreadPoolExecutor(max_workers=len(tasks)) as executor:
+            futures = [executor.submit(call, label, text) for label, text in tasks]
+            for f in as_completed(futures):
+                label, elapsed_ms = f.result()
+                results_by_label[label].append(elapsed_ms)
+
+        report = {
+            label: {
+                "mean_ms": round(float(np.mean(v)), 1),
+                "max_ms": round(float(np.max(v)), 1),
+            }
+            for label, v in results_by_label.items()
+        }
+        print(f"\n[变长文本混合并发延迟] {report}")
+
+        # 短文本的平均延迟不应该因为混跑了长文本而被拖到跟长文本一个量级，
+        # 这里用"短文本均值 vs 长文本均值"的比值做一个软性预警，
+        # 具体倍数没有绝对标准，需按你接口的调度策略调整
+        short_mean = report["short"]["mean_ms"]
+        extreme_mean = report["extreme"]["mean_ms"]
+        if extreme_mean > 0 and short_mean > extreme_mean * 0.8:
+            warnings.warn(
+                f"短文本平均延迟({short_mean}ms)已经接近超长文本平均延迟({extreme_mean}ms)的80%，"
+                f"疑似存在队头阻塞，短请求被长请求拖慢，建议关注调度策略",
+                UserWarning,
+            )
+
+
+# ============================================================
+# 补充场景：长尾延迟深挖（多轮重复，观察P99稳定性）
+# ============================================================
+
+class TestTailLatencyDeepDive:
+
+    @pytest.mark.slow
+    def test_p99_stability_across_rounds(self, client, sample_texts):
+        """多轮重复跑并发请求，记录每轮的P99，
+        看P99本身是不是稳定的——如果每轮P99差异很大，
+        说明背后可能有间歇性问题(GC/缓存抖动/限流边界效应等)，
+        这个信息比单次P99数值本身更有诊断价值。"""
+        cfg = CONFIG["concurrency"]["tail_latency"]
+        rounds = cfg["rounds"]
+        workers = cfg["workers_per_round"]
+
+        def call():
+            start = time.time()
+            resp = client.embed(input=sample_texts, model=MODEL)
+            elapsed_ms = (time.time() - start) * 1000
+            assert resp.status_code == 200
+            return elapsed_ms
+
+        p99_per_round = []
+        for round_idx in range(rounds):
+            with ThreadPoolExecutor(max_workers=workers) as executor:
+                latencies = [
+                    f.result() for f in as_completed([executor.submit(call) for _ in range(workers)])
+                ]
+            p99 = float(np.percentile(latencies, 99))
+            p99_per_round.append(p99)
+
+        p99_arr = np.array(p99_per_round)
+        mean_p99 = float(np.mean(p99_arr))
+        std_p99 = float(np.std(p99_arr))
+        cv = std_p99 / mean_p99 if mean_p99 > 0 else 0  # 变异系数：标准差/均值
+
+        print(
+            f"\n[P99稳定性] {rounds}轮结果={[round(x, 1) for x in p99_per_round]} "
+            f"均值={mean_p99:.1f}ms 标准差={std_p99:.1f}ms 变异系数={cv:.2f}"
+        )
+
+        # 变异系数超过0.5，说明P99在轮次间波动剧烈，稳定性存疑，发软性警告
+        if cv > 0.5:
+            warnings.warn(
+                f"P99延迟在{rounds}轮之间波动较大(变异系数={cv:.2f})，"
+                f"说明长尾延迟不够稳定，建议排查是否有间歇性瓶颈",
+                UserWarning,
+            )
+
+
+# ============================================================
+# 补充场景：限流韧性（触发429后能否按退避策略最终成功）
+# ============================================================
+
+class TestRateLimitResilience:
+
+    @pytest.mark.slow
+    def test_backoff_and_recover_after_429(self, client, sample_texts):
+        """先用突发请求触发限流，触发后严格按Retry-After退避重试，
+        验证最终能在合理的重试次数/总耗时预算内拿到成功响应——
+        而不只是验证"确实触发了429"就完事。"""
+        cfg = CONFIG["concurrency"]["rate_limit_resilience"]
+        max_attempts = cfg["max_retry_attempts"]
+        max_total_wait = cfg["max_total_wait_seconds"]
+        burst_count = cfg["burst_count"]
+
+        # 第一步：突发请求触发限流
+        triggered = False
+        for _ in range(burst_count):
+            resp = client.embed(input=sample_texts, model=MODEL)
+            if resp.status_code == 429:
+                triggered = True
+                break
+        if not triggered:
+            pytest.skip(f"连续{burst_count}次请求未触发限流，跳过退避恢复验证")
+
+        # 第二步：严格按Retry-After退避重试，验证最终能成功
+        total_waited = 0.0
+        succeeded = False
+        for attempt in range(max_attempts):
+            retry_after = float(resp.headers.get("Retry-After", 1))
+            if total_waited + retry_after > max_total_wait:
+                break
+            time.sleep(retry_after)
+            total_waited += retry_after
+
+            resp = client.embed(input=sample_texts, model=MODEL)
+            if resp.status_code == 200:
+                succeeded = True
+                break
+            assert resp.status_code == 429, (
+                f"退避重试第{attempt+1}次后返回了非429/200的状态码{resp.status_code}，"
+                f"限流状态下不应该出现意料之外的错误"
+            )
+
+        assert succeeded, (
+            f"按Retry-After退避重试{max_attempts}次(累计等待{total_waited:.1f}s)后仍未成功，"
+            f"限流恢复能力不达预期"
+        )
+
+    @pytest.mark.slow
+    def test_service_recovers_immediately_after_limit_window(self, client, sample_texts):
+        """限流窗口过后，服务应该能立刻恢复正常响应，
+        而不是过度限流(限流窗口过了还继续拒绝)或者出现雪崩(恢复瞬间大量失败)。"""
+        cfg = CONFIG["concurrency"]["rate_limit_resilience"]
+        burst_count = cfg["burst_count"]
+
+        resp = None
+        for _ in range(burst_count):
+            resp = client.embed(input=sample_texts, model=MODEL)
+            if resp.status_code == 429:
+                break
+        if resp is None or resp.status_code != 429:
+            pytest.skip(f"连续{burst_count}次请求未触发限流，跳过恢复验证")
+
+        retry_after = float(resp.headers.get("Retry-After", 1))
+        time.sleep(retry_after + 0.5)  # 多等0.5秒留余量，避免卡在窗口边界
+
+        resp_after = client.embed(input=sample_texts, model=MODEL)
+        assert resp_after.status_code == 200, (
+            f"限流窗口({retry_after}s)过后再次请求，期望恢复正常(200)，"
+            f"实际返回{resp_after.status_code}，疑似过度限流或恢复延迟"
+        )
+
+
+# ============================================================
+# 补充场景：异步并发（asyncio+httpx，客户端开销更小，能压更高并发）
+# ============================================================
+
+class TestAsyncConcurrency:
+
+    @pytest.mark.slow
+    @pytest.mark.skipif(not HTTPX_AVAILABLE, reason="需要安装httpx: pip install httpx")
+    def test_high_concurrency_via_asyncio(self, sample_texts):
+        """用asyncio+httpx发起比线程池更高的并发数。线程并发受OS线程调度和
+        GIL切换开销限制，实际测不出服务端的真实并发上限；协程调度开销小得多，
+        能更准确地把压力打在服务端而不是耗在客户端自己身上。"""
+        workers = CONFIG["concurrency"]["async_workers"]
+
+        async def run():
+            async with httpx.AsyncClient(
+                base_url=BASE_URL,
+                headers={"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"},
+                timeout=TIMEOUT,
+            ) as ac:
+
+                async def call():
+                    start = time.time()
+                    resp = await ac.post("/embeddings", json={"input": sample_texts, "model": MODEL})
+                    elapsed_ms = (time.time() - start) * 1000
+                    return resp.status_code, elapsed_ms
+
+                return await asyncio.gather(*[call() for _ in range(workers)])
+
+        results = asyncio.run(run())
+        status_codes = [r[0] for r in results]
+        latencies = [r[1] for r in results]
+
+        fail_count = sum(1 for code in status_codes if code != 200)
+        assert fail_count == 0, f"{workers}路异步并发中有{fail_count}条请求失败: {status_codes}"
+
+        p95 = float(np.percentile(latencies, 95))
+        print(f"\n[异步并发{workers}路] P95={p95:.0f}ms 全部成功")
+
+
+# ============================================================
+# 闭环监控共用工具：本地趋势历史 + Prometheus文本格式指标抓取
+# ============================================================
+
+def _history_path() -> Path:
+    return Path(CONFIG["concurrency"]["monitoring"]["history_file"])
+
+
+def _append_history(record: dict):
+    with open(_history_path(), "a", encoding="utf-8") as f:
+        f.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+
+def _load_recent_history(window: int) -> List[dict]:
+    path = _history_path()
+    if not path.exists():
+        return []
+    with open(path, "r", encoding="utf-8") as f:
+        lines = [json.loads(line) for line in f if line.strip()]
+    return lines[-window:]
+
+
+def fetch_prometheus_metrics(url: str, metrics_of_interest: List[str]) -> dict:
+    """抓取Prometheus文本暴露格式的指标(vLLM等推理框架自带的/metrics端点就是这个格式)，
+    只解析我们关心的指标名，同名多个label组合的series取值累加(比如按GPU编号分片的指标)。
+    简单正则解析，不引入额外依赖(如prometheus_client)。"""
+    resp = requests.get(url, timeout=10)
+    resp.raise_for_status()
+
+    result = {name: 0.0 for name in metrics_of_interest}
+    found = {name: False for name in metrics_of_interest}
+
+    for line in resp.text.splitlines():
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        # 格式: metric_name{label="x"} value  或  metric_name value
+        metric_part, _, value_part = line.rpartition(" ")
+        if not metric_part:
+            continue
+        metric_name = metric_part.split("{")[0].strip()
+        if metric_name in metrics_of_interest:
+            try:
+                result[metric_name] += float(value_part)
+                found[metric_name] = True
+            except ValueError:
+                continue
+
+    missing = [name for name, ok in found.items() if not ok]
+    if missing:
+        warnings.warn(
+            f"从{url}抓取指标时，以下指标未找到(可能是版本/框架不同导致指标名不一致，"
+            f"需对照实际/metrics输出核对配置): {missing}",
+            UserWarning,
+        )
+    return result
+
+
+# ============================================================
+# 补充场景：闭环监控(轻量版) —— 本地历史趋势对比，非完整监控系统
+# ============================================================
+
+class TestPerformanceTrend:
+
+    @pytest.mark.slow
+    def test_p95_regression_against_history(self, client, sample_texts):
+        """把这次跑的P95延迟记录到本地历史文件，并跟最近N次历史均值对比。
+        本质是给pytest加一点"趋势感知"，不是完整监控系统——
+        真正需要持续监控告警的话，应该把这里采集到的指标推给
+        Prometheus pushgateway或写入CI的历史构建记录，而不是靠本地文件长期攒数据。"""
+        cfg = CONFIG["concurrency"]["monitoring"]
+        workers = CONFIG["concurrency"]["workers"]
+
+        def call():
+            start = time.time()
+            resp = client.embed(input=sample_texts, model=MODEL)
+            elapsed_ms = (time.time() - start) * 1000
+            assert resp.status_code == 200
+            return elapsed_ms
+
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            latencies = [f.result() for f in as_completed([executor.submit(call) for _ in range(workers)])]
+
+        p95 = float(np.percentile(latencies, 95))
+
+        history = _load_recent_history(cfg["history_window"])
+        record = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "model": MODEL,
+            "workers": workers,
+            "p95_ms": round(p95, 1),
+        }
+
+        if history:
+            baseline_mean = float(np.mean([h["p95_ms"] for h in history]))
+            ratio = p95 / baseline_mean if baseline_mean > 0 else 1.0
+            print(
+                f"\n[性能趋势] 本次P95={p95:.0f}ms，"
+                f"最近{len(history)}次历史均值={baseline_mean:.0f}ms，比值={ratio:.2f}"
+            )
+            if ratio > cfg["regression_warn_ratio"]:
+                warnings.warn(
+                    f"本次P95延迟({p95:.0f}ms)是最近{len(history)}次历史均值"
+                    f"({baseline_mean:.0f}ms)的{ratio:.2f}倍，超过预警线"
+                    f"{cfg['regression_warn_ratio']}，疑似性能退化，建议关注",
+                    UserWarning,
+                )
+        else:
+            print(f"\n[性能趋势] 本次P95={p95:.0f}ms，暂无历史记录用于对比(首次运行)")
+
+        _append_history(record)
+
+
+# ============================================================
+# 补充场景：真正的闭环 —— 压测的同时同步采集服务端指标，
+# 把客户端观测到的延迟跟服务端真实负载状态关联起来看，
+# 而不是只盯客户端这一侧的数字。
+# ============================================================
+
+class TestClosedLoopServerMonitoring:
+
+    @pytest.mark.slow
+    def test_load_with_server_metrics_correlation(self, client, sample_texts):
+        """压测前后分别抓一次服务端/metrics快照，跟客户端本次的P95放在一起看：
+        - 排队请求数(num_requests_waiting)在压测后是否清零，没清零说明积压没消化完
+        - GPU KV cache占用(gpu_cache_usage_perc)是否接近打满，接近打满是延迟劣化的
+          真正原因，而不是网络或客户端的问题
+        这才是"闭环"：客户端现象 + 服务端根因，两者对上号。"""
+        cfg = CONFIG["concurrency"]["monitoring"]
+        metrics_url = cfg.get("server_metrics_url", "")
+        if not metrics_url:
+            pytest.skip("未配置 monitoring.server_metrics_url，跳过服务端指标关联采集")
+
+        metrics_of_interest = cfg["server_metrics_of_interest"]
+        workers = CONFIG["concurrency"]["workers"]
+
+        # 压测前快照
+        before = fetch_prometheus_metrics(metrics_url, metrics_of_interest)
+
+        def call():
+            start = time.time()
+            resp = client.embed(input=sample_texts, model=MODEL)
+            elapsed_ms = (time.time() - start) * 1000
+            assert resp.status_code == 200
+            return elapsed_ms
+
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            latencies = [f.result() for f in as_completed([executor.submit(call) for _ in range(workers)])]
+
+        # 压测后快照(留一点时间让服务端指标刷新到最新一次采集周期)
+        time.sleep(1)
+        after = fetch_prometheus_metrics(metrics_url, metrics_of_interest)
+
+        p95 = float(np.percentile(latencies, 95))
+        delta = {name: round(after[name] - before[name], 3) for name in metrics_of_interest}
+
+        print(
+            f"\n[闭环压测报告] workers={workers} 客户端P95={p95:.0f}ms\n"
+            f"  服务端指标(压测前 -> 压测后, 变化量): "
+            + ", ".join(f"{name}: {before[name]:.2f} -> {after[name]:.2f} (Δ{delta[name]:+.2f})"
+                        for name in metrics_of_interest)
+        )
+
+        # 记录到同一份历史文件，客户端+服务端指标一起沉淀，方便后续做趋势对比
+        record = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "model": MODEL,
+            "workers": workers,
+            "p95_ms": round(p95, 1),
+            "server_metrics_before": before,
+            "server_metrics_after": after,
+        }
+        _append_history(record)
+
+        # 排队积压未消化：压测结束后等待队列仍大于阈值，说明服务端没能及时消化掉这波压力
+        waiting_key = "vllm:num_requests_waiting"
+        if waiting_key in after and after[waiting_key] > cfg["queue_saturation_warn_threshold"]:
+            warnings.warn(
+                f"压测结束后服务端等待队列({waiting_key})仍为{after[waiting_key]}，"
+                f"超过阈值{cfg['queue_saturation_warn_threshold']}，积压未消化，"
+                f"说明当前workers={workers}的压力已经超过服务端实时处理能力",
+                UserWarning,
+            )
+
+        # GPU显存/KV cache紧张：这通常是延迟劣化的真正根因
+        gpu_cache_key = "vllm:gpu_cache_usage_perc"
+        if gpu_cache_key in after and after[gpu_cache_key] > cfg["gpu_cache_warn_ratio"]:
+            warnings.warn(
+                f"压测期间GPU KV cache占用({gpu_cache_key})达到{after[gpu_cache_key]:.1%}，"
+                f"超过预警线{cfg['gpu_cache_warn_ratio']:.0%}，显存接近打满，"
+                f"这很可能是客户端观测到延迟升高/请求被拒绝的真正根因",
+                UserWarning,
+            )
+
+    @pytest.mark.slow
+    def test_server_metrics_endpoint_reachable(self):
+        """最基础的前置检查：服务端指标端点是否可达、格式是否可解析。
+        如果这条都失败，上面那条关联测试的数据就不可信，需要先排查这里。"""
+        cfg = CONFIG["concurrency"]["monitoring"]
+        metrics_url = cfg.get("server_metrics_url", "")
+        if not metrics_url:
+            pytest.skip("未配置 monitoring.server_metrics_url")
+
+        resp = requests.get(metrics_url, timeout=10)
+        assert resp.status_code == 200, f"服务端指标端点不可达: {resp.status_code}"
+        assert resp.text.strip(), "服务端指标端点返回了空内容"

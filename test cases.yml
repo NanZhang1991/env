@@ -106,3 +106,54 @@ boundary_cases:
 concurrency:
   workers: 10
   rate_limit_burst_count: 100
+
+  # 异步并发(asyncio+httpx)通常可以设得比线程并发高很多，
+  # 因为客户端协程调度开销远小于线程，能更真实地压出服务端上限
+  async_workers: 50
+
+  # 变长文本并发：短/中/长/超长各生成一批，同批混合并发，
+  # 用于检测长文本是否让排在后面的短文本请求被迫饿死(队头阻塞)
+  variable_length:
+    short_chars: 10
+    medium_chars: 300
+    long_chars: 3000
+    extreme_chars: 8000
+    requests_per_length: 5   # 每种长度并发发多少条
+
+  # 长尾延迟深挖：多轮重复跑，观察P99本身是否稳定，
+  # 而不是只看单次P99数值
+  tail_latency:
+    rounds: 5
+    workers_per_round: 10
+
+  # 限流韧性：验证429之后按Retry-After退避是否最终能成功，
+  # 而不只是验证"确实触发了429"
+  rate_limit_resilience:
+    max_retry_attempts: 5
+    max_total_wait_seconds: 30
+    burst_count: 100
+
+  # 闭环监控(轻量版)：把关键指标写入本地历史记录文件，
+  # 下次跑测试时与历史均值对比，发现明显劣化时警告(不是硬失败)。
+  # 这不是完整监控系统，只是给pytest加一点"趋势感知"能力，
+  # 生产级持续监控告警应该推给Prometheus/Grafana等专门工具。
+  monitoring:
+    history_file: .embedding_perf_history.jsonl
+    history_window: 7              # 跟最近几次历史记录的均值对比
+    regression_warn_ratio: 1.5     # 当前P95超过历史均值的多少倍时警告
+
+    # 服务端指标采集(真正的"闭环")：压测的同时同步抓服务端的Prometheus指标，
+    # 把客户端观测到的延迟和服务端的真实负载状态关联起来看。
+    # 留空则跳过服务端指标采集，只做客户端侧的趋势对比。
+    # vLLM等推理框架默认在服务本身暴露 /metrics 端点(Prometheus文本格式)，
+    # 不需要额外部署Prometheus，直接抓这个地址就行；具体端口/路径以你的
+    # 部署配置为准，一般是 http://<推理服务地址>:<端口>/metrics
+    server_metrics_url: ""
+    # 关心哪些指标(vLLM为例，不同版本/框架指标名可能不同，需要按实际/metrics输出核对)
+    server_metrics_of_interest:
+      - vllm:num_requests_running
+      - vllm:num_requests_waiting
+      - vllm:num_requests_swapped
+      - vllm:gpu_cache_usage_perc
+    queue_saturation_warn_threshold: 0   # 压测结束后等待队列若仍大于此值，说明积压没消化完
+    gpu_cache_warn_ratio: 0.9            # gpu_cache_usage_perc超过该比例时警告显存紧张
