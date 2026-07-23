@@ -47,16 +47,18 @@ def pytest_runtest_makereport(item, call):
         # 没装pytest-html时，静默跳过，不影响正常跑测试
         return
 
-    extra = getattr(report, "extra", [])
+    # pytest-html 4.x起属性名是 extras（复数），旧版(<4.0)是 extra（单数）。
+    # hasattr检查不完全可靠(取决于插件hook执行顺序)，所以两个属性都写一份，
+    # 确保不管装的是哪个版本都能生效。
     warning_lines = [
         f"[{w.category.__name__}] {w.message}" for w in captured
     ]
-    extra.append(extras.text("\n".join(warning_lines), name="Warnings"))
-    report.extra = extra
+    extra_block = extras.text("\n".join(warning_lines), name="Warnings")
 
-    # 同时在终端总结里也能看到这条用例有warning标记
-    if report.outcome == "passed":
-        report.outcome = "passed"  # 保持passed，但html会带黄色Warnings标记(见下方summary hook)
+    for attr_name in ("extras", "extra"):
+        current = getattr(report, attr_name, [])
+        current.append(extra_block)
+        setattr(report, attr_name, current)
 
 
 def pytest_html_results_summary(prefix, summary, postfix):
