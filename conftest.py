@@ -3,30 +3,49 @@ conftest.py
 
 作用：把每条测试用例中产生的 Python warnings（warnings.warn(...)）
 自动附加到 pytest-html 报告里对应那一行的 "Warnings" 展开区域，
-而不是只在终端最后打印一堆warnings摘要、跟具体哪条用例对不上号。
+同时不影响warnings在终端的正常打印和pytest自身的warnings summary。
 
-无需在测试代码里做任何额外操作，只要测试函数里调用了 warnings.warn(...)，
-这里会自动捕获并写进html报告。
+实现要点（踩过的两个坑）：
+1. 不能用 warnings.catch_warnings(record=True) 整体接管——会把警告吞进
+   自己的列表，导致pytest自身的采集机制收不到，终端就不再打印。
+2. 不能依赖 pytest_warning_recorded 钩子——pytest是在整条用例
+   setup+call+teardown全部结束后才统一触发这个钩子的，这时"call"阶段的
+   report早就生成完了，我们的makereport钩子读到的永远是空数据。
+
+正确做法：在测试setup阶段就接管 warnings.showwarning，警告产生的那一刻
+立即记录一份副本（这样时序上绝对不会晚），同时照常调用原始的
+showwarning（也就是pytest自己的记录函数），把警告转发出去，保证pytest
+自身的机制和终端打印完全不受影响。
 """
 
-import warnings
+from collections import defaultdict
 
 import pytest
+import warnings
 
-
-def pytest_configure(config):
-    # 确保warnings不会被pytest的默认filter吃掉，能被稳定捕获
-    warnings.simplefilter("always")
+# nodeid -> 该用例执行期间产生的所有warning，实时写入，不等事后通知
+_warnings_by_nodeid = defaultdict(list)
 
 
 @pytest.fixture(autouse=True)
 def _capture_warnings_for_html(request):
-    """autouse=True: 对每一条测试用例自动生效，无需手动引用这个fixture"""
-    with warnings.catch_warnings(record=True) as captured:
-        warnings.simplefilter("always")
+    nodeid = request.node.nodeid
+    original_showwarning = warnings.showwarning
+
+    def _showwarning_and_forward(message, category, filename, lineno, file=None, line=None):
+        # 先记一份副本给html用
+        _warnings_by_nodeid[nodeid].append(
+            warnings.WarningMessage(message, category, filename, lineno, file, line)
+        )
+        # 再照常转发给原来的showwarning(此时是pytest自己的记录函数)，
+        # 保证pytest自身机制和终端打印不受影响
+        original_showwarning(message, category, filename, lineno, file, line)
+
+    warnings.showwarning = _showwarning_and_forward
+    try:
         yield
-        # 把这条用例期间产生的warning列表挂在item对象上，供下面的hook读取
-        request.node._captured_warnings = captured
+    finally:
+        warnings.showwarning = original_showwarning
 
 
 @pytest.hookimpl(hookwrapper=True)
@@ -37,7 +56,7 @@ def pytest_runtest_makereport(item, call):
     if report.when != "call":
         return
 
-    captured = getattr(item, "_captured_warnings", None)
+    captured = _warnings_by_nodeid.get(item.nodeid)
     if not captured:
         return
 
@@ -47,14 +66,20 @@ def pytest_runtest_makereport(item, call):
         # 没装pytest-html时，静默跳过，不影响正常跑测试
         return
 
-    # pytest-html 4.x起属性名是 extras（复数），旧版(<4.0)是 extra（单数）。
-    # hasattr检查不完全可靠(取决于插件hook执行顺序)，所以两个属性都写一份，
-    # 确保不管装的是哪个版本都能生效。
     warning_lines = [
         f"[{w.category.__name__}] {w.message}" for w in captured
     ]
-    extra_block = extras.text("\n".join(warning_lines), name="Warnings")
+    full_text = "\n".join(warning_lines)
 
+    # 关键：extras.text(content, name=...) 里的 name 才是显示在行内Links区域、
+    # 不用点开就能直接看到的文字。之前name写死成"Warnings"，导致必须点进去
+    # 才能看到具体内容。现在把警告原文本身放进name里，直接可见。
+    preview = " | ".join(warning_lines)
+    if len(preview) > 200:
+        preview = preview[:200] + "…（完整内容见链接）"
+    extra_block = extras.text(full_text, name=preview)
+
+    # pytest-html 4.x起属性名是 extras（复数），旧版(<4.0)是 extra（单数）
     for attr_name in ("extras", "extra"):
         current = getattr(report, attr_name, [])
         current.append(extra_block)
