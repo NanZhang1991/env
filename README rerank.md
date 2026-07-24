@@ -92,6 +92,32 @@ pytest test_rerank_api.py -v -k "test_basic_response_structure"
 | `TestDocumentObjectFormat` | 纯字符串数组 vs 对象数组两种格式、两种格式排序结果是否等价、混用格式的行为、对象缺失必需字段时是否报错 |
 | `TestBoundaryAndErrorHandling` | 空query、空文档列表、模型不存在、鉴权失败、文档数超限、top_n非法值、单文档超长、文档数恰好等于上限的边界值 |
 
+## 并发测试维度（rerank独有的重点：文档数x并发数矩阵）
+
+rerank是cross-encoder，一次请求内部要对query和每个文档都算一次相关性，
+**文档数本身就是隐藏的计算量因子**，跟外部并发数会互相放大压力——
+这是跟embedding并发测试最本质的区别，其余维度（防串扰、幂等性、限流韧性、
+异步、闭环监控）思路和embedding套件基本一致，只是把client换成了`RerankClient`。
+
+| 测试类 | 覆盖点 | 单独运行 |
+|---|---|---|
+| `TestConcurrency` | 不同query并发下是否串扰(跟自身基准比对)、同请求并发幂等性 | `-k "TestConcurrency"` |
+| `TestDocCountConcurrencyMatrix` | **文档数x并发数矩阵**，找出两个维度叠加时先失效的组合 | `-k DocCountConcurrency` |
+| `TestTailLatencyByDocCount` | 按"小文档规模"/"大文档规模"分桶统计P99变异系数，而非笼统一个P99 | `-k TailLatencyByDocCount` |
+| `TestRateLimitResilience` | 触发429后按Retry-After退避能否最终成功、限流窗口过后是否立刻恢复 | `-k RateLimitResilience` |
+| `TestAsyncConcurrency` | 用asyncio+httpx压更高并发(需装httpx) | `-k AsyncConcurrency` |
+| `TestClosedLoopServerMonitoring` | 压测同时抓服务端Prometheus指标(排队长度/GPU显存占用)，rerank是compute-heavy场景，这个关联的诊断价值比embedding更大 | `-k ClosedLoop` |
+
+跑全部并发相关用例：
+```bash
+pytest test_rerank_api.py -v -k "Concurrency or TailLatency or RateLimitResilience or ClosedLoop"
+```
+
+`TestDocCountConcurrencyMatrix`和`TestTailLatencyByDocCount`用的`doc_count_concurrency_matrix`配置在yaml里，
+组合数=`len(doc_counts) x len(worker_counts)`，默认3x3=9组合，数值不要设太大，否则跑得会比较久（已标记`slow`）。
+
+`TestClosedLoopServerMonitoring`同embedding套件，需要配置`monitoring.server_metrics_url`才会真正执行，不配置则自动跳过。
+
 ## 常见问题排查
 
 | 现象 | 可能原因 |

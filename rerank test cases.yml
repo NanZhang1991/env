@@ -51,6 +51,41 @@ document_object_format_test:
   object_field_name: text
   mixed_format_should_error: true   # 字符串和对象混用在同一个documents数组里，是否应该报错
 
+concurrency:
+  workers: 10
+  async_workers: 50          # 异步并发数，通常可以比线程并发设更高
+
+  rate_limit_resilience:
+    burst_count: 100
+    max_retry_attempts: 5
+    max_total_wait_seconds: 30
+
+  tail_latency:
+    rounds: 5
+    workers_per_round: 10
+
+  # rerank独有：文档数和并发数会互相放大压力，两个维度要一起测，
+  # 而不是像embedding那样只关心并发数一个维度。
+  # 组合数 = len(doc_counts) x len(worker_counts)，数值不要设太大，
+  # 否则这条用例会跑很久(已标记为slow)。
+  doc_count_concurrency_matrix:
+    doc_counts: [5, 20, 50]
+    worker_counts: [5, 20, 50]
+
+  monitoring:
+    history_file: .rerank_perf_history.jsonl
+    history_window: 7
+    regression_warn_ratio: 1.5
+    # 服务端指标采集，同embedding套件，用法参考embedding套件README
+    server_metrics_url: ""
+    server_metrics_of_interest:
+      - vllm:num_requests_running
+      - vllm:num_requests_waiting
+      - vllm:num_requests_swapped
+      - vllm:gpu_cache_usage_perc
+    queue_saturation_warn_threshold: 0
+    gpu_cache_warn_ratio: 0.9
+
 boundary_cases:
   - name: 空query
     use_sample_query: false
