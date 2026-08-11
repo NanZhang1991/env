@@ -468,6 +468,10 @@ whoami # --> nanzhang
 sudo chown -R nanzhang:nanzhang 你的项目目录
 ```
 
+# 终端支持 256 色 
+```bash
+export TERM=xterm-256color
+```
 
 
 
