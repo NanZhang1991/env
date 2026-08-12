@@ -197,7 +197,7 @@ chmod +x clash-linux-amd64-v1.18.0
 ./clash-linux-amd64-v1.18.0
 ```
 
-～/.config/clash 路径下生成 config.yaml 文件和 Country.mmdb 文件 如果没有Country.mmdb 到https://github.com/Dreamacro/maxmind-geoip/releases下载    
+~/.config/clash 路径下生成 config.yaml 文件和 Country.mmdb 文件 如果没有Country.mmdb 到https://github.com/Dreamacro/maxmind-geoip/releases下载    
 Ctrl+C退出Clash，并将下载的config.yaml配置文件覆盖掉~ /.config/clash路径下的config.yaml文件    
 
 ```
