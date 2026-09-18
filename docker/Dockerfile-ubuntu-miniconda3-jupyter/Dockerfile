@@ -36,6 +36,7 @@ ENV PATH=$PATH:/root/miniconda3/bin
 RUN conda --version \
 && conda config --add channels http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ \
 && conda config --add channels http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ \
+&& conda config --set ssl_verify false \
 && conda config --remove channels defaults \
 && conda config --set show_channel_urls yes 
 
