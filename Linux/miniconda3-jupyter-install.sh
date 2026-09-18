@@ -16,6 +16,7 @@ rm miniconda3.sh
 conda --version \
 && conda config --add channels http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ \
 && conda config --add channels http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ \
+&& conda config --set ssl_verify false \
 && conda config --set show_channel_urls yes \
 && conda config
 echo 'Successfully change miniconda3 installation source!'
